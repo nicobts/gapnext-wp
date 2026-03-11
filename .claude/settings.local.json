@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.php$\")",
+      "Bash(msgfmt --version)",
+      "Bash(PHP=\"/c/Users/nicol/AppData/Roaming/Local/lightning-services/php-8.2.27+1/bin/win64/php.exe\")",
+      "Bash(PO=\"c:/Users/nicol/Local Sites/wpdevtest1/app/public/wp-content/plugins/gapnext-wp/languages/gapnext-wp-it_IT.po\")",
+      "Bash(MO=\"c:/Users/nicol/Local Sites/wpdevtest1/app/public/wp-content/plugins/gapnext-wp/languages/gapnext-wp-it_IT.mo\")",
+      "Bash(__NEW_LINE_ca0b4f4a1e32ebe6__ \"$PHP\" -r \":*)",
+      "Bash(__NEW_LINE_7207eae7e262ce17__ \"$PHP\" -r \":*)",
+      "Bash(\"$PHP\" -r \":*)"
+    ]
+  }
+}

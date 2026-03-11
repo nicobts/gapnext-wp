@@ -1,0 +1,165 @@
+# GapNext WP - Translation Template
+# Copyright (C) 2026 GapNext
+# This file is distributed under the same license as the GapNext WP plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: GapNext WP 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-05T00:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: GapNext WP\n"
+
+msgid "GapNext WP"
+msgstr ""
+
+msgid "Audit Links"
+msgstr ""
+
+msgid "Submissions"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "GapNext WP — Settings"
+msgstr ""
+
+msgid "Settings saved."
+msgstr ""
+
+msgid "Default Language"
+msgstr ""
+
+msgid "Default Access Mode"
+msgstr ""
+
+msgid "Public"
+msgstr ""
+
+msgid "Login Required"
+msgstr ""
+
+msgid "Consultant Logo"
+msgstr ""
+
+msgid "Upload / Change Logo"
+msgstr ""
+
+msgid "Select Logo"
+msgstr ""
+
+msgid "Use this logo"
+msgstr ""
+
+msgid "Appears on the PDF report cover page. Falls back to the WordPress site logo if not set."
+msgstr ""
+
+msgid "Save Settings"
+msgstr ""
+
+msgid "Create New Audit Link"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Access"
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "Link"
+msgstr ""
+
+msgid "Actions"
+msgstr ""
+
+msgid "No audit links yet."
+msgstr ""
+
+msgid "Audit link created successfully."
+msgstr ""
+
+msgid "Create Audit Link"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Click to copy"
+msgstr ""
+
+msgid "Delete this audit link?"
+msgstr ""
+
+msgid "Company"
+msgstr ""
+
+msgid "Lang"
+msgstr ""
+
+msgid "Score"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "No submissions yet."
+msgstr ""
+
+msgid "CSV"
+msgstr ""
+
+msgid "PDF"
+msgstr ""
+
+msgid "Invalid or missing audit link."
+msgstr ""
+
+msgid "Audit not found."
+msgstr ""
+
+msgid "Standard data not found."
+msgstr ""
+
+msgid "Submitting..."
+msgstr ""
+
+msgid "An error occurred. Please try again."
+msgstr ""
+
+msgid "Please fill in all required fields."
+msgstr ""
+
+msgid "questions answered"
+msgstr ""
+
+msgid "Security check failed."
+msgstr ""
+
+msgid "Invalid audit."
+msgstr ""
+
+msgid "Required fields missing."
+msgstr ""
+
+msgid "Failed to save submission."
+msgstr ""
+
+msgid "Unauthorized"
+msgstr ""
+
+msgid "Submission not found"
+msgstr ""

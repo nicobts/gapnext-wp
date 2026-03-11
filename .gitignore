@@ -1,0 +1,26 @@
+# Dependencies
+/vendor/
+
+# Build artifacts
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# WordPress generated files
+*.cache
+
+# Compiled translation binaries (regenerate from .po)
+# Remove the next line if you want to commit .mo files
+# languages/*.mo

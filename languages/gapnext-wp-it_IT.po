@@ -1,0 +1,383 @@
+# GapNext WP - Italian Translation
+# Copyright (C) 2026 GapNext
+msgid ""
+msgstr ""
+"Project-Id-Version: GapNext WP 1.0.0\n"
+"PO-Revision-Date: 2026-03-10T00:00:00+00:00\n"
+"Last-Translator: GapNext <info@gapnext.it>\n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ── Plugin name / menu ────────────────────────────────────────────────────────
+
+msgid "GapNext WP"
+msgstr "GapNext WP"
+
+msgid "Audit Links"
+msgstr "Link di Audit"
+
+msgid "Submissions"
+msgstr "Risposte"
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+# ── Settings page ─────────────────────────────────────────────────────────────
+
+msgid "GapNext WP — Settings"
+msgstr "GapNext WP — Impostazioni"
+
+msgid "Settings saved."
+msgstr "Impostazioni salvate."
+
+msgid "Quick-start — required setup"
+msgstr "Avvio rapido — configurazione necessaria"
+
+msgid "Create a new WordPress page (e.g. \"Gap Analysis\") and paste this shortcode into the page content:"
+msgstr "Crea una nuova pagina WordPress (es. \"Gap Analysis\") e incolla questo shortcode nel contenuto della pagina:"
+
+msgid "Publish the page."
+msgstr "Pubblica la pagina."
+
+msgid "In the \"Checklist Page\" field below, select that page — this is where all audit links will send respondents."
+msgstr "Nel campo \"Pagina Checklist\" qui sotto, seleziona quella pagina — è lì che tutti i link di audit indirizzeranno i rispondenti."
+
+msgid "Go to Audit Links → Create a new audit link, share the generated URL with your client."
+msgstr "Vai su Link di Audit → Crea un nuovo link di audit e condividi l'URL generato con il tuo cliente."
+
+msgid "(Optional) Create a second page with this shortcode for a shareable web results page:"
+msgstr "(Facoltativo) Crea una seconda pagina con questo shortcode per una pagina risultati condivisibile online:"
+
+msgid "Then select it in the \"Results Page\" field below."
+msgstr "Poi selezionala nel campo \"Pagina Risultati\" qui sotto."
+
+msgid "The plugin will not work until a checklist page is created and selected below."
+msgstr "Il plugin non funzionerà finché non viene creata e selezionata una pagina checklist."
+
+msgid "Checklist Page"
+msgstr "Pagina Checklist"
+
+msgid "The page that contains the [gapnext_checklist] shortcode. Audit links will point here."
+msgstr "La pagina che contiene lo shortcode [gapnext_checklist]. I link di audit punteranno qui."
+
+msgid "Results Page"
+msgstr "Pagina Risultati"
+
+msgid "The page with [gapnext_results] shortcode. A \"View results online\" link will appear after submission."
+msgstr "La pagina con lo shortcode [gapnext_results]. Un link \"Visualizza risultati online\" apparirà dopo l'invio."
+
+msgid "— Select a page —"
+msgstr "— Seleziona una pagina —"
+
+msgid "— None (disable online results) —"
+msgstr "— Nessuna (disabilita risultati online) —"
+
+msgid "Default Language"
+msgstr "Lingua Predefinita"
+
+msgid "Default Access Mode"
+msgstr "Modalità di Accesso Predefinita"
+
+msgid "Public"
+msgstr "Pubblico"
+
+msgid "Login Required"
+msgstr "Accesso Richiesto"
+
+msgid "Consultant Logo"
+msgstr "Logo Consulente"
+
+msgid "Upload / Change Logo"
+msgstr "Carica / Cambia Logo"
+
+msgid "Select Logo"
+msgstr "Seleziona Logo"
+
+msgid "Use this logo"
+msgstr "Usa questo logo"
+
+msgid "Appears on the PDF report cover page. Falls back to the WordPress site logo if not set."
+msgstr "Appare nella copertina del report PDF. Se non impostato, usa il logo del sito WordPress."
+
+msgid "PDF Footer Text"
+msgstr "Testo Piè di Pagina PDF"
+
+msgid "Appears centred in the footer of every PDF report page."
+msgstr "Appare centrato nel piè di pagina di ogni pagina del report PDF."
+
+msgid "Notification Email"
+msgstr "Email di Notifica"
+
+msgid "Receives a copy of the submission notification email (in addition to the consultant). Leave blank to disable."
+msgstr "Riceve una copia dell'email di notifica della risposta (in aggiunta al consulente). Lasciare vuoto per disabilitare."
+
+msgid "Save Settings"
+msgstr "Salva Impostazioni"
+
+# ── Evidence file storage note (settings page) ───────────────────────────────
+
+msgid "Evidence File Storage"
+msgstr "Archiviazione File Evidenze"
+
+msgid "When respondents upload evidence files during an audit, the files are saved inside the WordPress uploads directory using the following folder structure:"
+msgstr "Quando i rispondenti caricano file di evidenza durante un audit, i file vengono salvati nella directory uploads di WordPress con la seguente struttura di cartelle:"
+
+msgid "the unique identifier of the audit link (e.g. a1b2c3d4-…). Each audit gets its own subfolder, preventing file collisions between audits."
+msgstr "l'identificatore univoco del link di audit (es. a1b2c3d4-…). Ogni audit ha la propria sottocartella, evitando collisioni tra file di audit diversi."
+
+msgid "the question reference key (e.g. q-4_1, q-6_2). Each question gets its own subfolder so evidence stays organised per checklist item."
+msgstr "la chiave di riferimento della domanda (es. q-4_1, q-6_2). Ogni domanda ha la propria sottocartella così le evidenze restano organizzate per elemento della checklist."
+
+msgid "the original uploaded file name, sanitised by WordPress to prevent path-traversal issues. Multiple files per question are supported."
+msgstr "il nome originale del file caricato, sanificato da WordPress per prevenire problemi di path-traversal. Sono supportati più file per domanda."
+
+msgid "The absolute server path of each uploaded file is stored in the database (wp_gapnext_submissions.evidence_paths) as a JSON object keyed by question reference. On the results page these paths are automatically converted to public URLs so that linked files can be opened or downloaded directly in the browser."
+msgstr "Il percorso assoluto del server di ogni file caricato è memorizzato nel database (wp_gapnext_submissions.evidence_paths) come oggetto JSON indicizzato per riferimento domanda. Nella pagina dei risultati questi percorsi vengono automaticamente convertiti in URL pubblici in modo che i file collegati possano essere aperti o scaricati direttamente nel browser."
+
+msgid "Example path on this server: %s"
+msgstr "Percorso di esempio su questo server: %s"
+
+msgid "Note: evidence files are not managed by the WordPress Media Library. If you delete an audit or submission from the database, the files in the uploads folder must be removed manually."
+msgstr "Nota: i file di evidenza non sono gestiti dalla Libreria Media di WordPress. Se si elimina un audit o una risposta dal database, i file nella cartella uploads devono essere rimossi manualmente."
+
+# ── Audit Links page ──────────────────────────────────────────────────────────
+
+msgid "Create New Audit Link"
+msgstr "Crea Nuovo Link di Audit"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "Access"
+msgstr "Accesso"
+
+msgid "Created"
+msgstr "Creato"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Actions"
+msgstr "Azioni"
+
+msgid "Existing Audit Links"
+msgstr "Link di Audit Esistenti"
+
+msgid "No audit links yet."
+msgstr "Nessun link di audit ancora."
+
+msgid "Audit link created successfully."
+msgstr "Link di audit creato con successo."
+
+msgid "Create Audit Link"
+msgstr "Crea Link di Audit"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Click to copy"
+msgstr "Clicca per copiare"
+
+msgid "Delete this audit link?"
+msgstr "Eliminare questo link di audit?"
+
+# ── Submissions list ──────────────────────────────────────────────────────────
+
+msgid "Company"
+msgstr "Azienda"
+
+msgid "Lang"
+msgstr "Lingua"
+
+msgid "Score"
+msgstr "Punteggio"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Sort by date"
+msgstr "Ordina per data"
+
+msgid "View"
+msgstr "Visualizza"
+
+msgid "No submissions yet."
+msgstr "Nessuna risposta ancora."
+
+msgid "No submissions match the selected filters."
+msgstr "Nessuna risposta corrisponde ai filtri selezionati."
+
+msgid "Submission deleted."
+msgstr "Risposta eliminata."
+
+msgid "Delete this submission? This cannot be undone."
+msgstr "Eliminare questa risposta? Questa azione non può essere annullata."
+
+msgid "Apply filters"
+msgstr "Applica filtri"
+
+msgid "Reset"
+msgstr "Reimposta"
+
+msgid "— All standards —"
+msgstr "— Tutti gli standard —"
+
+msgid "— All companies —"
+msgstr "— Tutte le aziende —"
+
+msgid "Showing %1$d of %2$d submissions"
+msgstr "Visualizzando %1$d di %2$d risposte"
+
+msgid "%d submissions"
+msgstr "%d risposte"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "PDF"
+msgstr "PDF"
+
+# ── Submission detail view ────────────────────────────────────────────────────
+
+msgid "Submission"
+msgstr "Risposta"
+
+msgid "Back to list"
+msgstr "Torna alla lista"
+
+msgid "Delete submission"
+msgstr "Elimina risposta"
+
+msgid "Share Results Page"
+msgstr "Condividi Pagina Risultati"
+
+msgid "Anyone with this link can view the full results online (no login required):"
+msgstr "Chiunque abbia questo link può visualizzare i risultati completi online (senza accesso richiesto):"
+
+msgid "Copy link"
+msgstr "Copia link"
+
+msgid "Copied!"
+msgstr "Copiato!"
+
+msgid "Open"
+msgstr "Apri"
+
+msgid "Details"
+msgstr "Dettagli"
+
+msgid "Address"
+msgstr "Indirizzo"
+
+msgid "VAT"
+msgstr "P.IVA"
+
+msgid "Sector"
+msgstr "Settore"
+
+msgid "Audit"
+msgstr "Audit"
+
+msgid "Status"
+msgstr "Stato"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Role"
+msgstr "Ruolo"
+
+msgid "Phone"
+msgstr "Telefono"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Internal Contact"
+msgstr "Referente Interno"
+
+msgid "Consultant"
+msgstr "Consulente"
+
+msgid "Checklist Results"
+msgstr "Risultati Checklist"
+
+msgid "Ref."
+msgstr "Rif."
+
+msgid "Requirement"
+msgstr "Requisito"
+
+msgid "Answer"
+msgstr "Risposta"
+
+msgid "Notes"
+msgstr "Note"
+
+msgid "Evidence"
+msgstr "Evidenze"
+
+# ── AJAX / error messages ─────────────────────────────────────────────────────
+
+msgid "Security check failed."
+msgstr "Verifica di sicurezza fallita."
+
+msgid "Invalid audit."
+msgstr "Audit non valido."
+
+msgid "Audit not found."
+msgstr "Audit non trovato."
+
+msgid "Required fields missing."
+msgstr "Campi obbligatori mancanti."
+
+msgid "Failed to save submission."
+msgstr "Impossibile salvare la risposta."
+
+msgid "Failed to save draft."
+msgstr "Impossibile salvare la bozza."
+
+msgid "Unauthorized."
+msgstr "Non autorizzato."
+
+msgid "Invalid format."
+msgstr "Formato non valido."
+
+msgid "Invalid request."
+msgstr "Richiesta non valida."
+
+msgid "Not found."
+msgstr "Non trovato."
+
+msgid "Submission not found."
+msgstr "Risposta non trovata."
+
+# ── Frontend JS i18n (passed via wp_localize_script) ─────────────────────────
+
+msgid "Invalid or missing audit link."
+msgstr "Link di audit non valido o mancante."
+
+msgid "Standard data not found."
+msgstr "Dati dello standard non trovati."
+
+msgid "Submitting..."
+msgstr "Invio in corso..."
+
+msgid "An error occurred. Please try again."
+msgstr "Si è verificato un errore. Riprova."
+
+msgid "Please fill in all required fields."
+msgstr "Compila tutti i campi obbligatori."
+
+msgid "questions answered"
+msgstr "domande risposte"
