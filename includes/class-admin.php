@@ -8,6 +8,10 @@ class GapNext_Admin {
         add_action( 'admin_post_gapnext_save_settings', [ $this, 'save_settings' ] );
         add_action( 'admin_post_gapnext_export',        [ $this, 'handle_export' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        // AI settings — single instance for both hooks
+        $ai_settings = new GapNext_AI_Settings();
+        add_action( 'admin_post_gapnext_save_ai_settings',  [ $ai_settings, 'save_settings' ] );
+        add_action( 'wp_ajax_gapnext_ai_test_connection',   [ $ai_settings, 'handle_test_connection' ] );
     }
 
     public function handle_export() {
@@ -253,6 +257,8 @@ class GapNext_Admin {
                 </p>
             </div>
             <!-- ────────────────────────────────────────────────────────── -->
+
+        <?php ( new GapNext_AI_Settings() )->render_section(); ?>
 
         </div>
         <?php

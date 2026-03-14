@@ -53,6 +53,8 @@ class GapNext_Installer {
             evidence_paths LONGTEXT NOT NULL DEFAULT '',
             score FLOAT NOT NULL DEFAULT 0,
             status VARCHAR(20) NOT NULL DEFAULT 'submitted',
+            ai_report_url  VARCHAR(500) NULL DEFAULT NULL,
+            ai_report_uuid VARCHAR(36)  NULL DEFAULT NULL,
             PRIMARY KEY (id),
             KEY audit_uuid (audit_uuid),
             KEY status (status)

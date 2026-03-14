@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class GapNext_Audit_Manager {
 
+    public function __construct() {
+        add_action( 'wp_ajax_gapnext_ai_generate', [ $this, 'handle_ai_generate' ] );
+    }
+
     public static function render_audit_links_page() {
         if ( ! current_user_can( 'manage_options' ) ) return;
 
@@ -142,6 +146,27 @@ class GapNext_Audit_Manager {
         if ( isset( $_GET['view_sub'] ) ) {
             self::render_submission_view( (int) $_GET['view_sub'] );
             return;
+        }
+
+        // Enqueue AI button script if AI is configured (single instance — reused in row loop)
+        $ai_client = new GapNext_AI_Client();
+        if ( $ai_client->is_configured() ) {
+            wp_enqueue_script(
+                'gapnext-admin-ai',
+                GAPNEXT_WP_URL . 'assets/gapnext-admin-ai.js',
+                [ 'jquery' ],
+                GAPNEXT_WP_VERSION,
+                true
+            );
+            wp_localize_script( 'gapnext-admin-ai', 'gapnextAI', [
+                'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
+                'nonce'            => wp_create_nonce( 'gapnext_ai_generate' ),
+                'generateText'     => __( 'Generate AI Report', 'gapnext-wp' ),
+                'generatingText'   => __( 'Generating\u2026', 'gapnext-wp' ),
+                'downloadText'     => __( '\u2b07 Download AI Report', 'gapnext-wp' ),
+                'errorText'        => __( 'Generation failed. Try again.', 'gapnext-wp' ),
+                'networkErrorText' => __( 'Network error. Check connection.', 'gapnext-wp' ),
+            ] );
         }
 
         // ── Filter & sort params ──────────────────────────────────────────
@@ -306,6 +331,19 @@ class GapNext_Audit_Manager {
                                    onclick="return confirm('<?php esc_attr_e( 'Delete this submission? This cannot be undone.', 'gapnext-wp' ); ?>')">
                                     <?php esc_html_e( 'Delete', 'gapnext-wp' ); ?>
                                 </a>
+                                <?php if ( $ai_client->is_configured() ) : ?>
+                                    <?php if ( ! empty( $sub->ai_report_url ) ) : ?>
+                                        <a href="<?php echo esc_url( $sub->ai_report_url ); ?>"
+                                           target="_blank" class="button button-small button-primary">
+                                            <?php esc_html_e( '&#x2B07; Download AI Report', 'gapnext-wp' ); ?>
+                                        </a>
+                                    <?php else : ?>
+                                        <button type="button" class="button button-small gapnext-ai-generate"
+                                                data-id="<?php echo esc_attr( $sub->id ); ?>">
+                                            <?php esc_html_e( 'Generate AI Report', 'gapnext-wp' ); ?>
+                                        </button>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -748,5 +786,27 @@ class GapNext_Audit_Manager {
     public static function get_audit_by_uuid( $uuid ) {
         global $wpdb;
         return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}gapnext_audits WHERE uuid = %s", $uuid ) );
+    }
+
+    /**
+     * AJAX handler for "Generate AI Report" button.
+     * Action: wp_ajax_gapnext_ai_generate
+     */
+    public function handle_ai_generate(): void {
+        check_ajax_referer( 'gapnext_ai_generate', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) wp_die( 'Unauthorized' );
+
+        $submission_id = intval( $_POST['submission_id'] ?? 0 );
+        if ( $submission_id <= 0 ) {
+            wp_send_json_error( [ 'message' => __( 'Invalid submission.', 'gapnext-wp' ) ] );
+        }
+
+        $result = ( new GapNext_AI_Report() )->generate_for_submission( $submission_id );
+
+        if ( is_wp_error( $result ) ) {
+            wp_send_json_error( [ 'message' => $result->get_error_message() ] );
+        }
+
+        wp_send_json_success( $result ); // {download_url, uuid, file_size_kb}
     }
 }

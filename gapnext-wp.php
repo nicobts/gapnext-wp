@@ -36,8 +36,13 @@ register_deactivation_hook( __FILE__, [ 'GapNext_Installer', 'deactivate' ] );
 // Boot
 add_action( 'plugins_loaded', function() {
     load_plugin_textdomain( 'gapnext-wp', false, GAPNEXT_WP_SLUG . '/languages' );
+    // Run dbDelta if DB version is behind current plugin version
+    if ( get_option( 'gapnext_wp_db_version' ) !== GAPNEXT_WP_VERSION ) {
+        GapNext_Installer::activate();
+    }
     new GapNext_Admin();
     new GapNext_Checklist();
     new GapNext_Results();
     new GapNext_Ajax();
+    new GapNext_Audit_Manager(); // registers wp_ajax_gapnext_ai_generate via constructor
 } );
