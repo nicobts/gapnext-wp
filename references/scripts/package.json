@@ -1,0 +1,16 @@
+{
+  "name": "gapnext-extractor",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Extracts bilingual compliance checklist data from markdown files into PHP arrays for the GapNext WP plugin",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "extract": "node extract-checklists.js"
+  },
+  "devDependencies": {
+    "gettext-parser": "^9.0.1"
+  }
+}

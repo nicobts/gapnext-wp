@@ -161,6 +161,7 @@ class GapNext_Audit_Manager {
             wp_localize_script( 'gapnext-admin-ai', 'gapnextAI', [
                 'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
                 'nonce'            => wp_create_nonce( 'gapnext_ai_generate' ),
+                'apiKey'           => get_option( 'gapnext_ai_api_key', '' ),
                 'generateText'     => __( 'Generate AI Report', 'gapnext-wp' ),
                 'generatingText'   => __( 'Generating\u2026', 'gapnext-wp' ),
                 'downloadText'     => __( '\u2b07 Download AI Report', 'gapnext-wp' ),
@@ -325,15 +326,18 @@ class GapNext_Audit_Manager {
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'pdf',  $base_export ) ); ?>" class="button button-small">PDF</a>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'csv',  $base_export ) ); ?>" class="button button-small">CSV</a>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'md',   $base_export ) ); ?>" class="button button-small">MD</a>
+                                <?php if ( false ) : // JSON button — commented out, re-enable when needed ?>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'json', $base_export ) ); ?>" class="button button-small">JSON</a>
+                                <?php endif; ?>
                                 <a href="<?php echo esc_url( $delete_url ); ?>"
                                    class="button button-small button-link-delete"
                                    onclick="return confirm('<?php esc_attr_e( 'Delete this submission? This cannot be undone.', 'gapnext-wp' ); ?>')">
                                     <?php esc_html_e( 'Delete', 'gapnext-wp' ); ?>
                                 </a>
+                                <?php if ( false ) : // AI Report buttons — commented out, managed from view page instead ?>
                                 <?php if ( $ai_client->is_configured() ) : ?>
                                     <?php if ( ! empty( $sub->ai_report_url ) ) : ?>
-                                        <a href="<?php echo esc_url( $sub->ai_report_url ); ?>"
+                                        <a href="<?php echo esc_url( add_query_arg( 'token', get_option( 'gapnext_ai_api_key', '' ), $sub->ai_report_url ) ); ?>"
                                            target="_blank" class="button button-small button-primary">
                                             <?php esc_html_e( '&#x2B07; Download AI Report', 'gapnext-wp' ); ?>
                                         </a>
@@ -343,6 +347,7 @@ class GapNext_Audit_Manager {
                                             <?php esc_html_e( 'Generate AI Report', 'gapnext-wp' ); ?>
                                         </button>
                                     <?php endif; ?>
+                                <?php endif; ?>
                                 <?php endif; ?>
                             </td>
                         </tr>
@@ -359,6 +364,29 @@ class GapNext_Audit_Manager {
         if ( ! $sub ) {
             echo '<div class="wrap"><p>' . esc_html__( 'Submission not found.', 'gapnext-wp' ) . '</p></div>';
             return;
+        }
+
+        // Enqueue AI script for the view page
+        $ai_client_render = new GapNext_AI_Client();
+        if ( $ai_client_render->is_configured() ) {
+            wp_enqueue_script(
+                'gapnext-admin-ai',
+                GAPNEXT_WP_URL . 'assets/gapnext-admin-ai.js',
+                [ 'jquery' ],
+                GAPNEXT_WP_VERSION,
+                true
+            );
+            wp_localize_script( 'gapnext-admin-ai', 'gapnextAI', [
+                'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
+                'nonce'            => wp_create_nonce( 'gapnext_ai_generate' ),
+                'apiKey'           => get_option( 'gapnext_ai_api_key', '' ),
+                'submissionId'     => isset( $_GET['view_sub'] ) ? (int) $_GET['view_sub'] : 0,
+                'generateText'     => __( 'Generate AI Report', 'gapnext-wp' ),
+                'generatingText'   => __( 'Generating\u2026', 'gapnext-wp' ),
+                'downloadText'     => __( '\u2b07 Download AI Report', 'gapnext-wp' ),
+                'errorText'        => __( 'Generation failed. Try again.', 'gapnext-wp' ),
+                'networkErrorText' => __( 'Network error. Check connection.', 'gapnext-wp' ),
+            ] );
         }
 
         $answers    = json_decode( $sub->answers,        true ) ?: [];
@@ -420,7 +448,9 @@ class GapNext_Audit_Manager {
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'pdf',  $base_export ) ); ?>" class="button button-primary">⬇ PDF</a>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'csv',  $base_export ) ); ?>" class="button">⬇ CSV</a>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'md',   $base_export ) ); ?>" class="button">⬇ MD</a>
+                <?php if ( false ) : // JSON export — commented out, re-enable when needed ?>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'json', $base_export ) ); ?>" class="button">⬇ JSON</a>
+                <?php endif; ?>
             </p>
 
             <?php
@@ -675,6 +705,140 @@ class GapNext_Audit_Manager {
                     </tbody>
                 </table>
             <?php endif; ?>
+
+            <?php
+            // ============================================================
+            // AI REPORT SECTION
+            // ============================================================
+            if ( $ai_client_render->is_configured() ) :
+            ?>
+            <div style="margin-top:40px;padding-top:32px;border-top:2px solid #e5e7eb">
+                <h2 style="font-size:18px;font-weight:700;color:#1d2327;margin:0 0 4px;display:flex;align-items:center;gap:8px">
+                    🤖 <?php esc_html_e( 'AI Report', 'gapnext-wp' ); ?>
+                    <?php if ( ! empty( $sub->ai_report_url ) ) : ?>
+                        <span style="font-size:12px;font-weight:600;background:#dcfce7;color:#166534;border-radius:20px;padding:2px 10px;letter-spacing:.3px">
+                            ● <?php esc_html_e( 'Available', 'gapnext-wp' ); ?>
+                        </span>
+                    <?php endif; ?>
+                </h2>
+
+                <?php if ( ! empty( $sub->ai_report_url ) ) : ?>
+                    <!-- Report already exists: show latest download + regenerate + history -->
+
+                    <!-- Latest report download -->
+                    <p style="color:#6b7280;font-size:13px;margin:6px 0 8px">
+                        <?php esc_html_e( 'Latest report:', 'gapnext-wp' ); ?>
+                    </p>
+                    <a id="gapnext-ai-latest-download"
+                       href="<?php echo esc_url( add_query_arg( 'token', get_option( 'gapnext_ai_api_key', '' ), $sub->ai_report_url ) ); ?>"
+                       target="_blank" class="button button-primary">
+                        ⬇ <?php esc_html_e( 'Download AI Report', 'gapnext-wp' ); ?>
+                    </a>
+
+                    <!-- Regenerate section -->
+                    <div style="margin-top:24px">
+                        <p style="color:#374151;font-size:13px;margin:0 0 6px;font-weight:600">
+                            <?php esc_html_e( 'Regenerate AI Report', 'gapnext-wp' ); ?>
+                        </p>
+                        <p style="color:#6b7280;font-size:12px;margin:0 0 8px">
+                            <?php esc_html_e( 'Corrections or additional context for regeneration (optional):', 'gapnext-wp' ); ?>
+                        </p>
+                        <textarea id="gapnext-ai-corrections" rows="3"
+                            style="width:100%;max-width:520px;font-size:13px;padding:8px;border:1px solid #d1d5db;border-radius:6px;resize:vertical"
+                            placeholder="<?php esc_attr_e( 'e.g. Please focus more on ISO clause 6.1...', 'gapnext-wp' ); ?>"></textarea>
+                        <br>
+                        <button type="button" id="gapnext-ai-regenerate-view" class="button button-secondary" style="margin-top:8px">
+                            <?php esc_html_e( 'Regenerate AI Report', 'gapnext-wp' ); ?>
+                        </button>
+                    </div>
+
+                    <!-- Regenerate progress log panel (hidden until regeneration starts) -->
+                    <div id="gapnext-ai-regen-log-panel" style="display:none;margin-top:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px 24px;max-width:520px">
+                        <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">
+                            <?php esc_html_e( 'Progress', 'gapnext-wp' ); ?>
+                        </div>
+                        <div id="gapnext-ai-regen-log-steps"></div>
+                    </div>
+
+                    <!-- Generation history — table is always rendered so JS can prependTo tbody -->
+                    <?php $history = self::get_ai_report_history( $sub->id ); ?>
+                    <div style="margin-top:32px">
+                        <h3 style="font-size:14px;font-weight:700;color:#374151;margin:0 0 12px">
+                            <?php esc_html_e( 'Generation History', 'gapnext-wp' ); ?>
+                        </h3>
+                        <table id="gapnext-ai-history-table" class="wp-list-table widefat fixed striped" style="max-width:720px">
+                            <thead>
+                                <tr>
+                                    <th style="width:160px"><?php esc_html_e( 'Date', 'gapnext-wp' ); ?></th>
+                                    <th><?php esc_html_e( 'Comments', 'gapnext-wp' ); ?></th>
+                                    <th style="width:110px"><?php esc_html_e( 'Download', 'gapnext-wp' ); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ( $history as $row ) : ?>
+                                <tr>
+                                    <td><?php echo esc_html( date_i18n( 'd/m/Y H:i', strtotime( $row->generated_at ) ) ); ?></td>
+                                    <td><?php echo $row->comments ? esc_html( $row->comments ) : '&mdash;'; ?></td>
+                                    <td>
+                                        <a href="<?php echo esc_url( add_query_arg( 'token', get_option( 'gapnext_ai_api_key', '' ), $row->download_url ) ); ?>"
+                                           target="_blank">⬇ <?php esc_html_e( 'Report', 'gapnext-wp' ); ?></a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <?php else : ?>
+                    <!-- No report yet: show generate button + log panel -->
+                    <p style="color:#6b7280;font-size:13px;margin:6px 0 16px">
+                        <?php esc_html_e( 'Generate a professional AI-powered compliance report for this submission.', 'gapnext-wp' ); ?>
+                    </p>
+                    <button type="button" id="gapnext-ai-generate-view" class="button button-primary">
+                        <?php esc_html_e( 'Generate AI Report', 'gapnext-wp' ); ?>
+                    </button>
+
+                    <!-- Progress log panel (hidden until generation starts) -->
+                    <div id="gapnext-ai-log-panel" style="display:none;margin-top:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:20px 24px;max-width:520px">
+                        <div style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px">
+                            <?php esc_html_e( 'Progress', 'gapnext-wp' ); ?>
+                        </div>
+                        <div id="gapnext-ai-log-steps"></div>
+                    </div>
+                    <style>
+                    @keyframes gapnext-pulse-dots {
+                        0%, 80%, 100% { opacity: 0; }
+                        40%           { opacity: 1; }
+                    }
+                    .gapnext-ai-dot {
+                        display: inline-block;
+                        width: 4px; height: 4px;
+                        border-radius: 50%;
+                        background: #6366f1;
+                        margin: 0 2px;
+                        animation: gapnext-pulse-dots 1.4s infinite ease-in-out;
+                    }
+                    .gapnext-ai-dot:nth-child(2) { animation-delay: .2s; }
+                    .gapnext-ai-dot:nth-child(3) { animation-delay: .4s; }
+                    .gapnext-ai-step {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        font-size: 13px;
+                        color: #374151;
+                        padding: 5px 0;
+                        opacity: .38;
+                        transition: opacity .25s;
+                    }
+                    .gapnext-ai-step.active  { opacity: 1; }
+                    .gapnext-ai-step.done    { opacity: 1; color: #374151; }
+                    .gapnext-ai-step.failed  { opacity: 1; color: #991b1b; }
+                    .gapnext-ai-step-icon    { font-size: 14px; width: 18px; text-align: center; flex-shrink: 0; }
+                    .gapnext-ai-step-text    { flex: 1; }
+                    </style>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
         </div>
         <?php
     }
@@ -789,6 +953,23 @@ class GapNext_Audit_Manager {
     }
 
     /**
+     * Fetch all AI report generation rows for a submission, newest first.
+     *
+     * @param  int $submission_id
+     * @return array Array of stdClass rows (uuid, download_url, comments, generated_at)
+     */
+    private static function get_ai_report_history( int $submission_id ): array {
+        global $wpdb;
+        return $wpdb->get_results( $wpdb->prepare(
+            "SELECT uuid, download_url, comments, generated_at
+             FROM {$wpdb->prefix}gapnext_ai_report_generations
+             WHERE submission_id = %d
+             ORDER BY generated_at DESC",
+            $submission_id
+        ) ) ?: [];
+    }
+
+    /**
      * AJAX handler for "Generate AI Report" button.
      * Action: wp_ajax_gapnext_ai_generate
      */
@@ -801,12 +982,13 @@ class GapNext_Audit_Manager {
             wp_send_json_error( [ 'message' => __( 'Invalid submission.', 'gapnext-wp' ) ] );
         }
 
-        $result = ( new GapNext_AI_Report() )->generate_for_submission( $submission_id );
+        $comments = sanitize_textarea_field( wp_unslash( $_POST['comments'] ?? '' ) );
+        $result = ( new GapNext_AI_Report() )->generate_for_submission( $submission_id, $comments );
 
         if ( is_wp_error( $result ) ) {
             wp_send_json_error( [ 'message' => $result->get_error_message() ] );
         }
 
-        wp_send_json_success( $result ); // {download_url, uuid, file_size_kb}
+        wp_send_json_success( array_merge( $result, [ 'comments' => $comments ] ) );
     }
 }

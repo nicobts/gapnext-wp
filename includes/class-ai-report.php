@@ -20,7 +20,7 @@ class GapNext_AI_Report {
      * @param  int $submission_id
      * @return array{uuid: string, download_url: string, file_size_kb: int}|WP_Error
      */
-    public function generate_for_submission( int $submission_id ): array|WP_Error {
+    public function generate_for_submission( int $submission_id, string $comments = '' ): array|WP_Error {
         global $wpdb;
 
         // 1. Load submission
@@ -60,6 +60,7 @@ class GapNext_AI_Report {
                 'language'     => $sub->language,
                 'submitted_at' => $sub->submitted_at,
                 'score'        => (float) $sub->score,
+                'corrections'  => $comments,
             ],
             'company'   => [
                 'name'    => $sub->company_name,
@@ -101,6 +102,19 @@ class GapNext_AI_Report {
             [ 'id' => $submission_id ],
             [ '%s', '%s' ],
             [ '%d' ]
+        );
+
+        // Log this generation to history
+        $wpdb->insert(
+            $wpdb->prefix . 'gapnext_ai_report_generations',
+            [
+                'submission_id' => $submission_id,
+                'uuid'          => $result['uuid']         ?? '',
+                'download_url'  => $result['download_url'] ?? '',
+                'comments'      => $comments,
+                'generated_at'  => current_time( 'mysql', true ),
+            ],
+            [ '%d', '%s', '%s', '%s', '%s' ]
         );
 
         return $result;

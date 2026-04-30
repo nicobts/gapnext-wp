@@ -60,9 +60,21 @@ class GapNext_Installer {
             KEY status (status)
         ) $charset;";
 
+        $sql_generations = "CREATE TABLE {$wpdb->prefix}gapnext_ai_report_generations (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            submission_id BIGINT(20) UNSIGNED NOT NULL,
+            uuid VARCHAR(36) NOT NULL DEFAULT '',
+            download_url VARCHAR(500) NOT NULL DEFAULT '',
+            comments TEXT NOT NULL,
+            generated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY submission_id (submission_id)
+        ) $charset;";
+
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql_audits );
         dbDelta( $sql_submissions );
+        dbDelta( $sql_generations );
 
         update_option( 'gapnext_wp_db_version', GAPNEXT_WP_VERSION );
     }
