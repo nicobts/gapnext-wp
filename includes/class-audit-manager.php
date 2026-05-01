@@ -454,6 +454,33 @@ class GapNext_Audit_Manager {
             </p>
 
             <?php
+            // Compute remediation data for tabs
+            $states = GapNext_Remediation_State::for_submission( $sub->id );
+            $agg    = GapNext_Remediation_State::aggregate( $sub->id, $states );
+            $pending_count = $agg['pending_review'];
+            $active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'gap_analysis';
+            ?>
+
+            <!-- Tabs -->
+            <div class="gapnext-tabs">
+                <button class="gapnext-tab <?php echo $active_tab === 'gap_analysis' ? 'active' : ''; ?>" data-tab="gap_analysis">
+                    <?php esc_html_e( 'Gap Analysis', 'gapnext-wp' ); ?>
+                </button>
+                <button class="gapnext-tab <?php echo $active_tab === 'remediation' ? 'active' : ''; ?>" data-tab="remediation">
+                    <?php esc_html_e( 'Remediation Plan', 'gapnext-wp' ); ?>
+                    <?php if ( $pending_count > 0 ) : ?>
+                        <span class="gapnext-tab-badge"><?php echo esc_html( $pending_count ); ?></span>
+                    <?php endif; ?>
+                </button>
+                <button class="gapnext-tab <?php echo $active_tab === 'client_access' ? 'active' : ''; ?>" data-tab="client_access">
+                    <?php esc_html_e( 'Client Access', 'gapnext-wp' ); ?>
+                </button>
+            </div>
+
+            <!-- Tab: Gap Analysis (existing content) -->
+            <div id="gapnext-panel-gap_analysis" class="gapnext-tab-panel <?php echo $active_tab === 'gap_analysis' ? 'active' : ''; ?>">
+
+            <?php
             // Share Results section — only shown when a results page is configured
             $results_pid = (int) get_option( 'gapnext_results_page_id', 0 );
             if ( $results_pid ) :
@@ -710,6 +737,7 @@ class GapNext_Audit_Manager {
             // ============================================================
             // AI REPORT SECTION
             // ============================================================
+            // NOTE: AI report section is inside the Gap Analysis tab
             if ( $ai_client_render->is_configured() ) :
             ?>
             <div style="margin-top:40px;padding-top:32px;border-top:2px solid #e5e7eb">
@@ -839,6 +867,19 @@ class GapNext_Audit_Manager {
                 <?php endif; ?>
             </div>
             <?php endif; ?>
+
+            </div><!-- /gap_analysis panel -->
+
+            <!-- Tab: Remediation Plan -->
+            <div id="gapnext-panel-remediation" class="gapnext-tab-panel <?php echo $active_tab === 'remediation' ? 'active' : ''; ?>">
+                <?php include GAPNEXT_WP_DIR . 'includes/views/admin-remediation.php'; ?>
+            </div>
+
+            <!-- Tab: Client Access -->
+            <div id="gapnext-panel-client_access" class="gapnext-tab-panel <?php echo $active_tab === 'client_access' ? 'active' : ''; ?>">
+                <?php include GAPNEXT_WP_DIR . 'includes/views/admin-client-access.php'; ?>
+            </div>
+
         </div>
         <?php
     }
@@ -990,5 +1031,47 @@ class GapNext_Audit_Manager {
         }
 
         wp_send_json_success( array_merge( $result, [ 'comments' => $comments ] ) );
+    }
+
+    /**
+     * Human-readable description of a remediation event.
+     */
+    public static function describe_event( $event, $lang = 'en' ) {
+        $d = $event->data;
+        $is_it = $lang === 'it';
+
+        switch ( $event->event_type ) {
+            case 'status_changed':
+                $from = $d['old_status'] ?? '?';
+                $to = $d['new_status'] ?? '?';
+                return $is_it
+                    ? "Stato cambiato: {$from} → {$to}"
+                    : "Status changed: {$from} → {$to}";
+            case 'action_set':
+                return $is_it ? 'Azione correttiva definita' : 'Corrective action set';
+            case 'action_updated':
+                return $is_it ? 'Azione correttiva aggiornata' : 'Corrective action updated';
+            case 'priority_set':
+                return ( $is_it ? 'Priorità: ' : 'Priority: ' ) . ( $d['priority'] ?? '' );
+            case 'deadline_set':
+                return ( $is_it ? 'Scadenza: ' : 'Deadline: ' ) . ( $d['deadline'] ?? '—' );
+            case 'responsible_set':
+                return ( $is_it ? 'Responsabile: ' : 'Responsible: ' ) . ( $d['responsible'] ?? '' );
+            case 'answer_changed':
+                return ( $is_it ? 'Risposta proposta: ' : 'Answer proposed: ' ) . ( $d['new_value'] ?? '' );
+            case 'answer_approved':
+                return $is_it ? 'Risposta approvata' : 'Answer approved';
+            case 'answer_rejected':
+                $fb = $d['feedback'] ?? '';
+                return ( $is_it ? 'Risposta respinta' : 'Answer rejected' ) . ( $fb ? ": {$fb}" : '' );
+            case 'evidence_added':
+                return ( $is_it ? 'Evidenza caricata: ' : 'Evidence uploaded: ' ) . basename( $d['file_path'] ?? '' );
+            case 'comment':
+                return $d['comment'] ?? '';
+            case 'verified':
+                return $is_it ? 'Verificato ✓' : 'Verified ✓';
+            default:
+                return $event->event_type;
+        }
     }
 }

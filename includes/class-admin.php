@@ -74,6 +74,39 @@ class GapNext_Admin {
     public function enqueue_assets( $hook ) {
         if ( strpos( $hook, 'gapnext' ) === false ) return;
         wp_enqueue_media();
+
+        // Remediation assets on submission detail page
+        if ( isset( $_GET['page'] ) && $_GET['page'] === 'gapnext-submissions' && isset( $_GET['view_sub'] ) ) {
+            wp_enqueue_style(
+                'gapnext-admin-remediation',
+                GAPNEXT_WP_URL . 'assets/gapnext-admin-remediation.css',
+                [],
+                GAPNEXT_WP_VERSION
+            );
+            wp_enqueue_script(
+                'gapnext-admin-remediation',
+                GAPNEXT_WP_URL . 'assets/gapnext-admin-remediation.js',
+                [ 'jquery' ],
+                GAPNEXT_WP_VERSION,
+                true
+            );
+
+            $sub_id = (int) $_GET['view_sub'];
+            $sub = GapNext_Audit_Manager::get_submission( $sub_id );
+            wp_localize_script( 'gapnext-admin-remediation', 'gapnextRemediation', [
+                'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
+                'nonce'        => wp_create_nonce( 'gapnext_remediation' ),
+                'submissionId' => $sub_id,
+                'auditUuid'    => $sub ? $sub->audit_uuid : '',
+                'i18n'         => [
+                    'confirmInit'   => __( 'Initialize remediation plan for all questions? This cannot be undone.', 'gapnext-wp' ),
+                    'initializing'  => __( 'Initializing...', 'gapnext-wp' ),
+                    'initBtn'       => __( 'Initialize Remediation Plan', 'gapnext-wp' ),
+                    'rejectReason'  => __( 'Reason for rejection:', 'gapnext-wp' ),
+                    'clientRequired'=> __( 'Email and name are required.', 'gapnext-wp' ),
+                ],
+            ] );
+        }
     }
 
     public function render_settings_page() {

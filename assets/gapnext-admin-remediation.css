@@ -1,0 +1,266 @@
+/* GapNext WP — Admin Remediation Styles */
+
+.gapnext-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #c3c4c7;
+    margin: 16px 0 0;
+}
+.gapnext-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #646970;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: transparent;
+    margin-bottom: -2px;
+    border-radius: 4px 4px 0 0;
+    transition: color .15s, background .15s;
+}
+.gapnext-tab:hover { color: #1d2327; background: #f6f7f7; }
+.gapnext-tab.active {
+    color: #1d2327;
+    background: #fff;
+    border-color: #c3c4c7;
+    border-bottom-color: #fff;
+}
+.gapnext-tab-badge {
+    display: inline-block;
+    background: #d63638;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 6px;
+    min-width: 16px;
+    text-align: center;
+}
+.gapnext-tab-panel { display: none; padding: 20px 0 0; }
+.gapnext-tab-panel.active { display: block; }
+
+/* Remediation item card */
+.gnr-item {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    transition: border-color .15s;
+}
+.gnr-item:hover { border-color: #2271b1; }
+.gnr-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.gnr-item-ref {
+    font-weight: 700;
+    font-size: 13px;
+    color: #1d2327;
+    min-width: 50px;
+}
+.gnr-item-title {
+    flex: 1;
+    font-size: 13px;
+    color: #3c434a;
+}
+.gnr-item-original {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+.gnr-item-original.conforme     { background: #d1fae5; color: #065f46; }
+.gnr-item-original.parziale     { background: #fef3c7; color: #92400e; }
+.gnr-item-original.non-conforme { background: #fee2e2; color: #991b1b; }
+.gnr-item-original.na           { background: #e5e7eb; color: #6b7280; }
+.gnr-item-original.unanswered   { background: #f3f4f6; color: #9ca3af; }
+
+/* Status badge */
+.gnr-status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.gnr-status-open           { background: #e5e7eb; color: #374151; }
+.gnr-status-in_progress    { background: #dbeafe; color: #1e40af; }
+.gnr-status-pending_review { background: #fef3c7; color: #92400e; }
+.gnr-status-verified       { background: #d1fae5; color: #065f46; }
+.gnr-status-rejected       { background: #fee2e2; color: #991b1b; }
+
+/* Item fields grid */
+.gnr-item-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+.gnr-item-field label {
+    display: block;
+    font-size: 11px;
+    color: #646970;
+    margin-bottom: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.gnr-item-field input,
+.gnr-item-field select,
+.gnr-item-field textarea {
+    width: 100%;
+    font-size: 13px;
+    padding: 5px 8px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.gnr-item-field textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+.gnr-item-action-field {
+    grid-column: 1 / -1;
+}
+
+/* Review pending indicator */
+.gnr-pending-banner {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+.gnr-pending-banner .gnr-btn-approve {
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+.gnr-pending-banner .gnr-btn-reject {
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Event timeline within item */
+.gnr-timeline {
+    margin-top: 12px;
+    border-top: 1px solid #f0f0f1;
+    padding-top: 10px;
+}
+.gnr-timeline-toggle {
+    font-size: 12px;
+    color: #2271b1;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-weight: 600;
+}
+.gnr-timeline-list {
+    margin-top: 8px;
+    list-style: none;
+    padding: 0;
+}
+.gnr-timeline-list li {
+    font-size: 12px;
+    color: #646970;
+    padding: 3px 0 3px 18px;
+    position: relative;
+}
+.gnr-timeline-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #c3c4c7;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+.gnr-timeline-date { color: #9ca3af; margin-right: 6px; }
+.gnr-timeline-actor { font-weight: 600; color: #3c434a; }
+
+/* Init remediation CTA */
+.gnr-init-panel {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-left: 4px solid #2271b1;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    max-width: 700px;
+}
+.gnr-init-panel h3 { margin: 0 0 8px; font-size: 14px; }
+.gnr-init-panel p { margin: 0 0 14px; font-size: 13px; color: #3c434a; }
+
+/* Filter bar */
+.gnr-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+.gnr-filter-btn {
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #dcdcde;
+    background: #fff;
+    cursor: pointer;
+    color: #3c434a;
+    transition: all .15s;
+}
+.gnr-filter-btn:hover { border-color: #2271b1; color: #2271b1; }
+.gnr-filter-btn.active { background: #2271b1; color: #fff; border-color: #2271b1; }
+
+/* Aggregate stats bar */
+.gnr-agg-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.gnr-agg-stat {
+    background: #f6f7f7;
+    border-radius: 6px;
+    padding: 10px 14px;
+    text-align: center;
+    min-width: 80px;
+    border-left: 3px solid;
+}
+.gnr-agg-stat-num {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+.gnr-agg-stat-label {
+    display: block;
+    font-size: 10px;
+    color: #646970;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}

@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class GapNext_Installer {
 
     public static function activate() {
+        GapNext_Client_Role::register_role();
         self::create_tables();
         self::set_defaults();
         flush_rewrite_rules();
@@ -26,6 +27,8 @@ class GapNext_Installer {
             access_mode VARCHAR(20) NOT NULL DEFAULT 'public',
             created_by BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            phase VARCHAR(20) NOT NULL DEFAULT 'gap_analysis',
+            client_user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
             status VARCHAR(20) NOT NULL DEFAULT 'active',
             PRIMARY KEY (id),
             UNIQUE KEY uuid (uuid)
@@ -55,6 +58,7 @@ class GapNext_Installer {
             status VARCHAR(20) NOT NULL DEFAULT 'submitted',
             ai_report_url  VARCHAR(500) NULL DEFAULT NULL,
             ai_report_uuid VARCHAR(36)  NULL DEFAULT NULL,
+            remediation_score FLOAT NULL DEFAULT NULL,
             PRIMARY KEY (id),
             KEY audit_uuid (audit_uuid),
             KEY status (status)
@@ -71,10 +75,38 @@ class GapNext_Installer {
             KEY submission_id (submission_id)
         ) $charset;";
 
+        $sql_remediation_log = "CREATE TABLE {$wpdb->prefix}gapnext_remediation_log (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            submission_id BIGINT(20) UNSIGNED NOT NULL,
+            question_ref VARCHAR(50) NOT NULL DEFAULT '',
+            event_type VARCHAR(30) NOT NULL,
+            user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+            user_role VARCHAR(20) NOT NULL DEFAULT '',
+            data LONGTEXT NOT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY submission_question (submission_id, question_ref, created_at),
+            KEY submission_type (submission_id, event_type),
+            KEY user_events (user_id, created_at)
+        ) $charset;";
+
+        $sql_client_access = "CREATE TABLE {$wpdb->prefix}gapnext_client_access (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            audit_uuid VARCHAR(36) NOT NULL,
+            granted_by BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+            granted_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY user_audit (user_id, audit_uuid),
+            KEY audit_uuid (audit_uuid)
+        ) $charset;";
+
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql_audits );
         dbDelta( $sql_submissions );
         dbDelta( $sql_generations );
+        dbDelta( $sql_remediation_log );
+        dbDelta( $sql_client_access );
 
         update_option( 'gapnext_wp_db_version', GAPNEXT_WP_VERSION );
     }

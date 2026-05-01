@@ -312,6 +312,21 @@ class GapNext_Ajax {
             wp_die( esc_html__( 'Not found.', 'gapnext-wp' ), '', [ 'response' => 404 ] );
         }
 
+        // Enforce access control for login_required audits
+        $audit = GapNext_Audit_Manager::get_audit_by_uuid( $uuid );
+        if ( $audit && $audit->access_mode === 'login_required' ) {
+            if ( ! is_user_logged_in() ) {
+                wp_die( esc_html__( 'Login required.', 'gapnext-wp' ), '', [ 'response' => 403 ] );
+            }
+            // Allow admins and the assigned client user
+            if ( ! current_user_can( 'manage_options' ) ) {
+                $user_audits = GapNext_Client_Role::get_user_audits( get_current_user_id() );
+                if ( ! in_array( $uuid, $user_audits, true ) ) {
+                    wp_die( esc_html__( 'Access denied.', 'gapnext-wp' ), '', [ 'response' => 403 ] );
+                }
+            }
+        }
+
         $base = 'gapnext-report-' . $sub->standard_id . '-' . date( 'Ymd', strtotime( $sub->submitted_at ) );
 
         switch ( $format ) {
