@@ -4,7 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class GapNext_Audit_Manager {
 
     public function __construct() {
+        /* AI generate handler — disabled until AI pipeline is ready for production
         add_action( 'wp_ajax_gapnext_ai_generate', [ $this, 'handle_ai_generate' ] );
+        */
     }
 
     public static function render_audit_links_page() {
@@ -69,6 +71,7 @@ class GapNext_Audit_Manager {
                             <select name="audit_access" id="audit_access">
                                 <option value="public" <?php selected( $default_access, 'public' ); ?>><?php esc_html_e( 'Public', 'gapnext-wp' ); ?></option>
                                 <option value="login_required" <?php selected( $default_access, 'login_required' ); ?>><?php esc_html_e( 'Login Required', 'gapnext-wp' ); ?></option>
+                                <option value="demo" <?php selected( $default_access, 'demo' ); ?>><?php esc_html_e( 'Demo', 'gapnext-wp' ); ?></option>
                             </select>
                         </td>
                     </tr>
@@ -108,7 +111,12 @@ class GapNext_Audit_Manager {
                             <td><?php echo esc_html( $audit->title ); ?></td>
                             <td><?php echo esc_html( $audit->standard_id ); ?></td>
                             <td><?php echo esc_html( strtoupper( $audit->language ) ); ?></td>
-                            <td><?php echo esc_html( $audit->access_mode ); ?></td>
+                            <td>
+                                <?php echo esc_html( ucfirst( $audit->access_mode ) ); ?>
+                                <?php if ( $audit->access_mode === 'demo' ) : ?>
+                                    <span style="display:inline-block;margin-left:4px;padding:1px 6px;background:#fef3c7;color:#92400e;border-radius:8px;font-size:10px;font-weight:600">Demo</span>
+                                <?php endif; ?>
+                            </td>
                             <td><?php echo esc_html( $audit->created_at ); ?></td>
                             <td>
                                 <input type="text" value="<?php echo esc_url( $link ); ?>" readonly style="width:100%"
@@ -148,6 +156,7 @@ class GapNext_Audit_Manager {
             return;
         }
 
+        /* AI button script — disabled until AI pipeline is ready for production
         // Enqueue AI button script if AI is configured (single instance — reused in row loop)
         $ai_client = new GapNext_AI_Client();
         if ( $ai_client->is_configured() ) {
@@ -169,6 +178,7 @@ class GapNext_Audit_Manager {
                 'networkErrorText' => __( 'Network error. Check connection.', 'gapnext-wp' ),
             ] );
         }
+        */
 
         // ── Filter & sort params ──────────────────────────────────────────
         $f_standard = sanitize_text_field( wp_unslash( $_GET['std_filter']     ?? '' ) );
@@ -316,7 +326,12 @@ class GapNext_Audit_Manager {
                         else                           $score_color = '#991b1b';
                         ?>
                         <tr>
-                            <td><?php echo esc_html( $sub->company_name ); ?></td>
+                            <td>
+                                <?php echo esc_html( $sub->company_name ); ?>
+                                <?php if ( $sub->status === 'demo' ) : ?>
+                                    <span style="display:inline-block;margin-left:6px;padding:2px 8px;background:#fef3c7;color:#92400e;border-radius:10px;font-size:11px;font-weight:600;vertical-align:middle">Demo</span>
+                                <?php endif; ?>
+                            </td>
                             <td><?php echo esc_html( $sub->standard_id ); ?></td>
                             <td><?php echo esc_html( strtoupper( $sub->language ) ); ?></td>
                             <td><strong style="color:<?php echo esc_attr( $score_color ); ?>"><?php echo esc_html( $score_pct . '%' ); ?></strong></td>
@@ -366,7 +381,7 @@ class GapNext_Audit_Manager {
             return;
         }
 
-        // Enqueue AI script for the view page
+        /* AI script for the view page — disabled until AI pipeline is ready for production
         $ai_client_render = new GapNext_AI_Client();
         if ( $ai_client_render->is_configured() ) {
             wp_enqueue_script(
@@ -388,6 +403,7 @@ class GapNext_Audit_Manager {
                 'networkErrorText' => __( 'Network error. Check connection.', 'gapnext-wp' ),
             ] );
         }
+        */
 
         $answers    = json_decode( $sub->answers,        true ) ?: [];
         $evidence   = json_decode( $sub->evidence_paths, true ) ?: [];
@@ -735,10 +751,9 @@ class GapNext_Audit_Manager {
 
             <?php
             // ============================================================
-            // AI REPORT SECTION
+            // AI REPORT SECTION — disabled until AI pipeline is ready for production
             // ============================================================
-            // NOTE: AI report section is inside the Gap Analysis tab
-            if ( $ai_client_render->is_configured() ) :
+            if ( false && $ai_client_render->is_configured() ) :
             ?>
             <div style="margin-top:40px;padding-top:32px;border-top:2px solid #e5e7eb">
                 <h2 style="font-size:18px;font-weight:700;color:#1d2327;margin:0 0 4px;display:flex;align-items:center;gap:8px">
@@ -934,7 +949,7 @@ class GapNext_Audit_Manager {
                 'title'       => sanitize_text_field( $_POST['audit_title'] ?? '' ),
                 'standard_id' => sanitize_text_field( $_POST['audit_standard'] ?? '' ),
                 'language'    => in_array( $lang, [ 'it', 'en' ], true ) ? $lang : 'it',
-                'access_mode' => in_array( $access, [ 'public', 'login_required' ], true ) ? $access : 'public',
+                'access_mode' => in_array( $access, [ 'public', 'login_required', 'demo' ], true ) ? $access : 'public',
                 'created_by'  => get_current_user_id(),
             ],
             [ '%s', '%s', '%s', '%s', '%s', '%d' ]
@@ -954,13 +969,13 @@ class GapNext_Audit_Manager {
 
     public static function get_all_submissions() {
         global $wpdb;
-        return $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gapnext_submissions WHERE status = 'submitted' ORDER BY submitted_at DESC" );
+        return $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gapnext_submissions WHERE status IN ('submitted','demo') ORDER BY submitted_at DESC" );
     }
 
     public static function get_filtered_submissions( $standard = '', $company = '', $order = 'desc' ) {
         global $wpdb;
         $order     = strtoupper( $order ) === 'ASC' ? 'ASC' : 'DESC';
-        $where     = [ "status = 'submitted'" ];
+        $where     = [ "status IN ('submitted','demo')" ];
         $values    = [];
 
         if ( $standard !== '' ) {

@@ -59,6 +59,8 @@ class GapNext_Installer {
             ai_report_url  VARCHAR(500) NULL DEFAULT NULL,
             ai_report_uuid VARCHAR(36)  NULL DEFAULT NULL,
             remediation_score FLOAT NULL DEFAULT NULL,
+            filling_mode VARCHAR(20) NOT NULL DEFAULT 'assisted',
+            last_step INT UNSIGNED NOT NULL DEFAULT 0,
             PRIMARY KEY (id),
             KEY audit_uuid (audit_uuid),
             KEY status (status)
@@ -118,6 +120,8 @@ class GapNext_Installer {
         add_option( 'gapnext_checklist_page_id',   0 );
         add_option( 'gapnext_notification_email',  '' );
         add_option( 'gapnext_notify_consultant',   0 );
+        add_option( 'gapnext_draft_reminder_enabled', 1 );
+        add_option( 'gapnext_demo_question_limit', 15 );
         add_option( 'gapnext_pdf_footer_text',     'Proprietary and Confidential' );
     }
 }

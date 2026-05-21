@@ -47,6 +47,9 @@ class GapNext_Ajax {
             'evidence_paths'     => '[]',
             'score'              => 0,
             'submitted_at'       => current_time( 'mysql' ),
+            'filling_mode'       => in_array( $_POST['filling_mode'] ?? '', [ 'self', 'assisted' ], true )
+                                        ? $_POST['filling_mode'] : 'assisted',
+            'last_step'          => max( 0, (int) ( $_POST['last_step'] ?? 0 ) ),
         ];
 
         // Sanitize answers
@@ -87,6 +90,7 @@ class GapNext_Ajax {
             );
             if ( $rows !== false ) {
                 // rows=0 means data was identical — still a successful save
+                GapNext_Draft_Reminder::schedule( $draft_id, $data['contact_email'] );
                 wp_send_json_success( [ 'draft_id' => $draft_id, 'saved_at' => $data['submitted_at'] ] );
             }
         }
@@ -94,6 +98,7 @@ class GapNext_Ajax {
         // Insert new draft
         $wpdb->insert( $wpdb->prefix . 'gapnext_submissions', $data );
         if ( $wpdb->insert_id ) {
+            GapNext_Draft_Reminder::schedule( (int) $wpdb->insert_id, $data['contact_email'] );
             wp_send_json_success( [ 'draft_id' => $wpdb->insert_id, 'saved_at' => $data['submitted_at'] ] );
         }
 
@@ -116,11 +121,16 @@ class GapNext_Ajax {
             wp_send_json_error( __( 'Audit not found.', 'gapnext-wp' ), 404 );
         }
 
+        // Filling mode
+        $filling_mode = in_array( $_POST['filling_mode'] ?? '', [ 'self', 'assisted' ], true )
+                            ? $_POST['filling_mode'] : 'assisted';
+
         // Sanitize company / contact fields
         $data = [
             'audit_uuid'         => $uuid,
             'standard_id'        => $audit->standard_id,
             'language'           => $audit->language,
+            'filling_mode'       => $filling_mode,
             'company_name'       => sanitize_text_field( wp_unslash( $_POST['company_name'] ?? '' ) ),
             'company_address'    => sanitize_text_field( wp_unslash( $_POST['company_address'] ?? '' ) ),
             'company_vat'        => sanitize_text_field( wp_unslash( $_POST['company_vat'] ?? '' ) ),
@@ -135,10 +145,11 @@ class GapNext_Ajax {
             'consultant_phone'   => sanitize_text_field( wp_unslash( $_POST['consultant_phone'] ?? '' ) ),
         ];
 
-        // Required field validation
-        if ( empty( $data['company_name'] ) || empty( $data['contact_name'] ) ||
-             empty( $data['contact_email'] ) || empty( $data['consultant_name'] ) ||
-             empty( $data['consultant_email'] ) ) {
+        // Required field validation — consultant fields only required in assisted mode
+        if ( empty( $data['company_name'] ) || empty( $data['contact_name'] ) || empty( $data['contact_email'] ) ) {
+            wp_send_json_error( __( 'Required fields missing.', 'gapnext-wp' ), 400 );
+        }
+        if ( $filling_mode === 'assisted' && ( empty( $data['consultant_name'] ) || empty( $data['consultant_email'] ) ) ) {
             wp_send_json_error( __( 'Required fields missing.', 'gapnext-wp' ), 400 );
         }
 
@@ -239,14 +250,20 @@ class GapNext_Ajax {
         $denominator = $total_questions - $count_na;
         $score       = $denominator > 0 ? $count_compliant / $denominator : 0.0;
 
-        // Insert or promote draft → submitted
+        // Insert or promote draft → submitted (or demo)
         global $wpdb;
-        $draft_id    = (int) ( $_POST['draft_id'] ?? 0 );
+        $draft_id      = (int) ( $_POST['draft_id'] ?? 0 );
+        $submit_status = 'submitted';
+        if ( $audit->access_mode === 'demo' ) {
+            $submit_status = 'demo';
+            $filling_mode  = 'self';
+            $data['filling_mode'] = 'self';
+        }
         $submit_data = array_merge( $data, [
             'answers'        => wp_json_encode( $answers_with_notes ),
             'evidence_paths' => wp_json_encode( $evidence_paths ),
             'score'          => $score,
-            'status'         => 'submitted',
+            'status'         => $submit_status,
             'submitted_at'   => current_time( 'mysql' ),
         ] );
 
@@ -260,6 +277,7 @@ class GapNext_Ajax {
             if ( $rows !== false ) {
                 // rows=0 means data was identical — draft still exists and was promoted
                 $submission_id = $draft_id;
+                GapNext_Draft_Reminder::cancel( $draft_id );
             }
         }
 

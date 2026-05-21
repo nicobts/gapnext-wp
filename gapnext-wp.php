@@ -44,7 +44,8 @@ add_action( 'plugins_loaded', function() {
     new GapNext_Checklist();
     new GapNext_Results();
     new GapNext_Ajax();
-    new GapNext_Audit_Manager(); // registers wp_ajax_gapnext_ai_generate via constructor
+    new GapNext_Draft_Reminder();
+    new GapNext_Audit_Manager();
     new GapNext_Client_Role();
     new GapNext_Remediation_Ajax();
 } );

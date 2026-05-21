@@ -8,7 +8,19 @@
       "Bash(MO=\"c:/Users/nicol/Local Sites/wpdevtest1/app/public/wp-content/plugins/gapnext-wp/languages/gapnext-wp-it_IT.mo\")",
       "Bash(__NEW_LINE_ca0b4f4a1e32ebe6__ \"$PHP\" -r \":*)",
       "Bash(__NEW_LINE_7207eae7e262ce17__ \"$PHP\" -r \":*)",
-      "Bash(\"$PHP\" -r \":*)"
+      "Bash(\"$PHP\" -r \":*)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && npx openspec status --change \"form-submission-optimization\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && npx openspec instructions proposal --change \"form-submission-optimization\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && npx openspec instructions design --change \"form-submission-optimization\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && npx openspec new change \"draft-reminder-email\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec new change \"demo-mode\" 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec status --change \"demo-mode\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions proposal --change \"demo-mode\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions design --change \"demo-mode\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions specs --change \"demo-mode\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions tasks --change \"demo-mode\" --json 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions apply --change \"demo-mode\" --json 2>&1)",
+      "Bash(npx skills:*)"
     ]
   }
 }

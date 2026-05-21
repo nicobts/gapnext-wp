@@ -138,6 +138,7 @@ class GapNext_Export_Pdf {
         $pdf->report_date      = $report_date;
         $pdf->consultant_label = $consultant_label;
         $pdf->footer_text      = (string) $footer_text;
+        $pdf->is_demo = $sub->status === 'demo';
         $pdf->SetCreator( 'GapNext WP' );
         $pdf->SetAuthor( $sub->consultant_name );
         $pdf->SetTitle( 'Gap Analysis Report — ' . $std_name );
@@ -161,7 +162,7 @@ class GapNext_Export_Pdf {
 
         // Cover content via writeHTML
         $pdf->writeHTML(
-            self::build_cover_html( $sub, $std_name, $score_pct, $report_date, $lang, $consultant_label, $logo_path ),
+            self::build_cover_html( $sub, $std_name, $score_pct, $report_date, $lang, $consultant_label, $logo_path, $sub->status === 'demo' ),
             true, false, true, false, ''
         );
 
@@ -205,7 +206,7 @@ class GapNext_Export_Pdf {
         if ( $standard ) {
             $pdf->AddPage();
             $pdf->writeHTML(
-                self::build_checklist_html( $standard, $answers, $evidence, $lang ),
+                self::build_checklist_html( $standard, $answers, $evidence, $lang, $sub->status === 'demo' ),
                 true, false, true, false, ''
             );
         }
@@ -241,7 +242,7 @@ class GapNext_Export_Pdf {
             . self::h( $title ) . '</p><br />';
     }
 
-    private static function build_cover_html( $sub, $std_name, $score_pct, $report_date, $lang, $consultant_label, $logo_path ) {
+    private static function build_cover_html( $sub, $std_name, $score_pct, $report_date, $lang, $consultant_label, $logo_path, $is_demo = false ) {
         $date_label  = $lang === 'it' ? 'Data'       : 'Date';
         $prep_label  = $lang === 'it' ? 'Preparato da:' : 'Prepared by:';
 
@@ -255,6 +256,9 @@ class GapNext_Export_Pdf {
         }
 
         $h .= '<p style="font-size:26pt; font-weight:bold; color:#1e40af; text-align:center;">Gap Analysis Report</p>';
+        if ( $is_demo ) {
+            $h .= '<p style="font-size:18pt; font-weight:bold; color:#d97706; text-align:center; letter-spacing:3px;">DEMO</p>';
+        }
         $h .= '<p style="font-size:15pt; color:#475569; text-align:center; font-weight:normal;">' . self::h( $std_name ) . '</p>';
         $h .= '<br /><br />';
 
@@ -473,7 +477,7 @@ class GapNext_Export_Pdf {
         return $h;
     }
 
-    private static function build_checklist_html( $standard, $answers, $evidence, $lang ) {
+    private static function build_checklist_html( $standard, $answers, $evidence, $lang, $is_demo = false ) {
         $ref_col   = $lang === 'it' ? 'Rif.'            : 'Ref.';
         $title_col = $lang === 'it' ? 'Requisito'       : 'Requirement';
         $ans_col   = $lang === 'it' ? 'Risposta'        : 'Answer';
@@ -491,17 +495,29 @@ class GapNext_Export_Pdf {
             . '</tr></thead><tbody>';
 
         $fill = false;
+        $pending_section = null;
         foreach ( $standard['clauses'] as $clause ) {
             if ( (int) $clause['level'] === 1 ) {
-                $h .= '<tr style="background-color:#eef2ff;">'
-                    . '<td colspan="4" style="font-weight:bold; font-size:8pt; color:#1e293b;">'
-                    . self::h( $clause['reference'] . '. ' . $clause['title'] )
-                    . '</td></tr>';
+                $pending_section = $clause;
                 $fill = false;
                 continue;
             }
 
-            $ref      = $clause['reference'];
+            $ref = $clause['reference'];
+
+            // Demo: skip questions without answers
+            if ( $is_demo && ! isset( $answers[ $ref ] ) ) {
+                continue;
+            }
+
+            // Emit section header if pending
+            if ( $pending_section ) {
+                $h .= '<tr style="background-color:#eef2ff;">'
+                    . '<td colspan="4" style="font-weight:bold; font-size:8pt; color:#1e293b;">'
+                    . self::h( $pending_section['reference'] . '. ' . $pending_section['title'] )
+                    . '</td></tr>';
+                $pending_section = null;
+            }
             $val      = ( $answers[ $ref ] ?? [] )['value'] ?? null;
             $note     = ( $answers[ $ref ] ?? [] )['note'] ?? '';
             $files    = $evidence[ $ref ] ?? [];

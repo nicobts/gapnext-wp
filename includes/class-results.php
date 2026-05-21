@@ -38,6 +38,14 @@ class GapNext_Results {
             return '<p class="gapnext-error">' . esc_html__( 'Standard data not found.', 'gapnext-wp' ) . '</p>';
         }
 
+        $is_demo = $sub->status === 'demo';
+        $full_question_count = 0;
+        if ( $is_demo && $standard ) {
+            foreach ( $standard['clauses'] as $c ) {
+                if ( (int) ( $c['level'] ?? 2 ) === 2 ) $full_question_count++;
+            }
+        }
+
         ob_start();
         include GAPNEXT_WP_DIR . 'includes/views/results.php';
         return ob_get_clean();

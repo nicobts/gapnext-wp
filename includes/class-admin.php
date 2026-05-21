@@ -8,10 +8,11 @@ class GapNext_Admin {
         add_action( 'admin_post_gapnext_save_settings', [ $this, 'save_settings' ] );
         add_action( 'admin_post_gapnext_export',        [ $this, 'handle_export' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
-        // AI settings — single instance for both hooks
+        /* AI settings — disabled until AI pipeline is ready for production
         $ai_settings = new GapNext_AI_Settings();
         add_action( 'admin_post_gapnext_save_ai_settings',  [ $ai_settings, 'save_settings' ] );
         add_action( 'wp_ajax_gapnext_ai_test_connection',   [ $ai_settings, 'handle_test_connection' ] );
+        */
     }
 
     public function handle_export() {
@@ -203,6 +204,7 @@ class GapNext_Admin {
                             <select name="gapnext_default_access_mode" id="gapnext_default_access_mode">
                                 <option value="public" <?php selected( $default_access, 'public' ); ?>><?php esc_html_e( 'Public', 'gapnext-wp' ); ?></option>
                                 <option value="login_required" <?php selected( $default_access, 'login_required' ); ?>><?php esc_html_e( 'Login Required', 'gapnext-wp' ); ?></option>
+                                <option value="demo" <?php selected( $default_access, 'demo' ); ?>><?php esc_html_e( 'Demo', 'gapnext-wp' ); ?></option>
                             </select>
                         </td>
                     </tr>
@@ -252,6 +254,25 @@ class GapNext_Admin {
                             <p class="description"><?php esc_html_e( 'Receives a copy of the submission notification email (in addition to the consultant). Leave blank to disable.', 'gapnext-wp' ); ?></p>
                         </td>
                     </tr>
+                    <tr>
+                        <th><label for="gapnext_draft_reminder_enabled"><?php esc_html_e( 'Draft Reminder Email', 'gapnext-wp' ); ?></label></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="gapnext_draft_reminder_enabled" id="gapnext_draft_reminder_enabled" value="1"
+                                    <?php checked( get_option( 'gapnext_draft_reminder_enabled', 1 ) ); ?>>
+                                <?php esc_html_e( 'Send a reminder email 24h after the last draft save if the form has not been submitted', 'gapnext-wp' ); ?>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="gapnext_demo_question_limit"><?php esc_html_e( 'Demo Question Limit', 'gapnext-wp' ); ?></label></th>
+                        <td>
+                            <input type="number" name="gapnext_demo_question_limit" id="gapnext_demo_question_limit"
+                                   class="small-text" min="5" max="50"
+                                   value="<?php echo esc_attr( get_option( 'gapnext_demo_question_limit', 15 ) ); ?>">
+                            <p class="description"><?php esc_html_e( 'Number of questions shown in demo audit links (default: 15).', 'gapnext-wp' ); ?></p>
+                        </td>
+                    </tr>
                 </table>
                 <?php submit_button( __( 'Save Settings', 'gapnext-wp' ) ); ?>
             </form>
@@ -291,7 +312,9 @@ class GapNext_Admin {
             </div>
             <!-- ────────────────────────────────────────────────────────── -->
 
-        <?php ( new GapNext_AI_Settings() )->render_section(); ?>
+        <?php /* AI settings section — disabled until AI pipeline is ready for production
+        ( new GapNext_AI_Settings() )->render_section();
+        */ ?>
 
         </div>
         <?php
@@ -307,12 +330,14 @@ class GapNext_Admin {
         $checklist_pid      = (int) ( $_POST['gapnext_checklist_page_id'] ?? 0 );
         $results_pid        = (int) ( $_POST['gapnext_results_page_id']   ?? 0 );
         update_option( 'gapnext_default_language',    in_array( $lang, [ 'it', 'en' ], true ) ? $lang : 'it' );
-        update_option( 'gapnext_default_access_mode', in_array( $access, [ 'public', 'login_required' ], true ) ? $access : 'public' );
+        update_option( 'gapnext_default_access_mode', in_array( $access, [ 'public', 'login_required', 'demo' ], true ) ? $access : 'public' );
         update_option( 'gapnext_consultant_logo_id',  $logo );
         update_option( 'gapnext_checklist_page_id',   $checklist_pid );
         update_option( 'gapnext_results_page_id',     $results_pid );
         update_option( 'gapnext_pdf_footer_text',     sanitize_text_field( $_POST['gapnext_pdf_footer_text'] ?? '' ) );
         update_option( 'gapnext_notification_email',  sanitize_email( $_POST['gapnext_notification_email'] ?? '' ) );
+        update_option( 'gapnext_draft_reminder_enabled', isset( $_POST['gapnext_draft_reminder_enabled'] ) ? 1 : 0 );
+        update_option( 'gapnext_demo_question_limit', max( 5, min( 50, (int) ( $_POST['gapnext_demo_question_limit'] ?? 15 ) ) ) );
 
         wp_redirect( add_query_arg( [ 'page' => 'gapnext-settings', 'updated' => '1' ], admin_url( 'admin.php' ) ) );
         exit;

@@ -80,6 +80,20 @@ $dl_base = admin_url( 'admin-post.php' ) . '?action=gapnext_download&sub=' . $su
 ?>
 <div class="gapnext-results-wrap">
 
+    <?php if ( ! empty( $is_demo ) ) : ?>
+    <div class="gapnext-demo-banner">
+        <strong>DEMO</strong> —
+        <?php
+        $demo_answered = $answered;
+        $full_q = ! empty( $full_question_count ) ? (int) $full_question_count : $total;
+        echo esc_html( $lang === 'it'
+            ? sprintf( 'Report demo — %d di %d domande valutate', $demo_answered, $full_q )
+            : sprintf( 'Demo report — %d of %d questions evaluated', $demo_answered, $full_q )
+        );
+        ?>
+    </div>
+    <?php endif; ?>
+
     <!-- Header -->
     <div class="gnr-header">
         <h1 class="gnr-title"><?php echo esc_html( $std_name ); ?></h1>
@@ -138,6 +152,24 @@ $dl_base = admin_url( 'admin-post.php' ) . '?action=gapnext_download&sub=' . $su
         <?php if ( $non_comply > 0 ) : ?><div class="gnr-bar-seg gnr-bar-noncomply"  style="width:<?php echo esc_attr( round( $non_comply / $total * 100, 1 ) ); ?>%" title="<?php echo esc_attr( $lbl['non_comply'] . ': ' . $non_comply ); ?>"></div><?php endif; ?>
         <?php if ( $na         > 0 ) : ?><div class="gnr-bar-seg gnr-bar-na"         style="width:<?php echo esc_attr( round( $na         / $total * 100, 1 ) ); ?>%" title="<?php echo esc_attr( $lbl['na']         . ': ' . $na         ); ?>"></div><?php endif; ?>
         <?php if ( $unanswered > 0 ) : ?><div class="gnr-bar-seg gnr-bar-unanswered" style="width:<?php echo esc_attr( round( $unanswered / $total * 100, 1 ) ); ?>%" title="<?php echo esc_attr( $lbl['unanswered'] . ': ' . $unanswered ); ?>"></div><?php endif; ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ( ! empty( $is_demo ) ) : ?>
+    <div class="gapnext-demo-cta">
+        <h3><?php echo esc_html( $lang === 'it'
+            ? 'Vuoi la Gap Analysis completa?'
+            : 'Want the full Gap Analysis?' ); ?></h3>
+        <p><?php echo esc_html( $lang === 'it'
+            ? sprintf( 'Questa demo ha valutato solo %d domande su %d. La versione completa include tutte le domande, report PDF dettagliato, analisi per sezione e piano di rimedio.', $demo_answered, $full_q )
+            : sprintf( 'This demo evaluated only %d of %d questions. The full version includes all questions, detailed PDF report, section analysis, and remediation plan.', $demo_answered, $full_q ) ); ?></p>
+        <?php
+        $notification_email = get_option( 'gapnext_notification_email', get_option( 'admin_email' ) );
+        if ( $notification_email ) : ?>
+            <a href="mailto:<?php echo esc_attr( $notification_email ); ?>?subject=<?php echo esc_attr( $lang === 'it' ? 'Richiesta Gap Analysis completa' : 'Full Gap Analysis request' ); ?>" class="gapnext-btn gapnext-demo-cta-btn">
+                <?php echo esc_html( $lang === 'it' ? 'Contattaci' : 'Contact Us' ); ?>
+            </a>
+        <?php endif; ?>
     </div>
     <?php endif; ?>
 
