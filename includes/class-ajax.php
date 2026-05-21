@@ -230,9 +230,7 @@ class GapNext_Ajax {
             ];
         }
 
-        // Total questions is sent by the form as a hidden field — avoids loading the full
-        // standard data file inside the AJAX handler (which can exhaust memory on large checklists).
-        $total_questions  = max( 0, (int) ( $_POST['total_questions'] ?? 0 ) );
+        $total_questions  = max( count( $answers ), (int) ( $_POST['total_questions'] ?? 0 ) );
 
         // Per-status counts
         $count_compliant  = 0;

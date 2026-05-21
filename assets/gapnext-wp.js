@@ -256,7 +256,7 @@
             var $el = $('#gapnext-save-status');
             $el.removeClass('gapnext-save-saving gapnext-save-saved gapnext-save-error');
             if (state === 'saving') {
-                $el.addClass('gapnext-save-saving').text(GapNextWP.i18n.draft_saved ? '...' : 'Saving...');
+                $el.addClass('gapnext-save-saving').text(GapNextWP.i18n.saving || 'Saving...');
             } else if (state === 'saved') {
                 $el.addClass('gapnext-save-saved').text(formatTime(new Date()));
             } else if (state === 'error') {

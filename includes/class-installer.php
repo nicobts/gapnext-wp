@@ -12,6 +12,17 @@ class GapNext_Installer {
 
     public static function deactivate() {
         flush_rewrite_rules();
+
+        $crons = _get_cron_array();
+        if ( is_array( $crons ) ) {
+            foreach ( $crons as $timestamp => $hooks ) {
+                if ( isset( $hooks['gapnext_send_draft_reminder'] ) ) {
+                    foreach ( $hooks['gapnext_send_draft_reminder'] as $key => $event ) {
+                        wp_unschedule_event( $timestamp, 'gapnext_send_draft_reminder', $event['args'] );
+                    }
+                }
+            }
+        }
     }
 
     private static function create_tables() {

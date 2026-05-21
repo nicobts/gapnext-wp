@@ -17,6 +17,10 @@ class GapNext_Checklist {
                 [],
                 GAPNEXT_WP_VERSION
             );
+            $custom_css = get_option( 'gapnext_custom_css', '' );
+            if ( $custom_css ) {
+                wp_add_inline_style( 'gapnext-wp', $custom_css );
+            }
             wp_enqueue_script(
                 'gapnext-wp',
                 GAPNEXT_WP_URL . 'assets/gapnext-wp.js',
@@ -32,6 +36,7 @@ class GapNext_Checklist {
                 'results_page_url' => $results_pid ? get_permalink( $results_pid ) : '',
                 'download_url'     => admin_url( 'admin-post.php' ),
                 'i18n'             => [
+                    'saving'              => __( 'Saving...', 'gapnext-wp' ),
                     'submitting'          => __( 'Submitting...', 'gapnext-wp' ),
                     'error'               => __( 'An error occurred. Please try again.', 'gapnext-wp' ),
                     'required_fields'     => __( 'Please fill in all required fields.', 'gapnext-wp' ),

@@ -221,7 +221,7 @@ $labels = [
         <input type="hidden" name="last_step" id="gapnext-last-step" value="0">
 
         <!-- STEP 0: Mode Selector -->
-        <div class="gapnext-step-content" id="gapnext-step-0"<?php if ( ! empty( $is_demo ) ) echo ' style="display:none"'; ?>
+        <div class="gapnext-step-content" id="gapnext-step-0"<?php if ( ! empty( $is_demo ) ) echo ' style="display:none"'; ?>>
             <h2><?php echo esc_html( $labels['mode_title'] ); ?></h2>
             <div class="gapnext-mode-selector">
                 <button type="button" class="gapnext-mode-card" data-mode="self">

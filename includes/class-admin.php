@@ -273,6 +273,15 @@ class GapNext_Admin {
                             <p class="description"><?php esc_html_e( 'Number of questions shown in demo audit links (default: 15).', 'gapnext-wp' ); ?></p>
                         </td>
                     </tr>
+                    <tr>
+                        <th><label for="gapnext_custom_css"><?php esc_html_e( 'Custom CSS', 'gapnext-wp' ); ?></label></th>
+                        <td>
+                            <textarea name="gapnext_custom_css" id="gapnext_custom_css"
+                                      rows="8" style="width:100%;max-width:600px;font-family:monospace;font-size:12px;tab-size:2"
+                                      placeholder="/* <?php esc_attr_e( 'e.g. override styles for theme compatibility', 'gapnext-wp' ); ?> */&#10;.gapnext-form-wrap { }&#10;"><?php echo esc_textarea( get_option( 'gapnext_custom_css', '' ) ); ?></textarea>
+                            <p class="description"><?php esc_html_e( 'Add custom CSS rules to override plugin styles. Useful for fixing compatibility issues with your theme. Applied on pages that use the [gapnext_checklist] or [gapnext_results] shortcodes.', 'gapnext-wp' ); ?></p>
+                        </td>
+                    </tr>
                 </table>
                 <?php submit_button( __( 'Save Settings', 'gapnext-wp' ) ); ?>
             </form>
@@ -338,6 +347,7 @@ class GapNext_Admin {
         update_option( 'gapnext_notification_email',  sanitize_email( $_POST['gapnext_notification_email'] ?? '' ) );
         update_option( 'gapnext_draft_reminder_enabled', isset( $_POST['gapnext_draft_reminder_enabled'] ) ? 1 : 0 );
         update_option( 'gapnext_demo_question_limit', max( 5, min( 50, (int) ( $_POST['gapnext_demo_question_limit'] ?? 15 ) ) ) );
+        update_option( 'gapnext_custom_css', wp_strip_all_tags( wp_unslash( $_POST['gapnext_custom_css'] ?? '' ) ) );
 
         wp_redirect( add_query_arg( [ 'page' => 'gapnext-settings', 'updated' => '1' ], admin_url( 'admin.php' ) ) );
         exit;

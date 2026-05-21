@@ -45,6 +45,10 @@ $options = [
     'gapnext_ai_branding_prepared_by',
     'gapnext_ai_branding_company_website',
     'gapnext_ai_branding_company_phone',
+    'gapnext_draft_reminder_enabled',
+    'gapnext_demo_question_limit',
+    'gapnext_dashboard_page_id',
+    'gapnext_custom_css',
 ];
 
 foreach ( $options as $option ) {

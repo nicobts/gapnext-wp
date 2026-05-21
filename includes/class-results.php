@@ -17,6 +17,10 @@ class GapNext_Results {
                 [],
                 GAPNEXT_WP_VERSION
             );
+            $custom_css = get_option( 'gapnext_custom_css', '' );
+            if ( $custom_css ) {
+                wp_add_inline_style( 'gapnext-wp', $custom_css );
+            }
         }
     }
 

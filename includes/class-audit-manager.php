@@ -901,7 +901,44 @@ class GapNext_Audit_Manager {
 
     private static function delete_submission( $sub_id ) {
         global $wpdb;
+        $sub = self::get_submission( (int) $sub_id );
+
+        if ( $sub ) {
+            $evidence = json_decode( $sub->evidence_paths, true ) ?: [];
+            if ( $evidence ) {
+                $upload_dir = wp_upload_dir();
+                $base       = trailingslashit( $upload_dir['basedir'] ) . 'gapnext-evidence/' . $sub->audit_uuid;
+                foreach ( $evidence as $paths ) {
+                    foreach ( (array) $paths as $path ) {
+                        if ( file_exists( $path ) ) {
+                            wp_delete_file( $path );
+                        }
+                    }
+                }
+                if ( is_dir( $base ) ) {
+                    self::remove_directory( $base );
+                }
+            }
+            $wpdb->delete( $wpdb->prefix . 'gapnext_ai_report_generations', [ 'submission_id' => (int) $sub_id ], [ '%d' ] );
+        }
+
         $wpdb->delete( $wpdb->prefix . 'gapnext_submissions', [ 'id' => (int) $sub_id ], [ '%d' ] );
+    }
+
+    private static function remove_directory( $dir ) {
+        if ( ! is_dir( $dir ) ) return;
+        $items = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator( $dir, \FilesystemIterator::SKIP_DOTS ),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ( $items as $item ) {
+            if ( $item->isDir() ) {
+                rmdir( $item->getPathname() );
+            } else {
+                wp_delete_file( $item->getPathname() );
+            }
+        }
+        rmdir( $dir );
     }
 
     /**
@@ -959,6 +996,18 @@ class GapNext_Audit_Manager {
 
     private static function delete_audit( $uuid ) {
         global $wpdb;
+        $sub_ids = $wpdb->get_col( $wpdb->prepare(
+            "SELECT id FROM {$wpdb->prefix}gapnext_submissions WHERE audit_uuid = %s", $uuid
+        ) );
+        if ( $sub_ids ) {
+            $placeholders = implode( ',', array_fill( 0, count( $sub_ids ), '%d' ) );
+            $wpdb->query( $wpdb->prepare(
+                "DELETE FROM {$wpdb->prefix}gapnext_ai_report_generations WHERE submission_id IN ($placeholders)", ...$sub_ids
+            ) );
+        }
+        $wpdb->delete( $wpdb->prefix . 'gapnext_remediation_log', [ 'audit_uuid' => $uuid ], [ '%s' ] );
+        $wpdb->delete( $wpdb->prefix . 'gapnext_client_access', [ 'audit_uuid' => $uuid ], [ '%s' ] );
+        $wpdb->delete( $wpdb->prefix . 'gapnext_submissions', [ 'audit_uuid' => $uuid ], [ '%s' ] );
         $wpdb->delete( $wpdb->prefix . 'gapnext_audits', [ 'uuid' => $uuid ], [ '%s' ] );
     }
 

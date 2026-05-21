@@ -31,7 +31,7 @@ class GapNext_Export_Pdf {
      * Stream PDF as a download to the browser (no auth check — caller must verify).
      */
     public static function stream( $sub ) {
-        @ini_set( 'memory_limit', '-1' );
+        @ini_set( 'memory_limit', '512M' );
         @set_time_limit( 300 );
 
         // Catch uncaught PHP fatals (E_ERROR) via shutdown handler.

@@ -3,7 +3,7 @@
  * Plugin Name: GapNext WP
  * Plugin URI:  https://nicolasbossi.com
  * Description: Multi-standard gap analysis audit tool for quality consultants.
- * Version:     1.2.0
+ * Version:     1.2.1
  * Author:      Nicolas Bossi
  * Author URI:  https://nicolasbossi.com
  * Text Domain: gapnext-wp
