@@ -1,0 +1,35 @@
+- generic [active] [ref=e1]:
+  - heading "Accedi" [level=1] [ref=e2]
+  - generic [ref=e3]:
+    - link "Powered by WordPress" [ref=e4] [cursor=pointer]:
+      - /url: https://it.wordpress.org/
+    - paragraph [ref=e6]: Disconnessione effettuata.
+    - generic [ref=e7]:
+      - paragraph [ref=e8]:
+        - generic [ref=e9]: Nome utente o indirizzo email
+        - textbox "Nome utente o indirizzo email" [ref=e10]: sgaccount1
+      - generic [ref=e11]:
+        - generic [ref=e12]: Password
+        - generic [ref=e13]:
+          - textbox "Password" [ref=e14]
+          - button "Mostra password" [ref=e15] [cursor=pointer]:
+            - generic [ref=e16]: 
+      - paragraph [ref=e17]:
+        - checkbox "Ricordami" [ref=e18] [cursor=pointer]
+        - generic [ref=e19]: Ricordami
+      - paragraph:
+        - button "Accedi" [ref=e20] [cursor=pointer]
+    - paragraph [ref=e21]:
+      - link "Password dimenticata?" [ref=e22] [cursor=pointer]:
+        - /url: http://wpdevtest1.local/wp-login.php?action=lostpassword
+    - paragraph [ref=e23]:
+      - link "← Torna a wpdev_test1" [ref=e24] [cursor=pointer]:
+        - /url: http://wpdevtest1.local/
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]: 
+      - generic [ref=e29]: Lingua
+    - combobox "Lingua" [ref=e30] [cursor=pointer]:
+      - option "English (United States)"
+      - option "Italiano" [selected]
+    - button "Cambia" [ref=e31] [cursor=pointer]

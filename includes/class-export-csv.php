@@ -12,6 +12,21 @@ class GapNext_Export_Csv {
         $standard = GapNext_Standard_Registry::get_standard_data( $sub->standard_id, $sub->language );
         $lang     = $sub->language;
 
+        if ( $sub->status === 'demo' && $standard ) {
+            $demo_limit = (int) get_option( 'gapnext_demo_question_limit', 15 );
+            $sliced = [];
+            $q_count = 0;
+            $last_l1 = null;
+            foreach ( $standard['clauses'] as $clause ) {
+                if ( (int) ( $clause['level'] ?? 2 ) === 1 ) { $last_l1 = $clause; continue; }
+                if ( $q_count >= $demo_limit ) break;
+                if ( $last_l1 ) { $sliced[] = $last_l1; $last_l1 = null; }
+                $sliced[] = $clause;
+                $q_count++;
+            }
+            $standard['clauses'] = $sliced;
+        }
+
         // Compute stats (same logic as results page)
         $total = $compliant = $partial = $non_comply = $na = 0;
         if ( $standard ) {

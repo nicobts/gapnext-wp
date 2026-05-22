@@ -149,21 +149,20 @@ class GapNext_Checklist {
             }
         }
 
-        // Pass form-specific data to JS
-        wp_localize_script( 'gapnext-wp', 'GapNextWPForm', [
+        $form_js_data = [
             'audit_uuid'          => $uuid,
             'sections_meta'       => $sections_meta,
             'server_draft'        => $draft_data,
             'is_demo'             => $is_demo,
             'full_question_count' => $full_question_count,
-        ] );
+        ];
 
         ob_start();
-        $this->render_form( $audit, $standard, $is_demo, $full_question_count );
+        $this->render_form( $audit, $standard, $is_demo, $full_question_count, $form_js_data );
         return ob_get_clean();
     }
 
-    private function render_form( $audit, $standard, $is_demo = false, $full_question_count = 0 ) {
+    private function render_form( $audit, $standard, $is_demo = false, $full_question_count = 0, $form_js_data = [] ) {
         $lang = $audit->language;
         include GAPNEXT_WP_DIR . 'includes/views/form.php';
     }

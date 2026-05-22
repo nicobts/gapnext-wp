@@ -54,6 +54,7 @@ $labels = [
     'evidence'     => $lang === 'it' ? 'Carica evidenze' : 'Upload Evidence',
     'next'         => $lang === 'it' ? 'Avanti'          : 'Next',
     'back'         => $lang === 'it' ? 'Indietro'        : 'Back',
+    'save_draft'   => $lang === 'it' ? 'Salva bozza'     : 'Save Draft',
     'submit_btn'   => $lang === 'it' ? 'Invia Checklist' : 'Submit Checklist',
     'success_title'=> $lang === 'it' ? 'Invio completato!'  : 'Submission complete!',
     'success_score'=> $lang === 'it' ? 'Punteggio finale:' : 'Final score:',
@@ -212,6 +213,7 @@ $labels = [
     <div id="gapnext-draft-status"></div>
 
     <form id="gapnext-audit-form" enctype="multipart/form-data">
+        <div id="gapnext-toast-container"></div>
         <input type="hidden" name="audit_uuid" value="<?php echo esc_attr( $audit->uuid ); ?>">
         <input type="hidden" name="action" value="gapnext_submit">
         <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'gapnext_submit' ) ); ?>">
@@ -240,7 +242,6 @@ $labels = [
         <!-- STEP 1: Company & Contacts -->
         <div class="gapnext-step-content" id="gapnext-step-1"<?php if ( empty( $is_demo ) ) echo ' style="display:none"'; ?>>
             <h2><?php echo esc_html( $labels['step1_title'] ); ?></h2>
-            <div id="gapnext-toast-container"></div>
 
             <fieldset>
                 <legend><?php echo esc_html( $labels['sect_company'] ); ?></legend>
@@ -270,6 +271,7 @@ $labels = [
                 <?php if ( empty( $is_demo ) ) : ?>
                 <button type="button" class="gapnext-btn gapnext-prev" data-prev="0"><?php echo esc_html( $labels['back'] ); ?></button>
                 <?php endif; ?>
+                <button type="button" class="gapnext-btn gapnext-btn-secondary gapnext-save-draft"><?php echo esc_html( $labels['save_draft'] ); ?></button>
                 <button type="button" class="gapnext-btn gapnext-next" data-next="2"><?php echo esc_html( $labels['next'] ); ?></button>
             </div>
         </div>
@@ -330,6 +332,7 @@ $labels = [
 
                 <div class="gapnext-nav">
                     <button type="button" class="gapnext-btn gapnext-prev" data-prev="<?php echo esc_attr( $prev_step ); ?>"><?php echo esc_html( $labels['back'] ); ?></button>
+                    <button type="button" class="gapnext-btn gapnext-btn-secondary gapnext-save-draft"><?php echo esc_html( $labels['save_draft'] ); ?></button>
                     <button type="button" class="gapnext-btn gapnext-next" data-next="<?php echo esc_attr( $next_step ); ?>"><?php echo esc_html( $labels['next'] ); ?></button>
                 </div>
             </div>
@@ -367,6 +370,7 @@ $labels = [
             <p id="gapnext-summary-text"></p>
             <div class="gapnext-nav">
                 <button type="button" class="gapnext-btn gapnext-prev" data-prev="<?php echo esc_attr( $review_step - 1 ); ?>"><?php echo esc_html( $labels['back'] ); ?></button>
+                <button type="button" class="gapnext-btn gapnext-btn-secondary gapnext-save-draft"><?php echo esc_html( $labels['save_draft'] ); ?></button>
                 <button type="submit" class="gapnext-btn gapnext-submit" id="gapnext-submit-btn">
                     <?php echo esc_html( $labels['submit_btn'] ); ?>
                 </button>
@@ -429,4 +433,5 @@ $labels = [
         </div>
     </div>
 
+<script>var GapNextWPForm = <?php echo wp_json_encode( $form_js_data ); ?>;</script>
 </div>

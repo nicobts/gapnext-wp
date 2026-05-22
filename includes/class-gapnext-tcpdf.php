@@ -15,18 +15,6 @@ class GapNext_TCPDF extends TCPDF {
     public $is_demo          = false;
 
     public function Header() {
-        // Demo watermark (behind all content)
-        if ( $this->is_demo ) {
-            $this->StartTransform();
-            $this->Rotate( 45, 105, 148 );
-            $this->SetAlpha( 0.08 );
-            $this->SetFont( 'helvetica', 'B', 60 );
-            $this->SetTextColor( 30, 64, 175 );
-            $this->Text( 25, 120, 'GapNext DEMO' );
-            $this->StopTransform();
-            $this->SetAlpha( 1 );
-        }
-
         $logo_w = 8;
         if ( $this->logo_path && file_exists( $this->logo_path ) ) {
             $this->Image( $this->logo_path, 10, 6, $logo_w, 0, '', '', '', false, 150 );
@@ -48,6 +36,17 @@ class GapNext_TCPDF extends TCPDF {
     }
 
     public function Footer() {
+        if ( $this->is_demo ) {
+            $this->StartTransform();
+            $this->Rotate( 45, 105, 148 );
+            $this->SetAlpha( 0.12 );
+            $this->SetFont( 'helvetica', 'B', 60 );
+            $this->SetTextColor( 30, 64, 175 );
+            $this->Text( 25, 120, 'GapNext DEMO' );
+            $this->StopTransform();
+            $this->SetAlpha( 1 );
+        }
+
         $this->SetY( -12 );
         // Thin gray separator
         $this->SetDrawColor( 200, 210, 220 );

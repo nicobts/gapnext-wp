@@ -20,7 +20,16 @@
       "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions specs --change \"demo-mode\" --json 2>&1)",
       "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions tasks --change \"demo-mode\" --json 2>&1)",
       "Bash(cd \"C:\\\\Users\\\\nicol\\\\Local Sites\\\\wpdevtest1\\\\app\\\\public\\\\wp-content\\\\plugins\\\\gapnext-wp\" && openspec instructions apply --change \"demo-mode\" --json 2>&1)",
-      "Bash(npx skills:*)"
+      "Bash(npx skills:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_fill_form",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_network_request",
+      "mcp__playwright__browser_take_screenshot"
     ]
   }
 }

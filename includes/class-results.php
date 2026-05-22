@@ -48,6 +48,18 @@ class GapNext_Results {
             foreach ( $standard['clauses'] as $c ) {
                 if ( (int) ( $c['level'] ?? 2 ) === 2 ) $full_question_count++;
             }
+            $demo_limit = (int) get_option( 'gapnext_demo_question_limit', 15 );
+            $sliced = [];
+            $q_count = 0;
+            $last_l1 = null;
+            foreach ( $standard['clauses'] as $clause ) {
+                if ( (int) $clause['level'] === 1 ) { $last_l1 = $clause; continue; }
+                if ( $q_count >= $demo_limit ) break;
+                if ( $last_l1 ) { $sliced[] = $last_l1; $last_l1 = null; }
+                $sliced[] = $clause;
+                $q_count++;
+            }
+            $standard['clauses'] = $sliced;
         }
 
         ob_start();

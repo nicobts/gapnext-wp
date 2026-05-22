@@ -114,12 +114,25 @@ class GapNext_Installer {
             KEY audit_uuid (audit_uuid)
         ) $charset;";
 
+        $sql_reminder_log = "CREATE TABLE {$wpdb->prefix}gapnext_reminder_log (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            submission_id BIGINT(20) UNSIGNED NOT NULL,
+            trigger_type VARCHAR(20) NOT NULL DEFAULT 'automatic',
+            recipient_email VARCHAR(255) NOT NULL DEFAULT '',
+            status VARCHAR(20) NOT NULL DEFAULT 'sent',
+            sent_by BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+            sent_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY submission_id (submission_id)
+        ) $charset;";
+
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta( $sql_audits );
         dbDelta( $sql_submissions );
         dbDelta( $sql_generations );
         dbDelta( $sql_remediation_log );
         dbDelta( $sql_client_access );
+        dbDelta( $sql_reminder_log );
 
         update_option( 'gapnext_wp_db_version', GAPNEXT_WP_VERSION );
     }

@@ -163,13 +163,16 @@ $dl_base = admin_url( 'admin-post.php' ) . '?action=gapnext_download&sub=' . $su
         <p><?php echo esc_html( $lang === 'it'
             ? sprintf( 'Questa demo ha valutato solo %d domande su %d. La versione completa include tutte le domande, report PDF dettagliato, analisi per sezione e piano di rimedio.', $demo_answered, $full_q )
             : sprintf( 'This demo evaluated only %d of %d questions. The full version includes all questions, detailed PDF report, section analysis, and remediation plan.', $demo_answered, $full_q ) ); ?></p>
-        <?php
-        $notification_email = get_option( 'gapnext_notification_email', get_option( 'admin_email' ) );
-        if ( $notification_email ) : ?>
-            <a href="mailto:<?php echo esc_attr( $notification_email ); ?>?subject=<?php echo esc_attr( $lang === 'it' ? 'Richiesta Gap Analysis completa' : 'Full Gap Analysis request' ); ?>" class="gapnext-btn gapnext-demo-cta-btn">
-                <?php echo esc_html( $lang === 'it' ? 'Contattaci' : 'Contact Us' ); ?>
-            </a>
-        <?php endif; ?>
+        <p><?php echo esc_html( $lang === 'it'
+            ? 'Contatta il nostro team per ricevere un\'analisi completa e personalizzata per la tua organizzazione.'
+            : 'Contact our team to receive a complete, tailored analysis for your organisation.' ); ?></p>
+        <div class="gapnext-demo-cta-contacts" id="gapnext-demo-contacts">
+            <p><strong><?php echo esc_html( $lang === 'it' ? 'Telefono' : 'Phone' ); ?>:</strong> <a href="tel:+393921959061">+39 392 1959061</a></p>
+            <p><strong>Email:</strong> <a href="mailto:v.panariello@cdconsultancy.it">v.panariello@cdconsultancy.it</a></p>
+        </div>
+        <a href="#gapnext-demo-contacts" class="gapnext-btn gapnext-demo-cta-btn">
+            <?php echo esc_html( $lang === 'it' ? 'Richiedi la versione completa' : 'Request the full version' ); ?>
+        </a>
     </div>
     <?php endif; ?>
 

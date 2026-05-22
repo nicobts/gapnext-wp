@@ -1,0 +1,196 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation "Barra degli strumenti":
+      - menu:
+        - group [ref=e3]:
+          - menuitem "Informazioni su WordPress" [ref=e4] [cursor=pointer]:
+            - generic [ref=e6]: Informazioni su WordPress
+        - group [ref=e7]:
+          - menuitem "wpdev_test1" [ref=e8] [cursor=pointer]
+        - group [ref=e9]:
+          - menuitem "Modifica sito" [ref=e10] [cursor=pointer]
+        - group [ref=e11]:
+          - 'menuitem "3: aggiornamenti disponibili" [ref=e12] [cursor=pointer]':
+            - generic [ref=e14]: "3"
+            - generic [ref=e15]: "3: aggiornamenti disponibili"
+        - group [ref=e16]:
+          - menuitem "0 commenti in moderazione" [ref=e17] [cursor=pointer]:
+            - generic [ref=e19]: "0"
+            - generic [ref=e20]: 0 commenti in moderazione
+        - group [ref=e21]:
+          - menuitem "Nuovo" [ref=e22] [cursor=pointer]:
+            - generic [ref=e24]: Nuovo
+        - group [ref=e25]:
+          - menuitem "Modifica pagina" [ref=e26] [cursor=pointer]
+      - menu [ref=e27]:
+        - group [ref=e28]:
+          - menuitem "Ciao, sgaccount1" [ref=e29] [cursor=pointer]
+        - group [ref=e30]:
+          - menuitem "Cerca" [ref=e31]:
+            - generic [ref=e32]:
+              - textbox "Cerca" [ref=e33] [cursor=pointer]
+              - generic [ref=e34]: Cerca
+  - link "Vai al contenuto" [ref=e35] [cursor=pointer]:
+    - /url: "#wp--skip-link--target"
+  - generic [ref=e36]:
+    - banner [ref=e37]:
+      - generic [ref=e40]:
+        - paragraph [ref=e41]:
+          - link "wpdev_test1" [ref=e42] [cursor=pointer]:
+            - /url: http://wpdevtest1.local
+        - navigation [ref=e44]:
+          - list [ref=e49]:
+            - list [ref=e50]:
+              - listitem [ref=e51]:
+                - link "results" [ref=e52] [cursor=pointer]:
+                  - /url: http://wpdevtest1.local/results/
+              - listitem [ref=e53]:
+                - link "Sample Page" [ref=e54] [cursor=pointer]:
+                  - /url: http://wpdevtest1.local/sample-page/
+    - main [ref=e55]:
+      - generic [ref=e56]:
+        - heading "Sample Page" [level=1] [ref=e57]
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - paragraph [ref=e61]: Gap Analysis
+            - heading "Checklist – UNI EN 9100:2018" [level=1] [ref=e62]
+          - generic [ref=e64]:
+            - generic [ref=e65]: 0%
+            - generic [ref=e66]:
+              - strong [ref=e67]: "0"
+              - text: /
+              - strong [ref=e68]: "100"
+              - text: Risposte
+          - generic [ref=e70]:
+            - generic [ref=e71]:
+              - generic [ref=e73]: "0"
+              - text: Conforme
+            - generic [ref=e74]:
+              - generic [ref=e76]: "0"
+              - text: Parzialmente
+            - generic [ref=e77]:
+              - generic [ref=e79]: "0"
+              - text: Non-Conforme
+            - generic [ref=e80]:
+              - generic [ref=e82]: "0"
+              - text: Non Appl.
+            - generic [ref=e83]:
+              - text: "Punteggio stimato:"
+              - strong [ref=e84]: —
+          - generic [ref=e85]:
+            - generic [ref=e86] [cursor=pointer]:
+              - generic [ref=e87]: "0"
+              - generic [ref=e88]: Modalita
+            - generic [ref=e89] [cursor=pointer]:
+              - generic [ref=e90]: "1"
+              - generic [ref=e91]: Dati
+            - generic [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]: "2"
+              - generic [ref=e94]: "4"
+              - generic [ref=e95]: 0/11
+            - generic [ref=e96] [cursor=pointer]:
+              - generic [ref=e97]: "3"
+              - generic [ref=e98]: "5"
+              - generic [ref=e99]: 0/8
+            - generic [ref=e100] [cursor=pointer]:
+              - generic [ref=e101]: "4"
+              - generic [ref=e102]: "6"
+              - generic [ref=e103]: 0/5
+            - generic [ref=e104] [cursor=pointer]:
+              - generic [ref=e105]: "5"
+              - generic [ref=e106]: "7"
+              - generic [ref=e107]: 0/14
+            - generic [ref=e108] [cursor=pointer]:
+              - generic [ref=e109]: "6"
+              - generic [ref=e110]: "8"
+              - generic [ref=e111]: 0/48
+            - generic [ref=e112] [cursor=pointer]:
+              - generic [ref=e113]: "7"
+              - generic [ref=e114]: "9"
+              - generic [ref=e115]: 0/9
+            - generic [ref=e116] [cursor=pointer]:
+              - generic [ref=e117]: "8"
+              - generic [ref=e118]: "10"
+              - generic [ref=e119]: 0/5
+            - generic [ref=e120] [cursor=pointer]:
+              - generic [ref=e121]: "9"
+              - generic [ref=e122]: Invio
+          - button "I progressi vengono salvati automaticamente" [ref=e124] [cursor=pointer]:
+            - img [ref=e125]
+            - generic [ref=e127]: I progressi vengono salvati automaticamente
+            - img [ref=e128]
+          - generic [ref=e179]:
+            - heading "Dati Azienda e Contatti" [level=2] [ref=e180]
+            - group "Dati Azienda" [ref=e181]:
+              - generic [ref=e182]: Dati Azienda
+              - generic [ref=e183]:
+                - generic [ref=e184]: Ragione Sociale *
+                - textbox [ref=e185]
+              - generic [ref=e186]:
+                - generic [ref=e187]: Indirizzo
+                - textbox [ref=e188]
+              - generic [ref=e189]:
+                - generic [ref=e190]: P.IVA / Reg.
+                - textbox [ref=e191]
+              - generic [ref=e192]:
+                - generic [ref=e193]: Settore
+                - textbox [ref=e194]
+            - group "Your Details" [ref=e195]:
+              - generic [ref=e196]: Your Details
+              - generic [ref=e197]:
+                - generic [ref=e198]: Nome *
+                - textbox [ref=e199]
+              - generic [ref=e200]:
+                - generic [ref=e201]: Ruolo
+                - textbox [ref=e202]
+              - generic [ref=e203]:
+                - generic [ref=e204]: Email *
+                - textbox [ref=e205]
+              - generic [ref=e206]:
+                - generic [ref=e207]: Telefono
+                - textbox [ref=e208]
+            - generic [ref=e209]:
+              - button "Indietro" [ref=e210] [cursor=pointer]
+              - button "Salva bozza" [ref=e211] [cursor=pointer]
+              - button "Avanti" [ref=e212] [cursor=pointer]
+    - contentinfo [ref=e145]:
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - heading "wpdev_test1" [level=2] [ref=e151]:
+            - link "wpdev_test1" [ref=e152] [cursor=pointer]:
+              - /url: http://wpdevtest1.local
+          - generic [ref=e153]:
+            - navigation "2" [ref=e154]:
+              - list [ref=e155]:
+                - listitem [ref=e156]:
+                  - link "Blog" [ref=e157] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e158]:
+                  - link "Chi siamo" [ref=e159] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e160]:
+                  - link "FAQ" [ref=e161] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e162]:
+                  - link "Autori" [ref=e163] [cursor=pointer]:
+                    - /url: "#"
+            - navigation "3" [ref=e164]:
+              - list [ref=e165]:
+                - listitem [ref=e166]:
+                  - link "Eventi" [ref=e167] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e168]:
+                  - link "Negozio" [ref=e169] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e170]:
+                  - link "Pattern" [ref=e171] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e172]:
+                  - link "Temi" [ref=e173] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=e175]:
+          - paragraph [ref=e176]: Twenty Twenty-Five
+          - paragraph [ref=e177]:
+            - text: Progettato con
+            - link "WordPress" [ref=e178] [cursor=pointer]:
+              - /url: https://wordpress.org

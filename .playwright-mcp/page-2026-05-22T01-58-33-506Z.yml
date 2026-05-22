@@ -1,0 +1,1008 @@
+- generic [ref=e2]:
+  - navigation "Menu principale":
+    - link "Salta al contenuto principale" [ref=e3] [cursor=pointer]:
+      - /url: "#wpbody-content"
+    - link "Vai alla barra degli strumenti" [ref=e4] [cursor=pointer]:
+      - /url: "#wp-toolbar"
+    - list [ref=e7]:
+      - listitem [ref=e8]:
+        - link "Bacheca" [ref=e9] [cursor=pointer]:
+          - /url: index.php
+          - generic [ref=e10]: 
+          - generic [ref=e11]: Bacheca
+        - list [ref=e12]:
+          - listitem [ref=e13]: Bacheca
+          - listitem [ref=e14]:
+            - link "Home" [ref=e15] [cursor=pointer]:
+              - /url: index.php
+          - listitem [ref=e16]:
+            - link "Aggiornamenti 3" [ref=e17] [cursor=pointer]:
+              - /url: update-core.php
+              - text: Aggiornamenti
+              - generic [ref=e18]: "3"
+      - listitem [ref=e19]
+      - listitem [ref=e21]:
+        - link "Articoli" [ref=e22] [cursor=pointer]:
+          - /url: edit.php
+          - generic [ref=e23]: 
+          - generic [ref=e24]: Articoli
+        - list [ref=e25]:
+          - listitem [ref=e26]: Articoli
+          - listitem [ref=e27]:
+            - link "Tutti gli articoli" [ref=e28] [cursor=pointer]:
+              - /url: edit.php
+          - listitem [ref=e29]:
+            - link "Aggiungi articolo" [ref=e30] [cursor=pointer]:
+              - /url: post-new.php
+          - listitem [ref=e31]:
+            - link "Categorie" [ref=e32] [cursor=pointer]:
+              - /url: edit-tags.php?taxonomy=category
+          - listitem [ref=e33]:
+            - link "Tag" [ref=e34] [cursor=pointer]:
+              - /url: edit-tags.php?taxonomy=post_tag
+      - listitem [ref=e35]:
+        - link "Media" [ref=e36] [cursor=pointer]:
+          - /url: upload.php
+          - generic [ref=e37]: 
+          - generic [ref=e38]: Media
+        - list [ref=e39]:
+          - listitem [ref=e40]: Media
+          - listitem [ref=e41]:
+            - link "Library" [ref=e42] [cursor=pointer]:
+              - /url: upload.php
+          - listitem [ref=e43]:
+            - link "Aggiungi file media" [ref=e44] [cursor=pointer]:
+              - /url: media-new.php
+      - listitem [ref=e45]:
+        - link "Pagine" [ref=e46] [cursor=pointer]:
+          - /url: edit.php?post_type=page
+          - generic [ref=e47]: 
+          - generic [ref=e48]: Pagine
+        - list [ref=e49]:
+          - listitem [ref=e50]: Pagine
+          - listitem [ref=e51]:
+            - link "Tutte le pagine" [ref=e52] [cursor=pointer]:
+              - /url: edit.php?post_type=page
+          - listitem [ref=e53]:
+            - link "Aggiungi pagina" [ref=e54] [cursor=pointer]:
+              - /url: post-new.php?post_type=page
+      - listitem [ref=e55]:
+        - link "Commenti" [ref=e56] [cursor=pointer]:
+          - /url: edit-comments.php
+          - generic [ref=e57]: 
+          - generic [ref=e58]: Commenti
+      - listitem [ref=e59]:
+        - link "GapNext WP" [ref=e60] [cursor=pointer]:
+          - /url: admin.php?page=gapnext-wp
+          - generic [ref=e61]: 
+          - generic [ref=e62]: GapNext WP
+        - list [ref=e63]:
+          - listitem [ref=e64]: GapNext WP
+          - listitem [ref=e65]:
+            - link "Link di Audit" [ref=e66] [cursor=pointer]:
+              - /url: admin.php?page=gapnext-wp
+          - listitem [ref=e67]:
+            - link "Risposte" [ref=e68] [cursor=pointer]:
+              - /url: admin.php?page=gapnext-submissions
+          - listitem [ref=e69]:
+            - link "Impostazioni" [ref=e70] [cursor=pointer]:
+              - /url: admin.php?page=gapnext-settings
+      - listitem [ref=e71]
+      - listitem [ref=e73]:
+        - link "Aspetto" [ref=e74] [cursor=pointer]:
+          - /url: themes.php
+          - generic [ref=e75]: 
+          - generic [ref=e76]: Aspetto
+        - list [ref=e77]:
+          - listitem [ref=e78]: Aspetto
+          - listitem [ref=e79]:
+            - link "Temi 2" [ref=e80] [cursor=pointer]:
+              - /url: themes.php
+              - text: Temi
+              - generic [ref=e81]: "2"
+          - listitem [ref=e82]:
+            - link "Editor" [ref=e83] [cursor=pointer]:
+              - /url: site-editor.php
+          - listitem [ref=e84]:
+            - link "Fonts" [ref=e85] [cursor=pointer]:
+              - /url: font-library.php
+      - listitem [ref=e86]:
+        - link "Plugin" [ref=e87] [cursor=pointer]:
+          - /url: plugins.php
+          - generic [ref=e88]: 
+          - generic [ref=e89]: Plugin
+        - list [ref=e90]:
+          - listitem [ref=e91]: Plugin
+          - listitem [ref=e92]:
+            - link "Plugin installati" [ref=e93] [cursor=pointer]:
+              - /url: plugins.php
+          - listitem [ref=e94]:
+            - link "Aggiungi plugin" [ref=e95] [cursor=pointer]:
+              - /url: plugin-install.php
+      - listitem [ref=e96]:
+        - link "Utenti" [ref=e97] [cursor=pointer]:
+          - /url: users.php
+          - generic [ref=e98]: 
+          - generic [ref=e99]: Utenti
+        - list [ref=e100]:
+          - listitem [ref=e101]: Utenti
+          - listitem [ref=e102]:
+            - link "Tutti gli utenti" [ref=e103] [cursor=pointer]:
+              - /url: users.php
+          - listitem [ref=e104]:
+            - link "Aggiungi utente" [ref=e105] [cursor=pointer]:
+              - /url: user-new.php
+          - listitem [ref=e106]:
+            - link "Profilo" [ref=e107] [cursor=pointer]:
+              - /url: profile.php
+      - listitem [ref=e108]:
+        - link "Strumenti" [ref=e109] [cursor=pointer]:
+          - /url: tools.php
+          - generic [ref=e110]: 
+          - generic [ref=e111]: Strumenti
+        - list [ref=e112]:
+          - listitem [ref=e113]: Strumenti
+          - listitem [ref=e114]:
+            - link "Strumenti disponibili" [ref=e115] [cursor=pointer]:
+              - /url: tools.php
+          - listitem [ref=e116]:
+            - link "Importa" [ref=e117] [cursor=pointer]:
+              - /url: import.php
+          - listitem [ref=e118]:
+            - link "Esporta" [ref=e119] [cursor=pointer]:
+              - /url: export.php
+          - listitem [ref=e120]:
+            - link "Salute del sito" [ref=e121] [cursor=pointer]:
+              - /url: site-health.php
+          - listitem [ref=e122]:
+            - link "Esporta dati personali" [ref=e123] [cursor=pointer]:
+              - /url: export-personal-data.php
+          - listitem [ref=e124]:
+            - link "Elimina dati personali" [ref=e125] [cursor=pointer]:
+              - /url: erase-personal-data.php
+          - listitem [ref=e126]:
+            - link "Editor del tema" [ref=e127] [cursor=pointer]:
+              - /url: theme-editor.php
+          - listitem [ref=e128]:
+            - link "Editor del plugin" [ref=e129] [cursor=pointer]:
+              - /url: plugin-editor.php
+      - listitem [ref=e130]:
+        - link "Impostazioni" [ref=e131] [cursor=pointer]:
+          - /url: options-general.php
+          - generic [ref=e132]: 
+          - generic [ref=e133]: Impostazioni
+        - list [ref=e134]:
+          - listitem [ref=e135]: Impostazioni
+          - listitem [ref=e136]:
+            - link "Generali" [ref=e137] [cursor=pointer]:
+              - /url: options-general.php
+          - listitem [ref=e138]:
+            - link "Connectors" [ref=e139] [cursor=pointer]:
+              - /url: options-connectors.php
+          - listitem [ref=e140]:
+            - link "Scrittura" [ref=e141] [cursor=pointer]:
+              - /url: options-writing.php
+          - listitem [ref=e142]:
+            - link "Lettura" [ref=e143] [cursor=pointer]:
+              - /url: options-reading.php
+          - listitem [ref=e144]:
+            - link "Discussione" [ref=e145] [cursor=pointer]:
+              - /url: options-discussion.php
+          - listitem [ref=e146]:
+            - link "Media" [ref=e147] [cursor=pointer]:
+              - /url: options-media.php
+          - listitem [ref=e148]:
+            - link "Permalink" [ref=e149] [cursor=pointer]:
+              - /url: options-permalink.php
+          - listitem [ref=e150]:
+            - link "Privacy" [ref=e151] [cursor=pointer]:
+              - /url: options-privacy.php
+      - listitem [ref=e152]:
+        - button "Espandi il menu principale" [ref=e153] [cursor=pointer]
+  - generic [ref=e155]:
+    - generic [ref=e156]:
+      - navigation "Barra degli strumenti":
+        - menu:
+          - group [ref=e157]:
+            - menuitem "Informazioni su WordPress" [ref=e158] [cursor=pointer]:
+              - generic [ref=e160]: Informazioni su WordPress
+          - group [ref=e161]:
+            - menuitem "wpdev_test1" [ref=e162] [cursor=pointer]
+          - group [ref=e163]:
+            - 'menuitem "3: aggiornamenti disponibili" [ref=e164] [cursor=pointer]':
+              - generic [ref=e166]: "3"
+              - generic [ref=e167]: "3: aggiornamenti disponibili"
+          - group [ref=e168]:
+            - menuitem "Ctrl+K Open command palette" [ref=e169] [cursor=pointer]:
+              - generic [ref=e171]:
+                - text: Ctrl+K
+                - generic [ref=e172]: Open command palette
+          - group [ref=e173]:
+            - menuitem "0 commenti in moderazione" [ref=e174] [cursor=pointer]:
+              - generic [ref=e176]: "0"
+              - generic [ref=e177]: 0 commenti in moderazione
+          - group [ref=e178]:
+            - menuitem "Nuovo" [ref=e179] [cursor=pointer]:
+              - generic [ref=e181]: Nuovo
+        - menu [ref=e182]:
+          - group [ref=e183]:
+            - menuitem "Ciao, sgaccount1" [ref=e184] [cursor=pointer]
+    - main [ref=e185]:
+      - generic [ref=e187]:
+        - 'heading "Compilazione: Test Company SRL ← Torna alla lista 🗑 Elimina compilazione" [level=1] [ref=e188]':
+          - text: "Compilazione: Test Company SRL"
+          - link "← Torna alla lista" [ref=e189] [cursor=pointer]:
+            - /url: http://wpdevtest1.local/wp-admin/admin.php?page=gapnext-submissions
+          - link "🗑 Elimina compilazione" [ref=e190] [cursor=pointer]:
+            - /url: http://wpdevtest1.local/wp-admin/admin.php?page=gapnext-submissions&action=delete_submission&sub_id=6&_wpnonce=3726d08485
+        - generic [ref=e191]:
+          - generic [ref=e192]: "Stato:"
+          - generic [ref=e193]: Bozza
+        - generic [ref=e194]:
+          - button "Gap Analysis" [ref=e195] [cursor=pointer]
+          - button "Piano di Remediation" [ref=e196] [cursor=pointer]
+          - button "Accesso Cliente" [ref=e197] [cursor=pointer]
+        - generic [ref=e198]:
+          - generic [ref=e199]:
+            - heading "📋 Link compilazione" [level=3] [ref=e200]
+            - paragraph [ref=e201]: Questa compilazione è ancora in bozza. Il link sottostante può essere inviato al cliente o all'utente per riprendere e completare la compilazione. Quando l'utente aprirà il link, la bozza verrà caricata automaticamente con i dati già inseriti.
+            - generic [ref=e202]:
+              - textbox [ref=e203]: http://wpdevtest1.local/sample-page/?audit=f7247b8d-c749-4d7c-9046-dbfb912d93c7
+              - button "Copia link" [ref=e204] [cursor=pointer]
+              - link "Apri" [ref=e205] [cursor=pointer]:
+                - /url: http://wpdevtest1.local/sample-page/?audit=f7247b8d-c749-4d7c-9046-dbfb912d93c7
+            - paragraph [ref=e206]: "Nota: questo è lo stesso link dell'audit originale. La bozza viene associata all'audit e ripristinata automaticamente all'apertura del modulo. Se l'audit richiede il login, l'utente dovrà autenticarsi prima di accedere."
+          - generic [ref=e207]:
+            - heading "Promemoria Bozza" [level=3] [ref=e208]
+            - paragraph [ref=e209]:
+              - text: "Contatto:"
+              - strong [ref=e210]: test@example.com
+            - button "Invia promemoria ora" [ref=e212] [cursor=pointer]
+            - generic [ref=e213]:
+              - strong [ref=e214]: "Come funzionano i promemoria automatici:"
+              - text: Quando un utente salva una bozza, viene programmato un promemoria automatico via email dopo 24 ore tramite WordPress Cron. Se l'utente salva nuovamente la bozza, il timer si azzera. Una volta completata la compilazione, i promemoria vengono annullati. I promemoria automatici possono essere attivati o disattivati nelle impostazioni del plugin.
+              - strong [ref=e215]: "Stato:"
+              - text: Prossimo promemoria automatico previsto per il 23/05/2026 01:49
+            - generic [ref=e216]:
+              - heading "Registro promemoria" [level=4] [ref=e217]
+              - paragraph [ref=e218]: Nessun promemoria inviato finora.
+          - generic [ref=e219]:
+            - generic [ref=e220]:
+              - generic [ref=e221]: 0%
+              - generic [ref=e222]: Conformità
+              - generic [ref=e223]: en-9100-2018
+            - generic [ref=e224]:
+              - generic [ref=e225]:
+                - generic [ref=e226]:
+                  - generic [ref=e227]: "100"
+                  - generic [ref=e228]: Totale requisiti
+                - generic [ref=e229]:
+                  - generic [ref=e230]: "0"
+                  - generic [ref=e231]: Risposte fornite
+                - generic [ref=e232]:
+                  - generic [ref=e233]: "0"
+                  - generic [ref=e234]: Applicabili
+                - generic [ref=e235]:
+                  - generic [ref=e236]: "0"
+                  - generic [ref=e237]: Conforme
+                - generic [ref=e238]:
+                  - generic [ref=e239]: "0"
+                  - generic [ref=e240]: Parzialmente
+                - generic [ref=e241]:
+                  - generic [ref=e242]: "0"
+                  - generic [ref=e243]: Non-Conforme
+              - generic [ref=e244]:
+                - generic [ref=e245]:
+                  - generic [ref=e246]: Non Appl.
+                  - strong [ref=e247]: "0"
+                - generic [ref=e248]:
+                  - generic [ref=e249]: Non risposto
+                  - strong [ref=e250]: "100"
+              - generic [ref=e254]:
+                - generic [ref=e255]: ● Conforme 0
+                - generic [ref=e256]: ● Parzialmente 0
+                - generic [ref=e257]: ● Non-Conforme 0
+                - generic [ref=e258]: ● Non Appl. 0
+                - generic [ref=e259]: ● Non risposto 100
+          - heading "Dettagli" [level=2] [ref=e260]
+          - generic [ref=e261]:
+            - table [ref=e262]:
+              - rowgroup [ref=e263]:
+                - row "Azienda" [ref=e264]:
+                  - columnheader "Azienda" [ref=e265]
+              - rowgroup [ref=e266]:
+                - row "Ragione Sociale Test Company SRL" [ref=e267]:
+                  - rowheader "Ragione Sociale" [ref=e268]
+                  - cell "Test Company SRL" [ref=e269]
+                - row "Indirizzo" [ref=e270]:
+                  - columnheader "Indirizzo" [ref=e271]
+                  - cell [ref=e272]
+                - row "P.IVA" [ref=e273]:
+                  - columnheader "P.IVA" [ref=e274]
+                  - cell [ref=e275]
+                - row "Settore" [ref=e276]:
+                  - columnheader "Settore" [ref=e277]
+                  - cell [ref=e278]
+            - table [ref=e279]:
+              - rowgroup [ref=e280]:
+                - row "Audit" [ref=e281]:
+                  - columnheader "Audit" [ref=e282]
+              - rowgroup [ref=e283]:
+                - row "Standard en-9100-2018" [ref=e284]:
+                  - rowheader "Standard" [ref=e285]
+                  - cell "en-9100-2018" [ref=e286]
+                - row "Lingua IT" [ref=e287]:
+                  - rowheader "Lingua" [ref=e288]
+                  - cell "IT" [ref=e289]
+                - row "Data 2026-05-22 01:49:36" [ref=e290]:
+                  - rowheader "Data" [ref=e291]
+                  - cell "2026-05-22 01:49:36" [ref=e292]
+                - row "Stato Draft" [ref=e293]:
+                  - rowheader "Stato" [ref=e294]
+                  - cell "Draft" [ref=e295]
+            - table [ref=e296]:
+              - rowgroup [ref=e297]:
+                - row "Contatto Interno" [ref=e298]:
+                  - columnheader "Contatto Interno" [ref=e299]
+              - rowgroup [ref=e300]:
+                - row "Nome Test User" [ref=e301]:
+                  - rowheader "Nome" [ref=e302]
+                  - cell "Test User" [ref=e303]
+                - row "Ruolo" [ref=e304]:
+                  - columnheader "Ruolo" [ref=e305]
+                  - cell [ref=e306]
+                - row "Email test@example.com" [ref=e307]:
+                  - rowheader "Email" [ref=e308]
+                  - cell "test@example.com" [ref=e309]
+                - row "Telefono" [ref=e310]:
+                  - columnheader "Telefono" [ref=e311]
+                  - cell [ref=e312]
+            - table [ref=e313]:
+              - rowgroup [ref=e314]:
+                - row "Consulente" [ref=e315]:
+                  - columnheader "Consulente" [ref=e316]
+              - rowgroup [ref=e317]:
+                - row "Nome" [ref=e318]:
+                  - columnheader "Nome" [ref=e319]
+                  - cell [ref=e320]
+                - row "Azienda" [ref=e321]:
+                  - columnheader "Azienda" [ref=e322]
+                  - cell [ref=e323]
+                - row "Email" [ref=e324]:
+                  - columnheader "Email" [ref=e325]
+                  - cell [ref=e326]
+                - row "Telefono" [ref=e327]:
+                  - columnheader "Telefono" [ref=e328]
+                  - cell [ref=e329]
+          - heading "Risultati Checklist" [level=2] [ref=e330]
+          - table [ref=e331]:
+            - rowgroup [ref=e332]:
+              - row "Rif. Requisito Risposta Note Evidenze" [ref=e333]:
+                - columnheader "Rif." [ref=e334]
+                - columnheader "Requisito" [ref=e335]
+                - columnheader "Risposta" [ref=e336]
+                - columnheader "Note" [ref=e337]
+                - columnheader "Evidenze" [ref=e338]
+            - rowgroup [ref=e339]:
+              - row "4 — Contesto dell'Organizzazione" [ref=e340]:
+                - cell "4 — Contesto dell'Organizzazione" [ref=e341]
+              - row "4.1 Sono stati determinati i fattori esterni rilevanti per le finalità strategiche? — —" [ref=e342]:
+                - cell "4.1" [ref=e343]
+                - cell "Sono stati determinati i fattori esterni rilevanti per le finalità strategiche?" [ref=e344]
+                - cell "—" [ref=e345]
+                - cell [ref=e346]
+                - cell "—" [ref=e347]
+              - row "4.1 Sono stati identificati i fattori interni che influenzano la capacità di conseguire i risultati attesi? — —" [ref=e348]:
+                - cell "4.1" [ref=e349]
+                - cell "Sono stati identificati i fattori interni che influenzano la capacità di conseguire i risultati attesi?" [ref=e350]
+                - cell "—" [ref=e351]
+                - cell [ref=e352]
+                - cell "—" [ref=e353]
+              - row "4.2 Sono state determinate le parti interessate rilevanti per il SGQ? — —" [ref=e354]:
+                - cell "4.2" [ref=e355]
+                - cell "Sono state determinate le parti interessate rilevanti per il SGQ?" [ref=e356]
+                - cell "—" [ref=e357]
+                - cell [ref=e358]
+                - cell "—" [ref=e359]
+              - row "4.2 Sono stati mappati i requisiti delle parti interessate rilevanti per il SGQ? — —" [ref=e360]:
+                - cell "4.2" [ref=e361]
+                - cell "Sono stati mappati i requisiti delle parti interessate rilevanti per il SGQ?" [ref=e362]
+                - cell "—" [ref=e363]
+                - cell [ref=e364]
+                - cell "—" [ref=e365]
+              - row "4.3 È stato stabilito, documentato e reso disponibile il campo di applicazione del SGQ? — —" [ref=e366]:
+                - cell "4.3" [ref=e367]
+                - cell "È stato stabilito, documentato e reso disponibile il campo di applicazione del SGQ?" [ref=e368]
+                - cell "—" [ref=e369]
+                - cell [ref=e370]
+                - cell "—" [ref=e371]
+              - row "4.3 Sono state fornite giustificazioni per ogni requisito della norma non applicabile? — —" [ref=e372]:
+                - cell "4.3" [ref=e373]
+                - cell "Sono state fornite giustificazioni per ogni requisito della norma non applicabile?" [ref=e374]
+                - cell "—" [ref=e375]
+                - cell [ref=e376]
+                - cell "—" [ref=e377]
+              - row "4.3 L'organizzazione considera i requisiti per il SGQ del cliente e quelli cogenti nello stabilire il sistema? — —" [ref=e378]:
+                - cell "4.3" [ref=e379]
+                - cell "L'organizzazione considera i requisiti per il SGQ del cliente e quelli cogenti nello stabilire il sistema?" [ref=e380]
+                - cell "—" [ref=e381]
+                - cell [ref=e382]
+                - cell "—" [ref=e383]
+              - row "4.4 Sono stati determinati gli input necessari e gli output attesi per ogni processo? — —" [ref=e384]:
+                - cell "4.4" [ref=e385]
+                - cell "Sono stati determinati gli input necessari e gli output attesi per ogni processo?" [ref=e386]
+                - cell "—" [ref=e387]
+                - cell [ref=e388]
+                - cell "—" [ref=e389]
+              - row "4.4 È stata definita la sequenza e l'interazione dei processi del SGQ? — —" [ref=e390]:
+                - cell "4.4" [ref=e391]
+                - cell "È stata definita la sequenza e l'interazione dei processi del SGQ?" [ref=e392]
+                - cell "—" [ref=e393]
+                - cell [ref=e394]
+                - cell "—" [ref=e395]
+              - row "4.4 Sono stati applicati criteri e indicatori di prestazione per assicurare il controllo dei processi? — —" [ref=e396]:
+                - cell "4.4" [ref=e397]
+                - cell "Sono stati applicati criteri e indicatori di prestazione per assicurare il controllo dei processi?" [ref=e398]
+                - cell "—" [ref=e399]
+                - cell [ref=e400]
+                - cell "—" [ref=e401]
+              - row "4.4 Esiste un'unica fonte (es. Manuale della Qualità) che descriva il SGQ, le parti interessate e i processi? — —" [ref=e402]:
+                - cell "4.4" [ref=e403]
+                - cell "Esiste un'unica fonte (es. Manuale della Qualità) che descriva il SGQ, le parti interessate e i processi?" [ref=e404]
+                - cell "—" [ref=e405]
+                - cell [ref=e406]
+                - cell "—" [ref=e407]
+              - row "5 — Leadership" [ref=e408]:
+                - cell "5 — Leadership" [ref=e409]
+              - row "5.1.1 L'alta direzione si assume la responsabilità dell'efficacia del SGQ? — —" [ref=e410]:
+                - cell "5.1.1" [ref=e411]
+                - cell "L'alta direzione si assume la responsabilità dell'efficacia del SGQ?" [ref=e412]
+                - cell "—" [ref=e413]
+                - cell [ref=e414]
+                - cell "—" [ref=e415]
+              - row "5.1.1 Viene promosso attivamente l'approccio per processi e il risk-based thinking? — —" [ref=e416]:
+                - cell "5.1.1" [ref=e417]
+                - cell "Viene promosso attivamente l'approccio per processi e il risk-based thinking?" [ref=e418]
+                - cell "—" [ref=e419]
+                - cell [ref=e420]
+                - cell "—" [ref=e421]
+              - row "5.1.2 Viene assicurata la misurazione della conformità del prodotto e della puntualità delle consegne? — —" [ref=e422]:
+                - cell "5.1.2" [ref=e423]
+                - cell "Viene assicurata la misurazione della conformità del prodotto e della puntualità delle consegne?" [ref=e424]
+                - cell "—" [ref=e425]
+                - cell [ref=e426]
+                - cell "—" [ref=e427]
+              - row "5.1.2 Vengono intraprese azioni appropriate se i risultati di puntualità o conformità non sono conseguiti? — —" [ref=e428]:
+                - cell "5.1.2" [ref=e429]
+                - cell "Vengono intraprese azioni appropriate se i risultati di puntualità o conformità non sono conseguiti?" [ref=e430]
+                - cell "—" [ref=e431]
+                - cell [ref=e432]
+                - cell "—" [ref=e433]
+              - row "5.2.1 È stata stabilita una politica per la qualità appropriata alle finalità dell'organizzazione? — —" [ref=e434]:
+                - cell "5.2.1" [ref=e435]
+                - cell "È stata stabilita una politica per la qualità appropriata alle finalità dell'organizzazione?" [ref=e436]
+                - cell "—" [ref=e437]
+                - cell [ref=e438]
+                - cell "—" [ref=e439]
+              - row "5.2.2 La politica per la qualità è comunicata, compresa e applicata internamente? — —" [ref=e440]:
+                - cell "5.2.2" [ref=e441]
+                - cell "La politica per la qualità è comunicata, compresa e applicata internamente?" [ref=e442]
+                - cell "—" [ref=e443]
+                - cell [ref=e444]
+                - cell "—" [ref=e445]
+              - row "5.3 L'alta direzione ha designato un \"rappresentante della direzione\" con responsabilità specifica per il SGQ? — —" [ref=e446]:
+                - cell "5.3" [ref=e447]
+                - cell "L'alta direzione ha designato un \"rappresentante della direzione\" con responsabilità specifica per il SGQ?" [ref=e448]
+                - cell "—" [ref=e449]
+                - cell [ref=e450]
+                - cell "—" [ref=e451]
+              - row "5.3 Il rappresentante della direzione ha accesso senza limitazioni all'alta direzione e indipendenza organizzativa? — —" [ref=e452]:
+                - cell "5.3" [ref=e453]
+                - cell "Il rappresentante della direzione ha accesso senza limitazioni all'alta direzione e indipendenza organizzativa?" [ref=e454]
+                - cell "—" [ref=e455]
+                - cell [ref=e456]
+                - cell "—" [ref=e457]
+              - row "6 — Pianificazione" [ref=e458]:
+                - cell "6 — Pianificazione" [ref=e459]
+              - row "6.1.1 Sono determinati i rischi e le opportunità per assicurare che il SGQ consegua i risultati? — —" [ref=e460]:
+                - cell "6.1.1" [ref=e461]
+                - cell "Sono determinati i rischi e le opportunità per assicurare che il SGQ consegua i risultati?" [ref=e462]
+                - cell "—" [ref=e463]
+                - cell [ref=e464]
+                - cell "—" [ref=e465]
+              - row "6.1.2 Le azioni per affrontare i rischi sono proporzionate all'impatto potenziale sulla conformità? — —" [ref=e466]:
+                - cell "6.1.2" [ref=e467]
+                - cell "Le azioni per affrontare i rischi sono proporzionate all'impatto potenziale sulla conformità?" [ref=e468]
+                - cell "—" [ref=e469]
+                - cell [ref=e470]
+                - cell "—" [ref=e471]
+              - row "6.2.1 Sono stabiliti obiettivi per la qualità misurabili e coerenti con la politica? — —" [ref=e472]:
+                - cell "6.2.1" [ref=e473]
+                - cell "Sono stabiliti obiettivi per la qualità misurabili e coerenti con la politica?" [ref=e474]
+                - cell "—" [ref=e475]
+                - cell [ref=e476]
+                - cell "—" [ref=e477]
+              - row "6.2.2 La pianificazione degli obiettivi definisce cosa fare, risorse, responsabilità e tempi? — —" [ref=e478]:
+                - cell "6.2.2" [ref=e479]
+                - cell "La pianificazione degli obiettivi definisce cosa fare, risorse, responsabilità e tempi?" [ref=e480]
+                - cell "—" [ref=e481]
+                - cell [ref=e482]
+                - cell "—" [ref=e483]
+              - row "6.3 Le modifiche al SGQ sono effettuate salvaguardandone l'integrità? — —" [ref=e484]:
+                - cell "6.3" [ref=e485]
+                - cell "Le modifiche al SGQ sono effettuate salvaguardandone l'integrità?" [ref=e486]
+                - cell "—" [ref=e487]
+                - cell [ref=e488]
+                - cell "—" [ref=e489]
+              - row "7 — Supporto" [ref=e490]:
+                - cell "7 — Supporto" [ref=e491]
+              - row "7.1.3 È determinata e manutenuta l'infrastruttura necessaria per la conformità di prodotti e servizi? — —" [ref=e492]:
+                - cell "7.1.3" [ref=e493]
+                - cell "È determinata e manutenuta l'infrastruttura necessaria per la conformità di prodotti e servizi?" [ref=e494]
+                - cell "—" [ref=e495]
+                - cell [ref=e496]
+                - cell "—" [ref=e497]
+              - row "7.1.4 È mantenuto un ambiente di lavoro idoneo (fattori sociali, psicologici, fisici)? — —" [ref=e498]:
+                - cell "7.1.4" [ref=e499]
+                - cell "È mantenuto un ambiente di lavoro idoneo (fattori sociali, psicologici, fisici)?" [ref=e500]
+                - cell "—" [ref=e501]
+                - cell [ref=e502]
+                - cell "—" [ref=e503]
+              - row "7.1.5.2 Le apparecchiature di misura sono tarate/verificate a intervalli specificati rispetto a campioni riferibili? — —" [ref=e504]:
+                - cell "7.1.5.2" [ref=e505]
+                - cell "Le apparecchiature di misura sono tarate/verificate a intervalli specificati rispetto a campioni riferibili?" [ref=e506]
+                - cell "—" [ref=e507]
+                - cell [ref=e508]
+                - cell "—" [ref=e509]
+              - row "7.1.5.2 Esiste un processo per il richiamo delle apparecchiature che richiedono taratura o verifica? — —" [ref=e510]:
+                - cell "7.1.5.2" [ref=e511]
+                - cell "Esiste un processo per il richiamo delle apparecchiature che richiedono taratura o verifica?" [ref=e512]
+                - cell "—" [ref=e513]
+                - cell [ref=e514]
+                - cell "—" [ref=e515]
+              - row "7.1.5.2 È mantenuto un registro aggiornato delle apparecchiature di misura (identificazione, ubicazione, metodo)? — —" [ref=e516]:
+                - cell "7.1.5.2" [ref=e517]
+                - cell "È mantenuto un registro aggiornato delle apparecchiature di misura (identificazione, ubicazione, metodo)?" [ref=e518]
+                - cell "—" [ref=e519]
+                - cell [ref=e520]
+                - cell "—" [ref=e521]
+              - row "7.1.6 È stata determinata e resa disponibile la conoscenza necessaria per il funzionamento dei processi? — —" [ref=e522]:
+                - cell "7.1.6" [ref=e523]
+                - cell "È stata determinata e resa disponibile la conoscenza necessaria per il funzionamento dei processi?" [ref=e524]
+                - cell "—" [ref=e525]
+                - cell [ref=e526]
+                - cell "—" [ref=e527]
+              - row "7.2 Il personale che influenza le prestazioni del SGQ è competente per istruzione, formazione o esperienza? — —" [ref=e528]:
+                - cell "7.2" [ref=e529]
+                - cell "Il personale che influenza le prestazioni del SGQ è competente per istruzione, formazione o esperienza?" [ref=e530]
+                - cell "—" [ref=e531]
+                - cell [ref=e532]
+                - cell "—" [ref=e533]
+              - row "7.3 Tutto il personale è consapevole del proprio contributo alla conformità del prodotto? — —" [ref=e534]:
+                - cell "7.3" [ref=e535]
+                - cell "Tutto il personale è consapevole del proprio contributo alla conformità del prodotto?" [ref=e536]
+                - cell "—" [ref=e537]
+                - cell [ref=e538]
+                - cell "—" [ref=e539]
+              - row "7.3 Tutto il personale è consapevole del proprio contributo alla sicurezza del prodotto? — —" [ref=e540]:
+                - cell "7.3" [ref=e541]
+                - cell "Tutto il personale è consapevole del proprio contributo alla sicurezza del prodotto?" [ref=e542]
+                - cell "—" [ref=e543]
+                - cell [ref=e544]
+                - cell "—" [ref=e545]
+              - row "7.3 Tutto il personale è consapevole dell'importanza del comportamento etico? — —" [ref=e546]:
+                - cell "7.3" [ref=e547]
+                - cell "Tutto il personale è consapevole dell'importanza del comportamento etico?" [ref=e548]
+                - cell "—" [ref=e549]
+                - cell [ref=e550]
+                - cell "—" [ref=e551]
+              - row "7.4 Sono determinate le comunicazioni interne ed esterne (cosa, quando, con chi)? — —" [ref=e552]:
+                - cell "7.4" [ref=e553]
+                - cell "Sono determinate le comunicazioni interne ed esterne (cosa, quando, con chi)?" [ref=e554]
+                - cell "—" [ref=e555]
+                - cell [ref=e556]
+                - cell "—" [ref=e557]
+              - row "7.5.2 Esiste un processo di revisione e approvazione dei documenti per idoneità e adeguatezza? — —" [ref=e558]:
+                - cell "7.5.2" [ref=e559]
+                - cell "Esiste un processo di revisione e approvazione dei documenti per idoneità e adeguatezza?" [ref=e560]
+                - cell "—" [ref=e561]
+                - cell [ref=e562]
+                - cell "—" [ref=e563]
+              - row "7.5.3.2 Le informazioni documentate sono protette da perdita di riservatezza o alterazioni involontarie? — —" [ref=e564]:
+                - cell "7.5.3.2" [ref=e565]
+                - cell "Le informazioni documentate sono protette da perdita di riservatezza o alterazioni involontarie?" [ref=e566]
+                - cell "—" [ref=e567]
+                - cell [ref=e568]
+                - cell "—" [ref=e569]
+              - row "7.5.3.2 Sono definiti processi per la protezione dei dati gestiti elettronicamente (backup, danni fisici)? — —" [ref=e570]:
+                - cell "7.5.3.2" [ref=e571]
+                - cell "Sono definiti processi per la protezione dei dati gestiti elettronicamente (backup, danni fisici)?" [ref=e572]
+                - cell "—" [ref=e573]
+                - cell [ref=e574]
+                - cell "—" [ref=e575]
+              - row "8 — Attività Operative" [ref=e576]:
+                - cell "8 — Attività Operative" [ref=e577]
+              - row "8.1 La pianificazione operativa avviene in modo strutturato e controllato (Project/Program Management)? — —" [ref=e578]:
+                - cell "8.1" [ref=e579]
+                - cell "La pianificazione operativa avviene in modo strutturato e controllato (Project/Program Management)?" [ref=e580]
+                - cell "—" [ref=e581]
+                - cell [ref=e582]
+                - cell "—" [ref=e583]
+              - row "8.1 Sono stati determinati i processi e le risorse per gestire gli elementi critici? — —" [ref=e584]:
+                - cell "8.1" [ref=e585]
+                - cell "Sono stati determinati i processi e le risorse per gestire gli elementi critici?" [ref=e586]
+                - cell "—" [ref=e587]
+                - cell [ref=e588]
+                - cell "—" [ref=e589]
+              - row "8.1 Esiste un processo per controllare il trasferimento temporaneo o permanente del lavoro? — —" [ref=e590]:
+                - cell "8.1" [ref=e591]
+                - cell "Esiste un processo per controllare il trasferimento temporaneo o permanente del lavoro?" [ref=e592]
+                - cell "—" [ref=e593]
+                - cell [ref=e594]
+                - cell "—" [ref=e595]
+              - row "8.1.1 Esiste un processo formale per la gestione del rischio operativo (responsabilità, criteri, mitigazione)? — —" [ref=e596]:
+                - cell "8.1.1" [ref=e597]
+                - cell "Esiste un processo formale per la gestione del rischio operativo (responsabilità, criteri, mitigazione)?" [ref=e598]
+                - cell "—" [ref=e599]
+                - cell [ref=e600]
+                - cell "—" [ref=e601]
+              - row "8.1.2 È attuato un processo di gestione della configurazione per l'intero ciclo di vita del prodotto? — —" [ref=e602]:
+                - cell "8.1.2" [ref=e603]
+                - cell "È attuato un processo di gestione della configurazione per l'intero ciclo di vita del prodotto?" [ref=e604]
+                - cell "—" [ref=e605]
+                - cell [ref=e606]
+                - cell "—" [ref=e607]
+              - row "8.1.3 Sono pianificati e attuati processi per garantire la sicurezza del prodotto (valutazione pericoli)? — —" [ref=e608]:
+                - cell "8.1.3" [ref=e609]
+                - cell "Sono pianificati e attuati processi per garantire la sicurezza del prodotto (valutazione pericoli)?" [ref=e610]
+                - cell "—" [ref=e611]
+                - cell [ref=e612]
+                - cell "—" [ref=e613]
+              - row "8.1.4 Sono attuati processi per la prevenzione dell'uso di parti contraffatte? — —" [ref=e614]:
+                - cell "8.1.4" [ref=e615]
+                - cell "Sono attuati processi per la prevenzione dell'uso di parti contraffatte?" [ref=e616]
+                - cell "—" [ref=e617]
+                - cell [ref=e618]
+                - cell "—" [ref=e619]
+              - row "8.1.4 È attivo un programma di monitoraggio dell'obsolescenza delle parti? — —" [ref=e620]:
+                - cell "8.1.4" [ref=e621]
+                - cell "È attivo un programma di monitoraggio dell'obsolescenza delle parti?" [ref=e622]
+                - cell "—" [ref=e623]
+                - cell [ref=e624]
+                - cell "—" [ref=e625]
+              - row "8.2.1 La comunicazione col cliente include requisiti specifici per le azioni di emergenza? — —" [ref=e626]:
+                - cell "8.2.1" [ref=e627]
+                - cell "La comunicazione col cliente include requisiti specifici per le azioni di emergenza?" [ref=e628]
+                - cell "—" [ref=e629]
+                - cell [ref=e630]
+                - cell "—" [ref=e631]
+              - row "8.2.2 Sono determinati i requisiti speciali dei prodotti e servizi? — —" [ref=e632]:
+                - cell "8.2.2" [ref=e633]
+                - cell "Sono determinati i requisiti speciali dei prodotti e servizi?" [ref=e634]
+                - cell "—" [ref=e635]
+                - cell [ref=e636]
+                - cell "—" [ref=e637]
+              - row "8.2.2 Sono stati identificati i rischi operativi prima dell'impegno col cliente (es. nuove tecnologie)? — —" [ref=e638]:
+                - cell "8.2.2" [ref=e639]
+                - cell "Sono stati identificati i rischi operativi prima dell'impegno col cliente (es. nuove tecnologie)?" [ref=e640]
+                - cell "—" [ref=e641]
+                - cell [ref=e642]
+                - cell "—" [ref=e643]
+              - row "8.2.3.1 L'organizzazione negozia requisiti accettabili se determina che quelli del cliente non sono soddisfatti? — —" [ref=e644]:
+                - cell "8.2.3.1" [ref=e645]
+                - cell "L'organizzazione negozia requisiti accettabili se determina che quelli del cliente non sono soddisfatti?" [ref=e646]
+                - cell "—" [ref=e647]
+                - cell [ref=e648]
+                - cell "—" [ref=e649]
+              - row "8.3.2 La pianificazione della progettazione considera la capacità di mantenere prodotti e servizi? — —" [ref=e650]:
+                - cell "8.3.2" [ref=e651]
+                - cell "La pianificazione della progettazione considera la capacità di mantenere prodotti e servizi?" [ref=e652]
+                - cell "—" [ref=e653]
+                - cell [ref=e654]
+                - cell "—" [ref=e655]
+              - row "8.3.3 Gli input della progettazione considerano le potenziali conseguenze dell'obsolescenza? — —" [ref=e656]:
+                - cell "8.3.3" [ref=e657]
+                - cell "Gli input della progettazione considerano le potenziali conseguenze dell'obsolescenza?" [ref=e658]
+                - cell "—" [ref=e659]
+                - cell [ref=e660]
+                - cell "—" [ref=e661]
+              - row "8.3.4 Le prove di verifica e validazione sono pianificate con criteri di accettazione e parametri definiti? — —" [ref=e662]:
+                - cell "8.3.4" [ref=e663]
+                - cell "Le prove di verifica e validazione sono pianificate con criteri di accettazione e parametri definiti?" [ref=e664]
+                - cell "—" [ref=e665]
+                - cell [ref=e666]
+                - cell "—" [ref=e667]
+              - row "8.3.4 I rapporti e i calcoli dimostrano la conformità dei requisiti per tutte le condizioni operative? — —" [ref=e668]:
+                - cell "8.3.4" [ref=e669]
+                - cell "I rapporti e i calcoli dimostrano la conformità dei requisiti per tutte le condizioni operative?" [ref=e670]
+                - cell "—" [ref=e671]
+                - cell [ref=e672]
+                - cell "—" [ref=e673]
+              - row "8.3.5 Gli output della progettazione specificano gli elementi critici e le caratteristiche chiave? — —" [ref=e674]:
+                - cell "8.3.5" [ref=e675]
+                - cell "Gli output della progettazione specificano gli elementi critici e le caratteristiche chiave?" [ref=e676]
+                - cell "—" [ref=e677]
+                - cell [ref=e678]
+                - cell "—" [ref=e679]
+              - row "8.3.5 Gli output della progettazione sono approvati da persone autorizzate prima del rilascio? — —" [ref=e680]:
+                - cell "8.3.5" [ref=e681]
+                - cell "Gli output della progettazione sono approvati da persone autorizzate prima del rilascio?" [ref=e682]
+                - cell "—" [ref=e683]
+                - cell [ref=e684]
+                - cell "—" [ref=e685]
+              - row "8.3.6 Esiste un processo con criteri per notificare al cliente i cambiamenti che influenzano i requisiti? — —" [ref=e686]:
+                - cell "8.3.6" [ref=e687]
+                - cell "Esiste un processo con criteri per notificare al cliente i cambiamenti che influenzano i requisiti?" [ref=e688]
+                - cell "—" [ref=e689]
+                - cell [ref=e690]
+                - cell "—" [ref=e691]
+              - row "8.4.1 L'organizzazione è responsabile della conformità di tutti i processi/prodotti forniti esternamente? — —" [ref=e692]:
+                - cell "8.4.1" [ref=e693]
+                - cell "L'organizzazione è responsabile della conformità di tutti i processi/prodotti forniti esternamente?" [ref=e694]
+                - cell "—" [ref=e695]
+                - cell [ref=e696]
+                - cell "—" [ref=e697]
+              - row "8.4.1 L'organizzazione richiede ai fornitori di applicare controlli ai propri sub-fornitori? — —" [ref=e698]:
+                - cell "8.4.1" [ref=e699]
+                - cell "L'organizzazione richiede ai fornitori di applicare controlli ai propri sub-fornitori?" [ref=e700]
+                - cell "—" [ref=e701]
+                - cell [ref=e702]
+                - cell "—" [ref=e703]
+              - row "8.4.1.1 Esiste un registro dei fornitori che indica lo stato di approvazione e l'ambito? — —" [ref=e704]:
+                - cell "8.4.1.1" [ref=e705]
+                - cell "Esiste un registro dei fornitori che indica lo stato di approvazione e l'ambito?" [ref=e706]
+                - cell "—" [ref=e707]
+                - cell [ref=e708]
+                - cell "—" [ref=e709]
+              - row "8.4.1.1 Viene effettuato il riesame periodico delle prestazioni dei fornitori (conformità e puntualità)? — —" [ref=e710]:
+                - cell "8.4.1.1" [ref=e711]
+                - cell "Viene effettuato il riesame periodico delle prestazioni dei fornitori (conformità e puntualità)?" [ref=e712]
+                - cell "—" [ref=e713]
+                - cell [ref=e714]
+                - cell "—" [ref=e715]
+              - row "8.4.2 Le attività di verifica sui prodotti esterni sono eseguite in base ai rischi identificati? — —" [ref=e716]:
+                - cell "8.4.2" [ref=e717]
+                - cell "Le attività di verifica sui prodotti esterni sono eseguite in base ai rischi identificati?" [ref=e718]
+                - cell "—" [ref=e719]
+                - cell [ref=e720]
+                - cell "—" [ref=e721]
+              - row "8.4.2 Quando la materia prima è un rischio significativo, viene validata l'accuratezza dei rapporti di prova? — —" [ref=e722]:
+                - cell "8.4.2" [ref=e723]
+                - cell "Quando la materia prima è un rischio significativo, viene validata l'accuratezza dei rapporti di prova?" [ref=e724]
+                - cell "—" [ref=e725]
+                - cell [ref=e726]
+                - cell "—" [ref=e727]
+              - row "8.4.3 I requisiti comunicati ai fornitori includono il diritto di accesso alle strutture per audit? — —" [ref=e728]:
+                - cell "8.4.3" [ref=e729]
+                - cell "I requisiti comunicati ai fornitori includono il diritto di accesso alle strutture per audit?" [ref=e730]
+                - cell "—" [ref=e731]
+                - cell [ref=e732]
+                - cell "—" [ref=e733]
+              - row "8.5.1 La produzione avviene in condizioni controllate con criteri di lavorazione definiti (es. campioni)? — —" [ref=e734]:
+                - cell "8.5.1" [ref=e735]
+                - cell "La produzione avviene in condizioni controllate con criteri di lavorazione definiti (es. campioni)?" [ref=e736]
+                - cell "—" [ref=e737]
+                - cell [ref=e738]
+                - cell "—" [ref=e739]
+              - row "8.5.1 Le info documentate per l'accettazione includono i criteri di scarto e i punti della sequenza? — —" [ref=e740]:
+                - cell "8.5.1" [ref=e741]
+                - cell "Le info documentate per l'accettazione includono i criteri di scarto e i punti della sequenza?" [ref=e742]
+                - cell "—" [ref=e743]
+                - cell [ref=e744]
+                - cell "—" [ref=e745]
+              - row "8.5.1 Se si usa l'ispezione a campione, il piano è motivato da principi statistici riconosciuti? — —" [ref=e746]:
+                - cell "8.5.1" [ref=e747]
+                - cell "Se si usa l'ispezione a campione, il piano è motivato da principi statistici riconosciuti?" [ref=e748]
+                - cell "—" [ref=e749]
+                - cell [ref=e750]
+                - cell "—" [ref=e751]
+              - row "8.5.1 Vengono attuate azioni atte a prevenire l'errore umano durante la produzione? — —" [ref=e752]:
+                - cell "8.5.1" [ref=e753]
+                - cell "Vengono attuate azioni atte a prevenire l'errore umano durante la produzione?" [ref=e754]
+                - cell "—" [ref=e755]
+                - cell [ref=e756]
+                - cell "—" [ref=e757]
+              - row "8.5.1 Le forniture di servizio (es. aria compressa, acqua) sono monitorate per l'incidenza sulla conformità? — —" [ref=e758]:
+                - cell "8.5.1" [ref=e759]
+                - cell "Le forniture di servizio (es. aria compressa, acqua) sono monitorate per l'incidenza sulla conformità?" [ref=e760]
+                - cell "—" [ref=e761]
+                - cell [ref=e762]
+                - cell "—" [ref=e763]
+              - row "8.5.1.1 Le apparecchiature e il software per controllare la produzione sono validati prima del rilascio? — —" [ref=e764]:
+                - cell "8.5.1.1" [ref=e765]
+                - cell "Le apparecchiature e il software per controllare la produzione sono validati prima del rilascio?" [ref=e766]
+                - cell "—" [ref=e767]
+                - cell [ref=e768]
+                - cell "—" [ref=e769]
+              - row "8.5.1.2 Per i processi speciali (output non verificabili) sono definite qualifiche persone e impianti? — —" [ref=e770]:
+                - cell "8.5.1.2" [ref=e771]
+                - cell "Per i processi speciali (output non verificabili) sono definite qualifiche persone e impianti?" [ref=e772]
+                - cell "—" [ref=e773]
+                - cell [ref=e774]
+                - cell "—" [ref=e775]
+              - row "8.5.1.3 Viene eseguita la Verifica del Processo di Produzione (Ispezione del Primo Articolo - FAI)? — —" [ref=e776]:
+                - cell "8.5.1.3" [ref=e777]
+                - cell "Viene eseguita la Verifica del Processo di Produzione (Ispezione del Primo Articolo - FAI)?" [ref=e778]
+                - cell "—" [ref=e779]
+                - cell [ref=e780]
+                - cell "—" [ref=e781]
+              - row "8.5.2 L'organizzazione tiene aggiornata l'identificazione della configurazione per rilevare differenze? — —" [ref=e782]:
+                - cell "8.5.2" [ref=e783]
+                - cell "L'organizzazione tiene aggiornata l'identificazione della configurazione per rilevare differenze?" [ref=e784]
+                - cell "—" [ref=e785]
+                - cell [ref=e786]
+                - cell "—" [ref=e787]
+              - row "8.5.2 Sono stabiliti controlli per gli strumenti di autorizzazione all'accettazione (es. timbri, password)? — —" [ref=e788]:
+                - cell "8.5.2" [ref=e789]
+                - cell "Sono stabiliti controlli per gli strumenti di autorizzazione all'accettazione (es. timbri, password)?" [ref=e790]
+                - cell "—" [ref=e791]
+                - cell [ref=e792]
+                - cell "—" [ref=e793]
+              - row "8.5.2 La rintracciabilità consente di risalire fino al lotto di materiale grezzo o produzione? — —" [ref=e794]:
+                - cell "8.5.2" [ref=e795]
+                - cell "La rintracciabilità consente di risalire fino al lotto di materiale grezzo o produzione?" [ref=e796]
+                - cell "—" [ref=e797]
+                - cell [ref=e798]
+                - cell "—" [ref=e799]
+              - row "8.5.4 La preservazione degli output include la pulizia e la rimozione di oggetti estranei (FOD)? — —" [ref=e800]:
+                - cell "8.5.4" [ref=e801]
+                - cell "La preservazione degli output include la pulizia e la rimozione di oggetti estranei (FOD)?" [ref=e802]
+                - cell "—" [ref=e803]
+                - cell [ref=e804]
+                - cell "—" [ref=e805]
+              - row "8.5.4 Viene controllata la vita di immagazzinamento (shelf life) e la rotazione del materiale? — —" [ref=e806]:
+                - cell "8.5.4" [ref=e807]
+                - cell "Viene controllata la vita di immagazzinamento (shelf life) e la rotazione del materiale?" [ref=e808]
+                - cell "—" [ref=e809]
+                - cell [ref=e810]
+                - cell "—" [ref=e811]
+              - row "8.5.5 Le attività post-consegna considerano la raccolta e l'analisi dei dati in servizio (lezioni apprese)? — —" [ref=e812]:
+                - cell "8.5.5" [ref=e813]
+                - cell "Le attività post-consegna considerano la raccolta e l'analisi dei dati in servizio (lezioni apprese)?" [ref=e814]
+                - cell "—" [ref=e815]
+                - cell [ref=e816]
+                - cell "—" [ref=e817]
+              - row "8.5.6 Sono identificate le persone autorizzate ad approvare le modifiche alla produzione/servizi? — —" [ref=e818]:
+                - cell "8.5.6" [ref=e819]
+                - cell "Sono identificate le persone autorizzate ad approvare le modifiche alla produzione/servizi?" [ref=e820]
+                - cell "—" [ref=e821]
+                - cell [ref=e822]
+                - cell "—" [ref=e823]
+              - row "8.6 Il rilascio non avviene finché quanto pianificato non è completato in modo soddisfacente? — —" [ref=e824]:
+                - cell "8.6" [ref=e825]
+                - cell "Il rilascio non avviene finché quanto pianificato non è completato in modo soddisfacente?" [ref=e826]
+                - cell "—" [ref=e827]
+                - cell [ref=e828]
+                - cell "—" [ref=e829]
+              - row "8.6 Tutta la documentazione richiesta in accompagnamento è presente al momento della consegna? — —" [ref=e830]:
+                - cell "8.6" [ref=e831]
+                - cell "Tutta la documentazione richiesta in accompagnamento è presente al momento della consegna?" [ref=e832]
+                - cell "—" [ref=e833]
+                - cell [ref=e834]
+                - cell "—" [ref=e835]
+              - row "8.7.1 Il processo di controllo delle non conformità definisce la responsabilità per lo smaltimento? — —" [ref=e836]:
+                - cell "8.7.1" [ref=e837]
+                - cell "Il processo di controllo delle non conformità definisce la responsabilità per lo smaltimento?" [ref=e838]
+                - cell "—" [ref=e839]
+                - cell [ref=e840]
+                - cell "—" [ref=e841]
+              - row "8.7.1 Le NC sono segnalate tempestivamente al cliente e alle parti interessate? — —" [ref=e842]:
+                - cell "8.7.1" [ref=e843]
+                - cell "Le NC sono segnalate tempestivamente al cliente e alle parti interessate?" [ref=e844]
+                - cell "—" [ref=e845]
+                - cell [ref=e846]
+                - cell "—" [ref=e847]
+              - row "8.7.1 L'utilizzo \"così com'è\" o la riparazione richiedono l'approvazione dell'autorità di progettazione? — —" [ref=e848]:
+                - cell "8.7.1" [ref=e849]
+                - cell "L'utilizzo \"così com'è\" o la riparazione richiedono l'approvazione dell'autorità di progettazione?" [ref=e850]
+                - cell "—" [ref=e851]
+                - cell [ref=e852]
+                - cell "—" [ref=e853]
+              - row "8.7.1 Il prodotto scartato è reso fisicamente inutilizzabile o contrassegnato in modo permanente? — —" [ref=e854]:
+                - cell "8.7.1" [ref=e855]
+                - cell "Il prodotto scartato è reso fisicamente inutilizzabile o contrassegnato in modo permanente?" [ref=e856]
+                - cell "—" [ref=e857]
+                - cell [ref=e858]
+                - cell "—" [ref=e859]
+              - row "8.7.1 Le parti contraffatte o sospette sono controllate per impedirne il rientro nella catena? — —" [ref=e860]:
+                - cell "8.7.1" [ref=e861]
+                - cell "Le parti contraffatte o sospette sono controllate per impedirne il rientro nella catena?" [ref=e862]
+                - cell "—" [ref=e863]
+                - cell [ref=e864]
+                - cell "—" [ref=e865]
+              - row "9 — Valutazione delle Prestazioni" [ref=e866]:
+                - cell "9 — Valutazione delle Prestazioni" [ref=e867]
+              - row "9.1.1 L'organizzazione valuta l'efficacia del SGQ conservando evidenza dei risultati? — —" [ref=e868]:
+                - cell "9.1.1" [ref=e869]
+                - cell "L'organizzazione valuta l'efficacia del SGQ conservando evidenza dei risultati?" [ref=e870]
+                - cell "—" [ref=e871]
+                - cell [ref=e872]
+                - cell "—" [ref=e873]
+              - row "9.1.2 La valutazione della soddisfazione del cliente include conformità, puntualità e reclami? — —" [ref=e874]:
+                - cell "9.1.2" [ref=e875]
+                - cell "La valutazione della soddisfazione del cliente include conformità, puntualità e reclami?" [ref=e876]
+                - cell "—" [ref=e877]
+                - cell [ref=e878]
+                - cell "—" [ref=e879]
+              - row "9.1.2 Sono elaborati e attuati piani di miglioramento per rispondere alle carenze identificate? — —" [ref=e880]:
+                - cell "9.1.2" [ref=e881]
+                - cell "Sono elaborati e attuati piani di miglioramento per rispondere alle carenze identificate?" [ref=e882]
+                - cell "—" [ref=e883]
+                - cell [ref=e884]
+                - cell "—" [ref=e885]
+              - row "9.1.3 L'analisi dei dati valuta l'efficacia delle azioni intraprese per rischi e opportunità? — —" [ref=e886]:
+                - cell "9.1.3" [ref=e887]
+                - cell "L'analisi dei dati valuta l'efficacia delle azioni intraprese per rischi e opportunità?" [ref=e888]
+                - cell "—" [ref=e889]
+                - cell [ref=e890]
+                - cell "—" [ref=e891]
+              - row "9.2.1 Gli audit interni accertano la conformità ai requisiti del cliente e della norma EN 9100? — —" [ref=e892]:
+                - cell "9.2.1" [ref=e893]
+                - cell "Gli audit interni accertano la conformità ai requisiti del cliente e della norma EN 9100?" [ref=e894]
+                - cell "—" [ref=e895]
+                - cell [ref=e896]
+                - cell "—" [ref=e897]
+              - row "9.2.2 Il programma di audit considera i risultati degli audit precedenti e i cambiamenti? — —" [ref=e898]:
+                - cell "9.2.2" [ref=e899]
+                - cell "Il programma di audit considera i risultati degli audit precedenti e i cambiamenti?" [ref=e900]
+                - cell "—" [ref=e901]
+                - cell [ref=e902]
+                - cell "—" [ref=e903]
+              - row "9.2.2 Sono adottate correzioni e azioni correttive post-audit senza indebito ritardo? — —" [ref=e904]:
+                - cell "9.2.2" [ref=e905]
+                - cell "Sono adottate correzioni e azioni correttive post-audit senza indebito ritardo?" [ref=e906]
+                - cell "—" [ref=e907]
+                - cell [ref=e908]
+                - cell "—" [ref=e909]
+              - row "9.3.2 Il riesame di direzione considera l'andamento della puntualità delle consegne? — —" [ref=e910]:
+                - cell "9.3.2" [ref=e911]
+                - cell "Il riesame di direzione considera l'andamento della puntualità delle consegne?" [ref=e912]
+                - cell "—" [ref=e913]
+                - cell [ref=e914]
+                - cell "—" [ref=e915]
+              - row "9.3.3 Gli output del riesame di direzione includono decisioni sui rischi identificati? — —" [ref=e916]:
+                - cell "9.3.3" [ref=e917]
+                - cell "Gli output del riesame di direzione includono decisioni sui rischi identificati?" [ref=e918]
+                - cell "—" [ref=e919]
+                - cell [ref=e920]
+                - cell "—" [ref=e921]
+              - row "10 — Miglioramento" [ref=e922]:
+                - cell "10 — Miglioramento" [ref=e923]
+              - row "10.1 L'organizzazione seleziona opportunità per prevenire o ridurre gli effetti indesiderati? — —" [ref=e924]:
+                - cell "10.1" [ref=e925]
+                - cell "L'organizzazione seleziona opportunità per prevenire o ridurre gli effetti indesiderati?" [ref=e926]
+                - cell "—" [ref=e927]
+                - cell [ref=e928]
+                - cell "—" [ref=e929]
+              - row "10.2.1 L'analisi delle cause delle NC considera esplicitamente i fattori umani? — —" [ref=e930]:
+                - cell "10.2.1" [ref=e931]
+                - cell "L'analisi delle cause delle NC considera esplicitamente i fattori umani?" [ref=e932]
+                - cell "—" [ref=e933]
+                - cell [ref=e934]
+                - cell "—" [ref=e935]
+              - row "10.2.1 La richiesta di azione correttiva è trasferita al fornitore se ne è responsabile? — —" [ref=e936]:
+                - cell "10.2.1" [ref=e937]
+                - cell "La richiesta di azione correttiva è trasferita al fornitore se ne è responsabile?" [ref=e938]
+                - cell "—" [ref=e939]
+                - cell [ref=e940]
+                - cell "—" [ref=e941]
+              - row "10.2.1 Sono presi provvedimenti specifici se le azioni correttive non sono efficaci o tempestive? — —" [ref=e942]:
+                - cell "10.2.1" [ref=e943]
+                - cell "Sono presi provvedimenti specifici se le azioni correttive non sono efficaci o tempestive?" [ref=e944]
+                - cell "—" [ref=e945]
+                - cell [ref=e946]
+                - cell "—" [ref=e947]
+              - row "10.3 L'organizzazione monitora l'attuazione delle attività di miglioramento valutandone l'efficacia? — —" [ref=e948]:
+                - cell "10.3" [ref=e949]
+                - cell "L'organizzazione monitora l'attuazione delle attività di miglioramento valutandone l'efficacia?" [ref=e950]
+                - cell "—" [ref=e951]
+                - cell [ref=e952]
+                - cell "—" [ref=e953]
+  - contentinfo [ref=e954]:
+    - paragraph [ref=e955]:
+      - generic [ref=e956]:
+        - text: Grazie per aver creato con
+        - link "WordPress" [ref=e957] [cursor=pointer]:
+          - /url: https://it.wordpress.org/
+        - text: .
+    - paragraph [ref=e958]: Versione 7.0

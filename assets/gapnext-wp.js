@@ -408,6 +408,21 @@
             showStep(parseInt($(this).data('prev'), 10));
         });
 
+        // Manual save draft button
+        $(document).on('click', '.gapnext-save-draft', function () {
+            var $btn = $(this);
+            var $nav = $btn.closest('.gapnext-nav');
+            var originalText = $btn.text();
+            isDirty = true;
+            $btn.prop('disabled', true).text(GapNextWP.i18n.saving || 'Saving...');
+            doAutoSave(function (ok) {
+                $btn.prop('disabled', false).text(originalText);
+                if (ok) {
+                    showToast(GapNextWP.i18n.draft_saved || 'Draft saved', 'success', $nav);
+                }
+            });
+        });
+
         // Direct step navigation via step indicator
         $(document).on('click', '.gapnext-step', function () {
             var targetStep = parseInt($(this).data('step'), 10);
@@ -439,7 +454,7 @@
         // -------------------------------------------------------
         // Inline toast notification (replaces browser alert)
         // -------------------------------------------------------
-        function showToast(message, type) {
+        function showToast(message, type, $anchor) {
             type = type || 'error';
             var $existing = $('#gapnext-toast');
             if ($existing.length) $existing.remove();
@@ -447,11 +462,15 @@
                 '<span class="gapnext-toast-msg">' + $('<span>').text(message).html() + '</span>' +
                 '<button type="button" class="gapnext-toast-close">&times;</button>' +
                 '</div>');
-            var $container = $('#gapnext-toast-container');
-            if ($container.length) {
-                $container.empty().append($toast);
+            if ($anchor && $anchor.length) {
+                $anchor.before($toast);
             } else {
-                $('#gapnext-form-wrap').prepend($toast);
+                var $container = $('#gapnext-toast-container');
+                if ($container.length) {
+                    $container.empty().append($toast);
+                } else {
+                    $('#gapnext-form-wrap').prepend($toast);
+                }
             }
             requestAnimationFrame(function () { $toast.addClass('gapnext-toast-visible'); });
             $toast.find('.gapnext-toast-close').on('click', function () { dismissToast($toast); });

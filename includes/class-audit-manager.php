@@ -183,6 +183,7 @@ class GapNext_Audit_Manager {
         // ── Filter & sort params ──────────────────────────────────────────
         $f_standard = sanitize_text_field( wp_unslash( $_GET['std_filter']     ?? '' ) );
         $f_company  = sanitize_text_field( wp_unslash( $_GET['company_filter'] ?? '' ) );
+        $f_status   = sanitize_key( $_GET['status_filter'] ?? '' );
         $f_order    = ( isset( $_GET['order'] ) && $_GET['order'] === 'asc' ) ? 'asc' : 'desc';
 
         // Toggle direction for next click on the Date header
@@ -196,6 +197,7 @@ class GapNext_Audit_Manager {
         $date_sort_url = add_query_arg( [
             'std_filter'     => $f_standard,
             'company_filter' => $f_company,
+            'status_filter'  => $f_status,
             'order'          => $next_order,
         ], $base_list_url );
 
@@ -210,16 +212,17 @@ class GapNext_Audit_Manager {
         sort( $all_companies );
 
         // Filtered + sorted result set
-        $submissions = self::get_filtered_submissions( $f_standard, $f_company, $f_order );
+        $submissions = self::get_filtered_submissions( $f_standard, $f_company, $f_order, $f_status );
         $total_count    = count( $all_submissions );
         $filtered_count = count( $submissions );
-        $is_filtered    = $f_standard !== '' || $f_company !== '';
+        $is_filtered    = $f_standard !== '' || $f_company !== '' || $f_status !== '';
+        $is_it          = ( strpos( get_locale(), 'it' ) === 0 );
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'Submissions', 'gapnext-wp' ); ?></h1>
+            <h1><?php echo esc_html( $is_it ? 'Compilazioni' : 'Submissions' ); ?></h1>
 
             <?php if ( $deleted ) : ?>
-                <div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Submission deleted.', 'gapnext-wp' ); ?></p></div>
+                <div class="notice notice-success is-dismissible"><p><?php echo esc_html( $is_it ? 'Compilazione eliminata.' : 'Submission deleted.' ); ?></p></div>
             <?php endif; ?>
 
             <!-- ── Filter bar ──────────────────────────────────────────── -->
@@ -229,9 +232,9 @@ class GapNext_Audit_Manager {
                 <input type="hidden" name="order" value="<?php echo esc_attr( $f_order ); ?>">
 
                 <div style="display:flex;flex-direction:column;gap:4px">
-                    <label style="font-size:12px;font-weight:600;color:#1d2327"><?php esc_html_e( 'Standard', 'gapnext-wp' ); ?></label>
+                    <label style="font-size:12px;font-weight:600;color:#1d2327"><?php echo esc_html( $is_it ? 'Standard' : 'Standard' ); ?></label>
                     <select name="std_filter" style="min-width:160px">
-                        <option value=""><?php esc_html_e( '— All standards —', 'gapnext-wp' ); ?></option>
+                        <option value=""><?php echo esc_html( $is_it ? '— Tutti gli standard —' : '— All standards —' ); ?></option>
                         <?php foreach ( $all_standards as $std ) : ?>
                             <option value="<?php echo esc_attr( $std ); ?>" <?php selected( $f_standard, $std ); ?>>
                                 <?php echo esc_html( $std ); ?>
@@ -241,9 +244,9 @@ class GapNext_Audit_Manager {
                 </div>
 
                 <div style="display:flex;flex-direction:column;gap:4px">
-                    <label style="font-size:12px;font-weight:600;color:#1d2327"><?php esc_html_e( 'Company', 'gapnext-wp' ); ?></label>
+                    <label style="font-size:12px;font-weight:600;color:#1d2327"><?php echo esc_html( $is_it ? 'Azienda' : 'Company' ); ?></label>
                     <select name="company_filter" style="min-width:200px">
-                        <option value=""><?php esc_html_e( '— All companies —', 'gapnext-wp' ); ?></option>
+                        <option value=""><?php echo esc_html( $is_it ? '— Tutte le aziende —' : '— All companies —' ); ?></option>
                         <?php foreach ( $all_companies as $co ) : ?>
                             <option value="<?php echo esc_attr( $co ); ?>" <?php selected( $f_company, $co ); ?>>
                                 <?php echo esc_html( $co ); ?>
@@ -252,10 +255,19 @@ class GapNext_Audit_Manager {
                     </select>
                 </div>
 
+                <div style="display:flex;flex-direction:column;gap:4px">
+                    <label style="font-size:12px;font-weight:600;color:#1d2327"><?php echo esc_html( $is_it ? 'Stato' : 'Status' ); ?></label>
+                    <select name="status_filter" style="min-width:140px">
+                        <option value=""><?php echo esc_html( $is_it ? '— Tutti gli stati —' : '— All statuses —' ); ?></option>
+                        <option value="completed" <?php selected( $f_status, 'completed' ); ?>><?php echo esc_html( $is_it ? 'Completata' : 'Completed' ); ?></option>
+                        <option value="draft" <?php selected( $f_status, 'draft' ); ?>><?php echo esc_html( $is_it ? 'Bozza' : 'Draft' ); ?></option>
+                    </select>
+                </div>
+
                 <div style="display:flex;gap:8px;align-items:flex-end">
-                    <?php submit_button( __( 'Apply filters', 'gapnext-wp' ), 'secondary', '', false, [ 'style' => 'margin:0' ] ); ?>
+                    <?php submit_button( ( $is_it ? 'Applica filtri' : 'Apply filters' ), 'secondary', '', false, [ 'style' => 'margin:0' ] ); ?>
                     <?php if ( $is_filtered ) : ?>
-                        <a href="<?php echo esc_url( $reset_url ); ?>" class="button" style="margin:0"><?php esc_html_e( 'Reset', 'gapnext-wp' ); ?></a>
+                        <a href="<?php echo esc_url( $reset_url ); ?>" class="button" style="margin:0"><?php echo esc_html( $is_it ? 'Reimposta' : 'Reset' ); ?></a>
                     <?php endif; ?>
                 </div>
             </form>
@@ -265,8 +277,7 @@ class GapNext_Audit_Manager {
             <p style="margin:0 0 8px;font-size:13px;color:#646970">
                 <?php if ( $is_filtered ) : ?>
                     <?php printf(
-                        /* translators: 1: filtered count, 2: total count */
-                        esc_html__( 'Showing %1$d of %2$d submissions', 'gapnext-wp' ),
+                        esc_html( $is_it ? '%1$d di %2$d compilazioni' : 'Showing %1$d of %2$d submissions' ),
                         $filtered_count,
                         $total_count
                     ); ?>
@@ -280,32 +291,38 @@ class GapNext_Audit_Manager {
                             <?php echo esc_html( $f_company ); ?>
                         </span>
                     <?php endif; ?>
+                    <?php if ( $f_status ) : ?>
+                        &nbsp;<span style="display:inline-flex;align-items:center;gap:4px;background:#fef3c7;color:#92400e;border-radius:12px;padding:2px 10px;font-size:12px">
+                            <?php echo esc_html( $f_status === 'completed' ? ( $is_it ? 'Completata' : 'Completed' ) : ( $is_it ? 'Bozza' : 'Draft' ) ); ?>
+                        </span>
+                    <?php endif; ?>
                 <?php else : ?>
-                    <?php printf( esc_html__( '%d submissions', 'gapnext-wp' ), $total_count ); ?>
+                    <?php printf( esc_html( $is_it ? '%d compilazioni' : '%d submissions' ), $total_count ); ?>
                 <?php endif; ?>
             </p>
 
             <table class="wp-list-table widefat fixed striped">
                 <thead>
                     <tr>
-                        <th style="width:300px"><?php esc_html_e( 'Company', 'gapnext-wp' ); ?></th>
-                        <th style="width:300px"><?php esc_html_e( 'Standard', 'gapnext-wp' ); ?></th>
-                        <th style="width:50px"><?php esc_html_e( 'Lang', 'gapnext-wp' ); ?></th>
-                        <th style="width:80px"><?php esc_html_e( 'Score', 'gapnext-wp' ); ?></th>
+                        <th style="width:200px"><?php echo esc_html( $is_it ? 'Azienda' : 'Company' ); ?></th>
+                        <th style="width:160px"><?php echo esc_html( $is_it ? 'Standard' : 'Standard' ); ?></th>
+                        <th style="width:50px"><?php echo esc_html( $is_it ? 'Lingua' : 'Lang' ); ?></th>
+                        <th style="width:90px"><?php echo esc_html( $is_it ? 'Stato' : 'Status' ); ?></th>
+                        <th style="width:80px"><?php echo esc_html( $is_it ? 'Punteggio' : 'Score' ); ?></th>
                         <th style="width:170px">
                             <a href="<?php echo esc_url( $date_sort_url ); ?>"
                                style="color:inherit;text-decoration:none;white-space:nowrap"
-                               title="<?php esc_attr_e( 'Sort by date', 'gapnext-wp' ); ?>">
-                                <?php esc_html_e( 'Date', 'gapnext-wp' ); ?><?php echo esc_html( $order_icon ); ?>
+                               title="<?php echo esc_attr( $is_it ? 'Ordina per data' : 'Sort by date' ); ?>">
+                                <?php echo esc_html( $is_it ? 'Data' : 'Date' ); ?><?php echo esc_html( $order_icon ); ?>
                             </a>
                         </th>
-                        <th style="width:340px"><?php esc_html_e( 'Actions', 'gapnext-wp' ); ?></th>
+                        <th style="width:340px"><?php echo esc_html( $is_it ? 'Azioni' : 'Actions' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php if ( empty( $submissions ) ) : ?>
-                    <tr><td colspan="6" style="color:#646970;font-style:italic">
-                        <?php esc_html_e( 'No submissions match the selected filters.', 'gapnext-wp' ); ?>
+                    <tr><td colspan="7" style="color:#646970;font-style:italic">
+                        <?php echo esc_html( $is_it ? 'Nessuna compilazione corrisponde ai filtri selezionati.' : 'No submissions match the selected filters.' ); ?>
                     </td></tr>
                 <?php else : ?>
                     <?php foreach ( $submissions as $sub ) : ?>
@@ -320,50 +337,57 @@ class GapNext_Audit_Manager {
                             add_query_arg( [ 'page' => 'gapnext-submissions', 'action' => 'delete_submission', 'sub_id' => $sub->id ], admin_url( 'admin.php' ) ),
                             'gapnext_delete_sub_' . $sub->id
                         );
+                        $is_draft  = $sub->status === 'draft';
                         $score_pct = round( $sub->score * 100, 1 );
-                        if ( $sub->score >= 0.7 )      $score_color = '#166534';
+                        if ( $is_draft )               $score_color = '#9ca3af';
+                        elseif ( $sub->score >= 0.7 )  $score_color = '#166534';
                         elseif ( $sub->score >= 0.4 )  $score_color = '#92400e';
                         else                           $score_color = '#991b1b';
+
+                        // Status badge
+                        if ( $is_draft ) {
+                            $status_label = $is_it ? 'Bozza' : 'Draft';
+                            $status_bg    = '#fef3c7';
+                            $status_color = '#92400e';
+                        } elseif ( $sub->status === 'demo' ) {
+                            $status_label = 'Demo';
+                            $status_bg    = '#e0e7ff';
+                            $status_color = '#3730a3';
+                        } else {
+                            $status_label = $is_it ? 'Completata' : 'Completed';
+                            $status_bg    = '#dcfce7';
+                            $status_color = '#166534';
+                        }
                         ?>
-                        <tr>
+                        <tr<?php echo $is_draft ? ' style="opacity:.85"' : ''; ?>>
                             <td>
-                                <?php echo esc_html( $sub->company_name ); ?>
-                                <?php if ( $sub->status === 'demo' ) : ?>
-                                    <span style="display:inline-block;margin-left:6px;padding:2px 8px;background:#fef3c7;color:#92400e;border-radius:10px;font-size:11px;font-weight:600;vertical-align:middle">Demo</span>
-                                <?php endif; ?>
+                                <?php echo esc_html( $sub->company_name ?: '—' ); ?>
                             </td>
                             <td><?php echo esc_html( $sub->standard_id ); ?></td>
                             <td><?php echo esc_html( strtoupper( $sub->language ) ); ?></td>
-                            <td><strong style="color:<?php echo esc_attr( $score_color ); ?>"><?php echo esc_html( $score_pct . '%' ); ?></strong></td>
+                            <td>
+                                <span style="display:inline-block;padding:2px 10px;background:<?php echo esc_attr( $status_bg ); ?>;color:<?php echo esc_attr( $status_color ); ?>;border-radius:10px;font-size:11px;font-weight:600"><?php echo esc_html( $status_label ); ?></span>
+                            </td>
+                            <td>
+                                <?php if ( $is_draft ) : ?>
+                                    <span style="color:#9ca3af">—</span>
+                                <?php else : ?>
+                                    <strong style="color:<?php echo esc_attr( $score_color ); ?>"><?php echo esc_html( $score_pct . '%' ); ?></strong>
+                                <?php endif; ?>
+                            </td>
                             <td><?php echo esc_html( date_i18n( 'd/m/Y H:i', strtotime( $sub->submitted_at ) ) ); ?></td>
                             <td>
-                                <a href="<?php echo esc_url( $view_url ); ?>" class="button button-small"><?php esc_html_e( 'View', 'gapnext-wp' ); ?></a>
+                                <a href="<?php echo esc_url( $view_url ); ?>" class="button button-small"><?php echo esc_html( $is_it ? 'Dettagli' : 'View' ); ?></a>
+                                <?php if ( ! $is_draft ) : ?>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'pdf',  $base_export ) ); ?>" class="button button-small">PDF</a>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'csv',  $base_export ) ); ?>" class="button button-small">CSV</a>
                                 <a href="<?php echo esc_url( add_query_arg( 'format', 'md',   $base_export ) ); ?>" class="button button-small">MD</a>
-                                <?php if ( false ) : // JSON button — commented out, re-enable when needed ?>
-                                <a href="<?php echo esc_url( add_query_arg( 'format', 'json', $base_export ) ); ?>" class="button button-small">JSON</a>
                                 <?php endif; ?>
                                 <a href="<?php echo esc_url( $delete_url ); ?>"
                                    class="button button-small button-link-delete"
-                                   onclick="return confirm('<?php esc_attr_e( 'Delete this submission? This cannot be undone.', 'gapnext-wp' ); ?>')">
-                                    <?php esc_html_e( 'Delete', 'gapnext-wp' ); ?>
+                                   onclick="return confirm('<?php echo esc_attr( $is_it ? 'Eliminare questa compilazione? L\'azione non può essere annullata.' : 'Delete this submission? This cannot be undone.' ); ?>')">
+                                    <?php echo esc_html( $is_it ? 'Elimina' : 'Delete' ); ?>
                                 </a>
-                                <?php if ( false ) : // AI Report buttons — commented out, managed from view page instead ?>
-                                <?php if ( $ai_client->is_configured() ) : ?>
-                                    <?php if ( ! empty( $sub->ai_report_url ) ) : ?>
-                                        <a href="<?php echo esc_url( add_query_arg( 'token', get_option( 'gapnext_ai_api_key', '' ), $sub->ai_report_url ) ); ?>"
-                                           target="_blank" class="button button-small button-primary">
-                                            <?php esc_html_e( '&#x2B07; Download AI Report', 'gapnext-wp' ); ?>
-                                        </a>
-                                    <?php else : ?>
-                                        <button type="button" class="button button-small gapnext-ai-generate"
-                                                data-id="<?php echo esc_attr( $sub->id ); ?>">
-                                            <?php esc_html_e( 'Generate AI Report', 'gapnext-wp' ); ?>
-                                        </button>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -446,28 +470,47 @@ class GapNext_Audit_Manager {
         $proj_score  = $denominator > 0
             ? round( $stats['compliant'] / $denominator * 100, 1 )
             : 0;
+        $is_it = ( strpos( get_locale(), 'it' ) === 0 );
         ?>
         <div class="wrap">
             <h1>
-                <?php esc_html_e( 'Submission', 'gapnext-wp' ); ?>: <?php echo esc_html( $sub->company_name ); ?>
-                <a href="<?php echo esc_url( $back_url ); ?>" class="page-title-action">← <?php esc_html_e( 'Back to list', 'gapnext-wp' ); ?></a>
+                <?php echo esc_html( $is_it ? 'Compilazione' : 'Submission' ); ?>: <?php echo esc_html( $sub->company_name ); ?>
+                <a href="<?php echo esc_url( $back_url ); ?>" class="page-title-action">← <?php echo esc_html( $is_it ? 'Torna alla lista' : 'Back to list' ); ?></a>
                 <a href="<?php echo esc_url( $delete_url ); ?>"
                    class="page-title-action"
                    style="color:#b91c1c;border-color:#b91c1c"
-                   onclick="return confirm('<?php esc_attr_e( 'Delete this submission? This cannot be undone.', 'gapnext-wp' ); ?>')">
-                    🗑 <?php esc_html_e( 'Delete submission', 'gapnext-wp' ); ?>
+                   onclick="return confirm('<?php echo esc_attr( $is_it ? 'Eliminare questa compilazione? L\'azione non può essere annullata.' : 'Delete this submission? This cannot be undone.' ); ?>')">
+                    🗑 <?php echo esc_html( $is_it ? 'Elimina compilazione' : 'Delete submission' ); ?>
                 </a>
             </h1>
 
-            <!-- Export buttons -->
-            <p>
+            <!-- Status + Export buttons -->
+            <?php
+            $is_draft = $sub->status === 'draft';
+            if ( $is_draft ) {
+                $detail_status_label = $is_it ? 'Bozza' : 'Draft';
+                $detail_status_bg    = '#fef3c7';
+                $detail_status_color = '#92400e';
+            } elseif ( $sub->status === 'demo' ) {
+                $detail_status_label = 'Demo';
+                $detail_status_bg    = '#e0e7ff';
+                $detail_status_color = '#3730a3';
+            } else {
+                $detail_status_label = $is_it ? 'Completata' : 'Completed';
+                $detail_status_bg    = '#dcfce7';
+                $detail_status_color = '#166534';
+            }
+            ?>
+            <div style="display:flex;align-items:center;gap:12px;margin:12px 0 16px;flex-wrap:wrap">
+                <span style="font-size:13px;font-weight:600;color:#64748b"><?php echo esc_html( $is_it ? 'Stato:' : 'Status:' ); ?></span>
+                <span style="display:inline-block;padding:4px 14px;background:<?php echo esc_attr( $detail_status_bg ); ?>;color:<?php echo esc_attr( $detail_status_color ); ?>;border-radius:12px;font-size:12px;font-weight:700;letter-spacing:0.3px"><?php echo esc_html( $detail_status_label ); ?></span>
+                <?php if ( ! $is_draft ) : ?>
+                <span style="border-left:1px solid #e2e8f0;height:20px;display:inline-block"></span>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'pdf',  $base_export ) ); ?>" class="button button-primary">⬇ PDF</a>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'csv',  $base_export ) ); ?>" class="button">⬇ CSV</a>
                 <a href="<?php echo esc_url( add_query_arg( 'format', 'md',   $base_export ) ); ?>" class="button">⬇ MD</a>
-                <?php if ( false ) : // JSON export — commented out, re-enable when needed ?>
-                <a href="<?php echo esc_url( add_query_arg( 'format', 'json', $base_export ) ); ?>" class="button">⬇ JSON</a>
                 <?php endif; ?>
-            </p>
+            </div>
 
             <?php
             // Compute remediation data for tabs
@@ -480,16 +523,16 @@ class GapNext_Audit_Manager {
             <!-- Tabs -->
             <div class="gapnext-tabs">
                 <button class="gapnext-tab <?php echo $active_tab === 'gap_analysis' ? 'active' : ''; ?>" data-tab="gap_analysis">
-                    <?php esc_html_e( 'Gap Analysis', 'gapnext-wp' ); ?>
+                    <?php echo esc_html( $is_it ? 'Gap Analysis' : 'Gap Analysis' ); ?>
                 </button>
                 <button class="gapnext-tab <?php echo $active_tab === 'remediation' ? 'active' : ''; ?>" data-tab="remediation">
-                    <?php esc_html_e( 'Remediation Plan', 'gapnext-wp' ); ?>
+                    <?php echo esc_html( $is_it ? 'Piano di Remediation' : 'Remediation Plan' ); ?>
                     <?php if ( $pending_count > 0 ) : ?>
                         <span class="gapnext-tab-badge"><?php echo esc_html( $pending_count ); ?></span>
                     <?php endif; ?>
                 </button>
                 <button class="gapnext-tab <?php echo $active_tab === 'client_access' ? 'active' : ''; ?>" data-tab="client_access">
-                    <?php esc_html_e( 'Client Access', 'gapnext-wp' ); ?>
+                    <?php echo esc_html( $is_it ? 'Accesso Cliente' : 'Client Access' ); ?>
                 </button>
             </div>
 
@@ -497,17 +540,17 @@ class GapNext_Audit_Manager {
             <div id="gapnext-panel-gap_analysis" class="gapnext-tab-panel <?php echo $active_tab === 'gap_analysis' ? 'active' : ''; ?>">
 
             <?php
-            // Share Results section — only shown when a results page is configured
+            // Share Results section — only for completed submissions with a results page configured
             $results_pid = (int) get_option( 'gapnext_results_page_id', 0 );
-            if ( $results_pid ) :
+            if ( $results_pid && ! $is_draft ) :
                 $results_url = add_query_arg( [ 'sub' => $sub->id, 'audit' => $sub->audit_uuid ], get_permalink( $results_pid ) );
             ?>
             <div style="background:#f0f9ff;border:1px solid #bae6fd;border-left:4px solid #0284c7;border-radius:4px;padding:16px 20px;margin:0 0 24px;max-width:800px">
                 <h3 style="margin:0 0 10px;font-size:14px;color:#0c4a6e">
-                    🔗 <?php esc_html_e( 'Share Results Page', 'gapnext-wp' ); ?>
+                    🔗 <?php echo esc_html( $is_it ? 'Condividi pagina risultati' : 'Share Results Page' ); ?>
                 </h3>
                 <p style="margin:0 0 10px;font-size:13px;color:#475569">
-                    <?php esc_html_e( 'Anyone with this link can view the full results online (no login required):', 'gapnext-wp' ); ?>
+                    <?php echo esc_html( $is_it ? 'Chiunque abbia questo link può visualizzare i risultati completi online (nessun login richiesto):' : 'Anyone with this link can view the full results online (no login required):' ); ?>
                 </p>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                     <input type="text" id="gapnext-share-url"
@@ -515,14 +558,202 @@ class GapNext_Audit_Manager {
                            readonly
                            style="flex:1;min-width:300px;padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:4px;background:#fff;font-family:monospace">
                     <button type="button" class="button"
-                            onclick="var el=document.getElementById('gapnext-share-url');el.select();document.execCommand('copy');this.textContent='<?php echo esc_js( __( 'Copied!', 'gapnext-wp' ) ); ?>';var self=this;setTimeout(function(){self.textContent='<?php echo esc_js( __( 'Copy link', 'gapnext-wp' ) ); ?>';},2000);">
-                        <?php esc_html_e( 'Copy link', 'gapnext-wp' ); ?>
+                            onclick="var el=document.getElementById('gapnext-share-url');el.select();document.execCommand('copy');this.textContent='<?php echo esc_js( $is_it ? 'Copiato!' : 'Copied!' ); ?>';var self=this;setTimeout(function(){self.textContent='<?php echo esc_js( $is_it ? 'Copia link' : 'Copy link' ); ?>';},2000);">
+                        <?php echo esc_html( $is_it ? 'Copia link' : 'Copy link' ); ?>
                     </button>
                     <a href="<?php echo esc_url( $results_url ); ?>" target="_blank" class="button">
-                        <?php esc_html_e( 'Open', 'gapnext-wp' ); ?>
+                        <?php echo esc_html( $is_it ? 'Apri' : 'Open' ); ?>
                     </a>
                 </div>
             </div>
+            <?php endif; ?>
+
+            <?php
+            // ============================================================
+            // DRAFT FORM LINK — share with customer to complete
+            // ============================================================
+            if ( $is_draft ) :
+                $checklist_pid = (int) get_option( 'gapnext_checklist_page_id', 0 );
+                $form_url      = $checklist_pid
+                    ? add_query_arg( 'audit', $sub->audit_uuid, get_permalink( $checklist_pid ) )
+                    : '';
+            ?>
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid #16a34a;border-radius:4px;padding:16px 20px;margin:0 0 24px;max-width:860px">
+                <h3 style="margin:0 0 10px;font-size:14px;color:#166534">
+                    📋 <?php echo esc_html( $is_it ? 'Link compilazione' : 'Submission Form Link' ); ?>
+                </h3>
+                <p style="margin:0 0 10px;font-size:13px;color:#475569;line-height:1.6">
+                    <?php echo esc_html( $is_it
+                        ? 'Questa compilazione è ancora in bozza. Il link sottostante può essere inviato al cliente o all\'utente per riprendere e completare la compilazione. Quando l\'utente aprirà il link, la bozza verrà caricata automaticamente con i dati già inseriti.'
+                        : 'This submission is still a draft. The link below can be sent to the customer or user to resume and complete the form. When the user opens the link, the draft will be loaded automatically with the data already entered.'
+                    ); ?>
+                </p>
+                <?php if ( $form_url ) : ?>
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                    <input type="text" id="gapnext-form-link"
+                           value="<?php echo esc_url( $form_url ); ?>"
+                           readonly
+                           style="flex:1;min-width:300px;padding:7px 10px;font-size:13px;border:1px solid #cbd5e1;border-radius:4px;background:#fff;font-family:monospace">
+                    <button type="button" class="button"
+                            onclick="var el=document.getElementById('gapnext-form-link');el.select();document.execCommand('copy');this.textContent='<?php echo esc_js( $is_it ? 'Copiato!' : 'Copied!' ); ?>';var self=this;setTimeout(function(){self.textContent='<?php echo esc_js( $is_it ? 'Copia link' : 'Copy link' ); ?>';},2000);">
+                        <?php echo esc_html( $is_it ? 'Copia link' : 'Copy link' ); ?>
+                    </button>
+                    <a href="<?php echo esc_url( $form_url ); ?>" target="_blank" class="button">
+                        <?php echo esc_html( $is_it ? 'Apri' : 'Open' ); ?>
+                    </a>
+                </div>
+                <p style="margin:10px 0 0;font-size:11px;color:#6b7280;line-height:1.5">
+                    <?php echo esc_html( $is_it
+                        ? 'Nota: questo è lo stesso link dell\'audit originale. La bozza viene associata all\'audit e ripristinata automaticamente all\'apertura del modulo. Se l\'audit richiede il login, l\'utente dovrà autenticarsi prima di accedere.'
+                        : 'Note: this is the same link as the original audit. The draft is associated with the audit and restored automatically when the form is opened. If the audit requires login, the user will need to authenticate first.'
+                    ); ?>
+                </p>
+                <?php else : ?>
+                <p style="margin:0;font-size:12px;color:#991b1b">
+                    <?php echo esc_html( $is_it
+                        ? 'Pagina checklist non configurata nelle impostazioni. Configurare la pagina per generare il link.'
+                        : 'Checklist page not configured in settings. Configure the page to generate the link.'
+                    ); ?>
+                </p>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+
+            <?php
+            // ============================================================
+            // DRAFT REMINDER SECTION — only for draft submissions
+            // ============================================================
+            if ( $is_draft ) :
+                $reminder_log       = GapNext_Draft_Reminder::get_log( $sub->id );
+                $next_scheduled     = GapNext_Draft_Reminder::get_next_scheduled( $sub->id );
+                $reminders_enabled  = (bool) get_option( 'gapnext_draft_reminder_enabled', 1 );
+                $is_it              = ( strpos( get_locale(), 'it' ) === 0 );
+            ?>
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-left:4px solid #d97706;border-radius:4px;padding:16px 20px;margin:0 0 24px;max-width:860px">
+                <h3 style="margin:0 0 12px;font-size:14px;color:#92400e">
+                    <?php echo esc_html( $is_it ? 'Promemoria Bozza' : 'Draft Reminders' ); ?>
+                </h3>
+
+                <?php if ( $sub->contact_email ) : ?>
+                <p style="margin:0 0 8px;font-size:13px;color:#1e293b">
+                    <?php echo esc_html( $is_it ? 'Contatto:' : 'Contact:' ); ?>
+                    <strong><?php echo esc_html( $sub->contact_email ); ?></strong>
+                </p>
+                <?php endif; ?>
+
+                <!-- Manual send button -->
+                <div style="margin:12px 0 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                    <button type="button" id="gapnext-send-reminder-btn" class="button button-primary"
+                            data-sub-id="<?php echo esc_attr( $sub->id ); ?>"
+                            <?php echo empty( $sub->contact_email ) ? 'disabled' : ''; ?>>
+                        <?php echo esc_html( $is_it ? 'Invia promemoria ora' : 'Send Reminder Now' ); ?>
+                    </button>
+                    <span id="gapnext-reminder-status" style="font-size:13px;color:#475569"></span>
+                </div>
+
+                <!-- Auto-reminder info -->
+                <div style="background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:12px 16px;margin:0 0 16px;font-size:12px;color:#475569;line-height:1.7">
+                    <strong style="color:#1e293b"><?php echo esc_html( $is_it ? 'Come funzionano i promemoria automatici:' : 'How automatic reminders work:' ); ?></strong><br>
+                    <?php echo esc_html( $is_it
+                        ? 'Quando un utente salva una bozza, viene programmato un promemoria automatico via email dopo 24 ore tramite WordPress Cron. Se l\'utente salva nuovamente la bozza, il timer si azzera. Una volta completata la compilazione, i promemoria vengono annullati. I promemoria automatici possono essere attivati o disattivati nelle impostazioni del plugin.'
+                        : 'When a user saves a draft, an automatic reminder email is scheduled to be sent 24 hours later via WordPress Cron. If the user saves the draft again, the timer resets. Once the submission is completed, reminders are cancelled. Automatic reminders can be enabled or disabled in the plugin settings.'
+                    ); ?>
+                    <br>
+                    <strong><?php echo esc_html( $is_it ? 'Stato:' : 'Status:' ); ?></strong>
+                    <?php if ( ! $reminders_enabled ) : ?>
+                        <span style="color:#991b1b"><?php echo esc_html( $is_it ? 'I promemoria automatici sono disattivati nelle impostazioni.' : 'Automatic reminders are disabled in settings.' ); ?></span>
+                    <?php elseif ( $next_scheduled ) : ?>
+                        <span style="color:#166534"><?php printf(
+                            esc_html( $is_it ? 'Prossimo promemoria automatico previsto per il %s' : 'Next automatic reminder scheduled for %s' ),
+                            esc_html( date_i18n( 'd/m/Y H:i', $next_scheduled ) )
+                        ); ?></span>
+                    <?php else : ?>
+                        <span style="color:#92400e"><?php echo esc_html( $is_it ? 'Nessun promemoria automatico attualmente programmato.' : 'No automatic reminder currently scheduled.' ); ?></span>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Reminder log -->
+                <div>
+                    <h4 style="margin:0 0 8px;font-size:13px;color:#1e293b"><?php echo esc_html( $is_it ? 'Registro promemoria' : 'Reminder Log' ); ?></h4>
+                    <?php if ( empty( $reminder_log ) ) : ?>
+                        <p style="font-size:12px;color:#9ca3af;font-style:italic;margin:0">
+                            <?php echo esc_html( $is_it ? 'Nessun promemoria inviato finora.' : 'No reminders have been sent yet.' ); ?>
+                        </p>
+                    <?php else : ?>
+                        <table id="gapnext-reminder-log-table" class="wp-list-table widefat fixed striped" style="max-width:700px">
+                            <thead>
+                                <tr>
+                                    <th style="width:150px"><?php echo esc_html( $is_it ? 'Data' : 'Date' ); ?></th>
+                                    <th style="width:80px"><?php echo esc_html( $is_it ? 'Tipo' : 'Type' ); ?></th>
+                                    <th><?php echo esc_html( $is_it ? 'Destinatario' : 'Recipient' ); ?></th>
+                                    <th style="width:80px"><?php echo esc_html( $is_it ? 'Stato' : 'Status' ); ?></th>
+                                    <th style="width:120px"><?php echo esc_html( $is_it ? 'Inviato da' : 'Sent by' ); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ( $reminder_log as $log_row ) : ?>
+                                <tr>
+                                    <td><?php echo esc_html( date_i18n( 'd/m/Y H:i', strtotime( $log_row->sent_at ) ) ); ?></td>
+                                    <td>
+                                        <?php if ( $log_row->trigger_type === 'manual' ) : ?>
+                                            <span style="display:inline-block;padding:2px 8px;background:#dbeafe;color:#1e40af;border-radius:10px;font-size:11px;font-weight:600"><?php echo esc_html( $is_it ? 'Manuale' : 'Manual' ); ?></span>
+                                        <?php else : ?>
+                                            <span style="display:inline-block;padding:2px 8px;background:#f3e8ff;color:#7c3aed;border-radius:10px;font-size:11px;font-weight:600"><?php echo esc_html( $is_it ? 'Autom.' : 'Auto' ); ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style="font-size:12px"><?php echo esc_html( $log_row->recipient_email ); ?></td>
+                                    <td>
+                                        <?php if ( $log_row->status === 'sent' ) : ?>
+                                            <span style="color:#166534;font-weight:600;font-size:12px"><?php echo esc_html( $is_it ? 'Inviato' : 'Sent' ); ?></span>
+                                        <?php else : ?>
+                                            <span style="color:#991b1b;font-weight:600;font-size:12px"><?php echo esc_html( $is_it ? 'Fallito' : 'Failed' ); ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style="font-size:12px">
+                                        <?php
+                                        if ( $log_row->trigger_type === 'manual' && $log_row->sent_by ) {
+                                            $user = get_userdata( $log_row->sent_by );
+                                            echo esc_html( $user ? $user->display_name : '#' . $log_row->sent_by );
+                                        } else {
+                                            echo '<span style="color:#9ca3af">WP Cron</span>';
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <script>
+            jQuery(function($){
+                var $btn = $('#gapnext-send-reminder-btn');
+                var $status = $('#gapnext-reminder-status');
+                $btn.on('click', function(){
+                    if (!confirm('<?php echo esc_js( $is_it ? 'Inviare un promemoria via email al contatto?' : 'Send a reminder email to the contact?' ); ?>')) return;
+                    $btn.prop('disabled', true).text('<?php echo esc_js( $is_it ? 'Invio in corso...' : 'Sending...' ); ?>');
+                    $status.text('');
+                    $.post(ajaxurl, {
+                        action: 'gapnext_send_reminder',
+                        nonce: '<?php echo esc_js( wp_create_nonce( 'gapnext_send_reminder' ) ); ?>',
+                        submission_id: $btn.data('sub-id')
+                    }).done(function(res){
+                        $btn.prop('disabled', false).text('<?php echo esc_js( $is_it ? 'Invia promemoria ora' : 'Send Reminder Now' ); ?>');
+                        if (res.success) {
+                            $status.css('color','#166534').text(res.data.message);
+                            location.reload();
+                        } else {
+                            $status.css('color','#991b1b').text(res.data || '<?php echo esc_js( $is_it ? 'Invio promemoria fallito.' : 'Failed to send reminder.' ); ?>');
+                        }
+                    }).fail(function(){
+                        $btn.prop('disabled', false).text('<?php echo esc_js( $is_it ? 'Invia promemoria ora' : 'Send Reminder Now' ); ?>');
+                        $status.css('color','#991b1b').text('<?php echo esc_js( $is_it ? 'Errore di rete.' : 'Network error.' ); ?>');
+                    });
+                });
+            });
+            </script>
             <?php endif; ?>
 
             <!-- ============================================================
@@ -610,50 +841,50 @@ class GapNext_Audit_Manager {
             <!-- ============================================================
                  COMPANY / CONTACT DETAILS
                  ============================================================ -->
-            <h2><?php esc_html_e( 'Details', 'gapnext-wp' ); ?></h2>
+            <h2><?php echo esc_html( $is_it ? 'Dettagli' : 'Details' ); ?></h2>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;max-width:860px">
 
                 <!-- Company -->
                 <table class="widefat" style="margin-bottom:16px">
-                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php esc_html_e( 'Company', 'gapnext-wp' ); ?></th></tr></thead>
+                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php echo esc_html( $is_it ? 'Azienda' : 'Company' ); ?></th></tr></thead>
                     <tbody>
-                        <tr><th style="width:35%"><?php esc_html_e( 'Name', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->company_name ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Address', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->company_address ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'VAT', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->company_vat ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Sector', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->company_sector ); ?></td></tr>
+                        <tr><th style="width:35%"><?php echo esc_html( $is_it ? 'Ragione Sociale' : 'Name' ); ?></th><td><?php echo esc_html( $sub->company_name ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Indirizzo' : 'Address' ); ?></th><td><?php echo esc_html( $sub->company_address ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'P.IVA' : 'VAT' ); ?></th><td><?php echo esc_html( $sub->company_vat ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Settore' : 'Sector' ); ?></th><td><?php echo esc_html( $sub->company_sector ); ?></td></tr>
                     </tbody>
                 </table>
 
                 <!-- Standard -->
                 <table class="widefat" style="margin-bottom:16px">
-                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php esc_html_e( 'Audit', 'gapnext-wp' ); ?></th></tr></thead>
+                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php echo esc_html( $is_it ? 'Audit' : 'Audit' ); ?></th></tr></thead>
                     <tbody>
-                        <tr><th style="width:35%"><?php esc_html_e( 'Standard', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->standard_id ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Language', 'gapnext-wp' ); ?></th><td><?php echo esc_html( strtoupper( $lang ) ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Date', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->submitted_at ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Status', 'gapnext-wp' ); ?></th><td><?php echo esc_html( ucfirst( $sub->status ) ); ?></td></tr>
+                        <tr><th style="width:35%"><?php echo esc_html( $is_it ? 'Standard' : 'Standard' ); ?></th><td><?php echo esc_html( $sub->standard_id ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Lingua' : 'Language' ); ?></th><td><?php echo esc_html( strtoupper( $lang ) ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Data' : 'Date' ); ?></th><td><?php echo esc_html( $sub->submitted_at ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Stato' : 'Status' ); ?></th><td><?php echo esc_html( ucfirst( $sub->status ) ); ?></td></tr>
                     </tbody>
                 </table>
 
                 <!-- Internal contact -->
                 <table class="widefat" style="margin-bottom:16px">
-                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php esc_html_e( 'Internal Contact', 'gapnext-wp' ); ?></th></tr></thead>
+                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php echo esc_html( $is_it ? 'Contatto Interno' : 'Internal Contact' ); ?></th></tr></thead>
                     <tbody>
-                        <tr><th style="width:35%"><?php esc_html_e( 'Name', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->contact_name ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Role', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->contact_role ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Email', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->contact_email ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Phone', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->contact_phone ); ?></td></tr>
+                        <tr><th style="width:35%"><?php echo esc_html( $is_it ? 'Nome' : 'Name' ); ?></th><td><?php echo esc_html( $sub->contact_name ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Ruolo' : 'Role' ); ?></th><td><?php echo esc_html( $sub->contact_role ); ?></td></tr>
+                        <tr><th>Email</th><td><?php echo esc_html( $sub->contact_email ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Telefono' : 'Phone' ); ?></th><td><?php echo esc_html( $sub->contact_phone ); ?></td></tr>
                     </tbody>
                 </table>
 
                 <!-- Consultant -->
                 <table class="widefat" style="margin-bottom:16px">
-                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php esc_html_e( 'Consultant', 'gapnext-wp' ); ?></th></tr></thead>
+                    <thead><tr><th colspan="2" style="background:#f8fafc"><?php echo esc_html( $is_it ? 'Consulente' : 'Consultant' ); ?></th></tr></thead>
                     <tbody>
-                        <tr><th style="width:35%"><?php esc_html_e( 'Name', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->consultant_name ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Company', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->consultant_company ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Email', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->consultant_email ); ?></td></tr>
-                        <tr><th><?php esc_html_e( 'Phone', 'gapnext-wp' ); ?></th><td><?php echo esc_html( $sub->consultant_phone ); ?></td></tr>
+                        <tr><th style="width:35%"><?php echo esc_html( $is_it ? 'Nome' : 'Name' ); ?></th><td><?php echo esc_html( $sub->consultant_name ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Azienda' : 'Company' ); ?></th><td><?php echo esc_html( $sub->consultant_company ); ?></td></tr>
+                        <tr><th>Email</th><td><?php echo esc_html( $sub->consultant_email ); ?></td></tr>
+                        <tr><th><?php echo esc_html( $is_it ? 'Telefono' : 'Phone' ); ?></th><td><?php echo esc_html( $sub->consultant_phone ); ?></td></tr>
                     </tbody>
                 </table>
 
@@ -920,6 +1151,8 @@ class GapNext_Audit_Manager {
                 }
             }
             $wpdb->delete( $wpdb->prefix . 'gapnext_ai_report_generations', [ 'submission_id' => (int) $sub_id ], [ '%d' ] );
+            $wpdb->delete( $wpdb->prefix . 'gapnext_reminder_log', [ 'submission_id' => (int) $sub_id ], [ '%d' ] );
+            GapNext_Draft_Reminder::cancel( (int) $sub_id );
         }
 
         $wpdb->delete( $wpdb->prefix . 'gapnext_submissions', [ 'id' => (int) $sub_id ], [ '%d' ] );
@@ -1004,6 +1237,12 @@ class GapNext_Audit_Manager {
             $wpdb->query( $wpdb->prepare(
                 "DELETE FROM {$wpdb->prefix}gapnext_ai_report_generations WHERE submission_id IN ($placeholders)", ...$sub_ids
             ) );
+            $wpdb->query( $wpdb->prepare(
+                "DELETE FROM {$wpdb->prefix}gapnext_reminder_log WHERE submission_id IN ($placeholders)", ...$sub_ids
+            ) );
+            foreach ( $sub_ids as $sid ) {
+                GapNext_Draft_Reminder::cancel( (int) $sid );
+            }
         }
         $wpdb->delete( $wpdb->prefix . 'gapnext_remediation_log', [ 'audit_uuid' => $uuid ], [ '%s' ] );
         $wpdb->delete( $wpdb->prefix . 'gapnext_client_access', [ 'audit_uuid' => $uuid ], [ '%s' ] );
@@ -1018,13 +1257,13 @@ class GapNext_Audit_Manager {
 
     public static function get_all_submissions() {
         global $wpdb;
-        return $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gapnext_submissions WHERE status IN ('submitted','demo') ORDER BY submitted_at DESC" );
+        return $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}gapnext_submissions WHERE status IN ('submitted','demo','draft') ORDER BY submitted_at DESC" );
     }
 
-    public static function get_filtered_submissions( $standard = '', $company = '', $order = 'desc' ) {
+    public static function get_filtered_submissions( $standard = '', $company = '', $order = 'desc', $status = '' ) {
         global $wpdb;
         $order     = strtoupper( $order ) === 'ASC' ? 'ASC' : 'DESC';
-        $where     = [ "status IN ('submitted','demo')" ];
+        $where     = [ "status IN ('submitted','demo','draft')" ];
         $values    = [];
 
         if ( $standard !== '' ) {
@@ -1034,6 +1273,14 @@ class GapNext_Audit_Manager {
         if ( $company !== '' ) {
             $where[]  = 'company_name = %s';
             $values[] = $company;
+        }
+        if ( $status !== '' ) {
+            if ( $status === 'completed' ) {
+                $where[] = "status IN ('submitted','demo')";
+            } else {
+                $where[]  = 'status = %s';
+                $values[] = $status;
+            }
         }
 
         $sql = "SELECT * FROM {$wpdb->prefix}gapnext_submissions WHERE " . implode( ' AND ', $where ) . " ORDER BY submitted_at {$order}";

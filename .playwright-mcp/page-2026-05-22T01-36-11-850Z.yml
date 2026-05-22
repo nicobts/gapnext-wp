@@ -1,0 +1,334 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation "Barra degli strumenti":
+      - menu:
+        - group [ref=e3]:
+          - menuitem "Informazioni su WordPress" [ref=e4] [cursor=pointer]:
+            - generic [ref=e6]: Informazioni su WordPress
+        - group [ref=e7]:
+          - menuitem "wpdev_test1" [ref=e8] [cursor=pointer]
+        - group [ref=e9]:
+          - menuitem "Modifica sito" [ref=e10] [cursor=pointer]
+        - group [ref=e11]:
+          - 'menuitem "3: aggiornamenti disponibili" [ref=e12] [cursor=pointer]':
+            - generic [ref=e14]: "3"
+            - generic [ref=e15]: "3: aggiornamenti disponibili"
+        - group [ref=e16]:
+          - menuitem "0 commenti in moderazione" [ref=e17] [cursor=pointer]:
+            - generic [ref=e19]: "0"
+            - generic [ref=e20]: 0 commenti in moderazione
+        - group [ref=e21]:
+          - menuitem "Nuovo" [ref=e22] [cursor=pointer]:
+            - generic [ref=e24]: Nuovo
+        - group [ref=e25]:
+          - menuitem "Modifica pagina" [ref=e26] [cursor=pointer]
+      - menu [ref=e27]:
+        - group [ref=e28]:
+          - menuitem "Ciao, sgaccount1" [ref=e29] [cursor=pointer]
+        - group [ref=e30]:
+          - menuitem "Cerca" [ref=e31]:
+            - generic [ref=e32]:
+              - textbox "Cerca" [ref=e33] [cursor=pointer]
+              - generic [ref=e34]: Cerca
+  - link "Vai al contenuto" [ref=e35] [cursor=pointer]:
+    - /url: "#wp--skip-link--target"
+  - generic [ref=e36]:
+    - banner [ref=e37]:
+      - generic [ref=e40]:
+        - paragraph [ref=e41]:
+          - link "wpdev_test1" [ref=e42] [cursor=pointer]:
+            - /url: http://wpdevtest1.local
+        - navigation [ref=e44]:
+          - list [ref=e49]:
+            - list [ref=e50]:
+              - listitem [ref=e51]:
+                - link "results" [ref=e52] [cursor=pointer]:
+                  - /url: http://wpdevtest1.local/results/
+              - listitem [ref=e53]:
+                - link "Sample Page" [ref=e54] [cursor=pointer]:
+                  - /url: http://wpdevtest1.local/sample-page/
+    - main [ref=e55]:
+      - generic [ref=e56]:
+        - heading "Sample Page" [level=1] [ref=e57]
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - paragraph [ref=e61]: Gap Analysis
+            - heading "Checklist – UNI EN 9100:2018" [level=1] [ref=e62]
+          - generic [ref=e64]:
+            - generic [ref=e65]: 0%
+            - generic [ref=e66]:
+              - strong [ref=e67]: "0"
+              - text: /
+              - strong [ref=e68]: "100"
+              - text: Risposte
+            - generic [ref=e69]: 03:36
+          - generic [ref=e70]:
+            - generic [ref=e71]:
+              - generic [ref=e73]: "0"
+              - text: Conforme
+            - generic [ref=e74]:
+              - generic [ref=e76]: "0"
+              - text: Parzialmente
+            - generic [ref=e77]:
+              - generic [ref=e79]: "0"
+              - text: Non-Conforme
+            - generic [ref=e80]:
+              - generic [ref=e82]: "0"
+              - text: Non Appl.
+            - generic [ref=e83]:
+              - text: "Punteggio stimato:"
+              - strong [ref=e84]: —
+          - generic [ref=e85]:
+            - generic [ref=e86] [cursor=pointer]:
+              - generic [ref=e87]: "0"
+              - generic [ref=e88]: Modalita
+            - generic [ref=e89] [cursor=pointer]:
+              - generic [ref=e90]: "1"
+              - generic [ref=e91]: Dati
+            - generic [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]: "2"
+              - generic [ref=e94]: "4"
+              - generic [ref=e95]: 0/11
+            - generic [ref=e96] [cursor=pointer]:
+              - generic [ref=e97]: "3"
+              - generic [ref=e98]: "5"
+              - generic [ref=e99]: 0/8
+            - generic [ref=e100] [cursor=pointer]:
+              - generic [ref=e101]: "4"
+              - generic [ref=e102]: "6"
+              - generic [ref=e103]: 0/5
+            - generic [ref=e104] [cursor=pointer]:
+              - generic [ref=e105]: "5"
+              - generic [ref=e106]: "7"
+              - generic [ref=e107]: 0/14
+            - generic [ref=e108] [cursor=pointer]:
+              - generic [ref=e109]: "6"
+              - generic [ref=e110]: "8"
+              - generic [ref=e111]: 0/48
+            - generic [ref=e112] [cursor=pointer]:
+              - generic [ref=e113]: "7"
+              - generic [ref=e114]: "9"
+              - generic [ref=e115]: 0/9
+            - generic [ref=e116] [cursor=pointer]:
+              - generic [ref=e117]: "8"
+              - generic [ref=e118]: "10"
+              - generic [ref=e119]: 0/5
+            - generic [ref=e120] [cursor=pointer]:
+              - generic [ref=e121]: "9"
+              - generic [ref=e122]: Invio
+          - button "I progressi vengono salvati automaticamente" [ref=e124] [cursor=pointer]:
+            - img [ref=e125]
+            - generic [ref=e127]: I progressi vengono salvati automaticamente
+            - img [ref=e128]
+          - generic [ref=e220]:
+            - heading "4. Contesto dell'Organizzazione" [level=2] [ref=e221]
+            - generic [ref=e222]:
+              - generic [ref=e223]:
+                - strong [ref=e224]: "4.1"
+                - text: Sono stati determinati i fattori esterni rilevanti per le finalità strategiche?
+              - generic [ref=e225]:
+                - generic [ref=e226] [cursor=pointer]: Conforme
+                - generic [ref=e227] [cursor=pointer]: Parzialmente
+                - generic [ref=e228] [cursor=pointer]: Non-Conforme
+                - generic [ref=e229] [cursor=pointer]: Non Appl.
+              - generic [ref=e230]:
+                - generic [ref=e231]: Note
+                - textbox "..." [ref=e232]
+              - generic [ref=e233]:
+                - generic [ref=e234]: Carica evidenze
+                - button "Choose File" [ref=e235]
+            - generic [ref=e236]:
+              - generic [ref=e237]:
+                - strong [ref=e238]: "4.1"
+                - text: Sono stati identificati i fattori interni che influenzano la capacità di conseguire i risultati attesi?
+              - generic [ref=e239]:
+                - generic [ref=e240] [cursor=pointer]: Conforme
+                - generic [ref=e241] [cursor=pointer]: Parzialmente
+                - generic [ref=e242] [cursor=pointer]: Non-Conforme
+                - generic [ref=e243] [cursor=pointer]: Non Appl.
+              - generic [ref=e244]:
+                - generic [ref=e245]: Note
+                - textbox "..." [ref=e246]
+              - generic [ref=e247]:
+                - generic [ref=e248]: Carica evidenze
+                - button "Choose File" [ref=e249]
+            - generic [ref=e250]:
+              - generic [ref=e251]:
+                - strong [ref=e252]: "4.2"
+                - text: Sono state determinate le parti interessate rilevanti per il SGQ?
+              - generic [ref=e253]:
+                - generic [ref=e254] [cursor=pointer]: Conforme
+                - generic [ref=e255] [cursor=pointer]: Parzialmente
+                - generic [ref=e256] [cursor=pointer]: Non-Conforme
+                - generic [ref=e257] [cursor=pointer]: Non Appl.
+              - generic [ref=e258]:
+                - generic [ref=e259]: Note
+                - textbox "..." [ref=e260]
+              - generic [ref=e261]:
+                - generic [ref=e262]: Carica evidenze
+                - button "Choose File" [ref=e263]
+            - generic [ref=e264]:
+              - generic [ref=e265]:
+                - strong [ref=e266]: "4.2"
+                - text: Sono stati mappati i requisiti delle parti interessate rilevanti per il SGQ?
+              - generic [ref=e267]:
+                - generic [ref=e268] [cursor=pointer]: Conforme
+                - generic [ref=e269] [cursor=pointer]: Parzialmente
+                - generic [ref=e270] [cursor=pointer]: Non-Conforme
+                - generic [ref=e271] [cursor=pointer]: Non Appl.
+              - generic [ref=e272]:
+                - generic [ref=e273]: Note
+                - textbox "..." [ref=e274]
+              - generic [ref=e275]:
+                - generic [ref=e276]: Carica evidenze
+                - button "Choose File" [ref=e277]
+            - generic [ref=e278]:
+              - generic [ref=e279]:
+                - strong [ref=e280]: "4.3"
+                - text: È stato stabilito, documentato e reso disponibile il campo di applicazione del SGQ?
+              - generic [ref=e281]:
+                - generic [ref=e282] [cursor=pointer]: Conforme
+                - generic [ref=e283] [cursor=pointer]: Parzialmente
+                - generic [ref=e284] [cursor=pointer]: Non-Conforme
+                - generic [ref=e285] [cursor=pointer]: Non Appl.
+              - generic [ref=e286]:
+                - generic [ref=e287]: Note
+                - textbox "..." [ref=e288]
+              - generic [ref=e289]:
+                - generic [ref=e290]: Carica evidenze
+                - button "Choose File" [ref=e291]
+            - generic [ref=e292]:
+              - generic [ref=e293]:
+                - strong [ref=e294]: "4.3"
+                - text: Sono state fornite giustificazioni per ogni requisito della norma non applicabile?
+              - generic [ref=e295]:
+                - generic [ref=e296] [cursor=pointer]: Conforme
+                - generic [ref=e297] [cursor=pointer]: Parzialmente
+                - generic [ref=e298] [cursor=pointer]: Non-Conforme
+                - generic [ref=e299] [cursor=pointer]: Non Appl.
+              - generic [ref=e300]:
+                - generic [ref=e301]: Note
+                - textbox "..." [ref=e302]
+              - generic [ref=e303]:
+                - generic [ref=e304]: Carica evidenze
+                - button "Choose File" [ref=e305]
+            - generic [ref=e306]:
+              - generic [ref=e307]:
+                - strong [ref=e308]: "4.3"
+                - text: L'organizzazione considera i requisiti per il SGQ del cliente e quelli cogenti nello stabilire il sistema?
+              - generic [ref=e309]:
+                - generic [ref=e310] [cursor=pointer]: Conforme
+                - generic [ref=e311] [cursor=pointer]: Parzialmente
+                - generic [ref=e312] [cursor=pointer]: Non-Conforme
+                - generic [ref=e313] [cursor=pointer]: Non Appl.
+              - generic [ref=e314]:
+                - generic [ref=e315]: Note
+                - textbox "..." [ref=e316]
+              - generic [ref=e317]:
+                - generic [ref=e318]: Carica evidenze
+                - button "Choose File" [ref=e319]
+            - generic [ref=e320]:
+              - generic [ref=e321]:
+                - strong [ref=e322]: "4.4"
+                - text: Sono stati determinati gli input necessari e gli output attesi per ogni processo?
+              - generic [ref=e323]:
+                - generic [ref=e324] [cursor=pointer]: Conforme
+                - generic [ref=e325] [cursor=pointer]: Parzialmente
+                - generic [ref=e326] [cursor=pointer]: Non-Conforme
+                - generic [ref=e327] [cursor=pointer]: Non Appl.
+              - generic [ref=e328]:
+                - generic [ref=e329]: Note
+                - textbox "..." [ref=e330]
+              - generic [ref=e331]:
+                - generic [ref=e332]: Carica evidenze
+                - button "Choose File" [ref=e333]
+            - generic [ref=e334]:
+              - generic [ref=e335]:
+                - strong [ref=e336]: "4.4"
+                - text: È stata definita la sequenza e l'interazione dei processi del SGQ?
+              - generic [ref=e337]:
+                - generic [ref=e338] [cursor=pointer]: Conforme
+                - generic [ref=e339] [cursor=pointer]: Parzialmente
+                - generic [ref=e340] [cursor=pointer]: Non-Conforme
+                - generic [ref=e341] [cursor=pointer]: Non Appl.
+              - generic [ref=e342]:
+                - generic [ref=e343]: Note
+                - textbox "..." [ref=e344]
+              - generic [ref=e345]:
+                - generic [ref=e346]: Carica evidenze
+                - button "Choose File" [ref=e347]
+            - generic [ref=e348]:
+              - generic [ref=e349]:
+                - strong [ref=e350]: "4.4"
+                - text: Sono stati applicati criteri e indicatori di prestazione per assicurare il controllo dei processi?
+              - generic [ref=e351]:
+                - generic [ref=e352] [cursor=pointer]: Conforme
+                - generic [ref=e353] [cursor=pointer]: Parzialmente
+                - generic [ref=e354] [cursor=pointer]: Non-Conforme
+                - generic [ref=e355] [cursor=pointer]: Non Appl.
+              - generic [ref=e356]:
+                - generic [ref=e357]: Note
+                - textbox "..." [ref=e358]
+              - generic [ref=e359]:
+                - generic [ref=e360]: Carica evidenze
+                - button "Choose File" [ref=e361]
+            - generic [ref=e362]:
+              - generic [ref=e363]:
+                - strong [ref=e364]: "4.4"
+                - text: Esiste un'unica fonte (es. Manuale della Qualità) che descriva il SGQ, le parti interessate e i processi?
+              - generic [ref=e365]:
+                - generic [ref=e366] [cursor=pointer]: Conforme
+                - generic [ref=e367] [cursor=pointer]: Parzialmente
+                - generic [ref=e368] [cursor=pointer]: Non-Conforme
+                - generic [ref=e369] [cursor=pointer]: Non Appl.
+              - generic [ref=e370]:
+                - generic [ref=e371]: Note
+                - textbox "..." [ref=e372]
+              - generic [ref=e373]:
+                - generic [ref=e374]: Carica evidenze
+                - button "Choose File" [ref=e375]
+            - generic [ref=e376]:
+              - button "Indietro" [ref=e377] [cursor=pointer]
+              - button "Salva bozza" [ref=e378] [cursor=pointer]
+              - button "Avanti" [ref=e379] [cursor=pointer]
+    - contentinfo [ref=e145]:
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - heading "wpdev_test1" [level=2] [ref=e151]:
+            - link "wpdev_test1" [ref=e152] [cursor=pointer]:
+              - /url: http://wpdevtest1.local
+          - generic [ref=e153]:
+            - navigation "2" [ref=e154]:
+              - list [ref=e155]:
+                - listitem [ref=e156]:
+                  - link "Blog" [ref=e157] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e158]:
+                  - link "Chi siamo" [ref=e159] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e160]:
+                  - link "FAQ" [ref=e161] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e162]:
+                  - link "Autori" [ref=e163] [cursor=pointer]:
+                    - /url: "#"
+            - navigation "3" [ref=e164]:
+              - list [ref=e165]:
+                - listitem [ref=e166]:
+                  - link "Eventi" [ref=e167] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e168]:
+                  - link "Negozio" [ref=e169] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e170]:
+                  - link "Pattern" [ref=e171] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e172]:
+                  - link "Temi" [ref=e173] [cursor=pointer]:
+                    - /url: "#"
+        - generic [ref=e175]:
+          - paragraph [ref=e176]: Twenty Twenty-Five
+          - paragraph [ref=e177]:
+            - text: Progettato con
+            - link "WordPress" [ref=e178] [cursor=pointer]:
+              - /url: https://wordpress.org

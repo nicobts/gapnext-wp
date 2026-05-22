@@ -14,6 +14,7 @@ global $wpdb;
 
 // Drop custom tables
 $tables = [
+    $wpdb->prefix . 'gapnext_reminder_log',
     $wpdb->prefix . 'gapnext_remediation_log',
     $wpdb->prefix . 'gapnext_client_access',
     $wpdb->prefix . 'gapnext_ai_report_generations',

@@ -10,6 +10,7 @@ class GapNext_Ajax {
         add_action( 'wp_ajax_nopriv_gapnext_autosave',   [ $this, 'handle_autosave' ] );
         add_action( 'admin_post_gapnext_download',        [ $this, 'handle_download' ] );
         add_action( 'admin_post_nopriv_gapnext_download', [ $this, 'handle_download' ] );
+        add_action( 'wp_ajax_gapnext_send_reminder',      [ $this, 'handle_send_reminder' ] );
     }
 
     public function handle_autosave() {
@@ -367,6 +368,36 @@ class GapNext_Ajax {
                 header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
                 echo $content; // phpcs:ignore WordPress.Security.EscapeOutput
                 exit;
+        }
+    }
+
+    public function handle_send_reminder() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( 'Unauthorized.', 'gapnext-wp' ), 403 );
+        }
+        check_ajax_referer( 'gapnext_send_reminder', 'nonce' );
+
+        $sub_id = (int) ( $_POST['submission_id'] ?? 0 );
+        if ( ! $sub_id ) {
+            wp_send_json_error( __( 'Invalid submission.', 'gapnext-wp' ), 400 );
+        }
+
+        $result = GapNext_Draft_Reminder::send_manual( $sub_id );
+
+        if ( $result['success'] ) {
+            wp_send_json_success( [
+                'message' => sprintf( __( 'Reminder sent to %s', 'gapnext-wp' ), $result['email'] ),
+                'log'     => GapNext_Draft_Reminder::get_log( $sub_id ),
+            ] );
+        } else {
+            $errors = [
+                'not_draft'          => __( 'This submission is no longer a draft.', 'gapnext-wp' ),
+                'no_email'           => __( 'No contact email address on this submission.', 'gapnext-wp' ),
+                'no_audit'           => __( 'Associated audit not found.', 'gapnext-wp' ),
+                'no_checklist_page'  => __( 'Checklist page not configured in settings.', 'gapnext-wp' ),
+            ];
+            $error_key = $result['error'] ?? 'unknown';
+            wp_send_json_error( $errors[ $error_key ] ?? __( 'Failed to send reminder.', 'gapnext-wp' ), 500 );
         }
     }
 
